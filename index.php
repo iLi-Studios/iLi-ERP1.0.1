@@ -20,12 +20,9 @@
 						</h3>
 						<ul class="breadcrumb">
 							<li>
-                                <a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
+                                <a href="<?php echo $site ; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
 							</li>
-                            <li>
-                                <a href="#">Admin Lab</a> <span class="divider">&nbsp;</span>
-                            </li>
-							<li><a href="#">Dashboard</a><span class="divider-last">&nbsp;</span></li>
+							<li><a href="<?php echo $site ; ?>">Dashboard</a><span class="divider-last">&nbsp;</span></li>
                             <li class="pull-right search-wrap">
                                 <form class="hidden-phone">
                                     <div class="search-input-area">
