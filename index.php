@@ -837,3 +837,4 @@
 	</div>
 	<!-- END CONTAINER -->
 <?php include"ili-functions/fragments/footer.php";?>
+<script>jQuery(document).ready(function() {App.setMainPage(true);App.init();});</script>

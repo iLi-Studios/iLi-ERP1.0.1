@@ -38,13 +38,6 @@
 	<script src="<?php echo $site; ?>ili-style/js/jquery.peity.min.js"></script>
 	<script type="text/javascript" src="<?php echo $site; ?>ili-style/assets/uniform/jquery.uniform.min.js"></script>
 	<script src="<?php echo $site; ?>ili-style/js/scripts.js"></script>
-	<script>
-		jQuery(document).ready(function() {
-			// initiate layout and plugins
-			App.setMainPage(true);
-			App.init();
-		});
-	</script>
 	<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
