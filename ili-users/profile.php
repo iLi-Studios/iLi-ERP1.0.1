@@ -1,12 +1,27 @@
 <?php include"../ili-functions/functions.php";?>
 <?php
 // get user info from id
-function user_get_info($id){
-	$query="SELECT * FROM `users` WHERE `id_user`='$id';";
-	if($o=(query_execute("mysqli_fetch_object", $query))){
-		return $o;}
+function get_user_info($id){
+	$query="SELECT * FROM users, rank, users_rank WHERE users.id_user=users_rank.id_user AND rank.id_rank=users_rank.id_rank AND users.id_user='$id';";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
-$user=user_get_info($_SESSION['user']);
+$user=get_user_info($_SESSION['user']);
+
+function get_users_expirance($id){
+	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
+	if(query_execute('mysqli_num_rows', $query)=='0'){echo"PAS D'EXPERANCE";}
+	else{
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			echo'	<li><i class="icon-hand-right"></i>
+						<strong>'.$o->company.'</strong><br/>
+						<em>Durée : '.$o->duration.'</em><br/>
+						<em>&nbsp;&nbsp;&nbsp;'.$o->experience.'</em><br>
+						<a href="'.$o->company_url.'" target="new">'.$o->company_url.'</a>
+					</li><br>';
+		}
+	}
+}
 ?>
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
@@ -23,10 +38,10 @@ $user=user_get_info($_SESSION['user']);
 			<div class="row-fluid">
 				<div class="span12"> 
 					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-					<h3 class="page-title"> Profile <small> Gestion de Profile </small> </h3>
+					<h3 class="page-title"> Profile <small> Gestion de Profile</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site ; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li><a href="<?php echo $site ; ?>">Profile</a><span class="divider-last">&nbsp;</span></li>
+						<li><a href="<?php echo $site ; ?>ili-users/profile">Profile</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">
@@ -58,37 +73,37 @@ $user=user_get_info($_SESSION['user']);
 								</ul>
 							</div>
 							<div class="span6">
-								<h4>Mosaddek Hossain <br/>
-									<small>Frontend Developer</small></h4>
+								<h4><?php echo $user->nom; ?> <?php echo $user->prenom; ?><br/>
+									<small><?php echo $user->poste; ?></small></h4>
 								<table class="table table-borderless">
 									<tbody>
 										<tr>
-											<td class="span2">First Name :</td>
-											<td> Mosaddek </td>
+											<td class="span2">Nom :</td>
+											<td><?php echo $user->nom; ?></td>
 										</tr>
 										<tr>
-											<td class="span2">Last Name :</td>
-											<td> Hossain </td>
+											<td class="span2">Prénom :</td>
+											<td><?php echo $user->prenom; ?></td>
 										</tr>
 										<tr>
-											<td class="span2">Country :</td>
-											<td> Bangladesh </td>
+											<td class="span2">Naissance :</td>
+											<td><?php echo $user->date_naissance; ?></td>
 										</tr>
 										<tr>
-											<td class="span2">Birthday :</td>
-											<td> 13 july 1983 </td>
-										</tr>
-										<tr>
-											<td class="span2">Occupation :</td>
-											<td> Web Developer </td>
+											<td class="span2">Poste :</td>
+											<td><?php echo $user->poste; ?></td>
 										</tr>
 										<tr>
 											<td class="span2"> Email :</td>
-											<td> abc@abc.com </td>
+											<td><?php echo $user->email; ?></td>
 										</tr>
 										<tr>
 											<td class="span2"> Mobile :</td>
-											<td> 12345677 </td>
+											<td> <?php echo $user->tel; ?> </td>
+										</tr>
+										<tr>
+											<td class="span2">Grade :</td>
+											<td><?php echo $user->poste; ?></td>
 										</tr>
 									</tbody>
 								</table>
@@ -141,36 +156,21 @@ $user=user_get_info($_SESSION['user']);
 										</tr>
 									</tbody>
 								</table>
-								<h4>Address</h4>
+								<h4>Addresse</h4>
 								<div class="well">
 									<address>
-									<strong>Vector Lab, Inc.</strong><br>
-									Dreamland Ave, Suite 73<br>
-									Bangladesh, PC 1361<br>
-									<abbr title="Phone">P:</abbr> (123) 456-7891
+									<strong><?php echo $user->nom; ?> <?php echo $user->prenom; ?></strong><br>
+									<?php echo $user->adresse; ?><br>
 									</address>
 									<address>
-									<strong>Full Name</strong><br>
-									<a href="mailto:#">first.last@gmail.com</a>
+									<abbr title="Phone">P:</abbr><?php echo $user->tel; ?><br>
+									<a href="mailto:<?php echo $user->email; ?>"><?php echo $user->email; ?></a>
 									</address>
 								</div>
 							</div>
 							<div class="span3">
-								<h4>Experience</h4>
-								<ul class="icons push">
-									<li><i class="icon-hand-right"></i> <strong>ABC Company</strong><br/>
-										<em>Duration: 4 years</em><br/>
-										<em>Description of the company..</em><br>
-										<a href="javascript:void(0)">abc-company.com</a></li>
-									<li><i class="icon-hand-right"></i> <strong>DEF Company</strong><br/>
-										<em>Duration: 3 years</em><br/>
-										<em>Description of the company..</em><br>
-										<a href="javascript:void(0)">def-company.com</a></li>
-									<li><i class="icon-hand-right"></i> <strong>GHI Company</strong><br/>
-										<em>Duration: 1.7 years</em><br/>
-										<em>Description of the company..</em><br>
-										<a href="javascript:void(0)">ghi-company.com</a></li>
-								</ul>
+								<h4>Expérance</h4>
+								<ul class="icons push"><?php get_users_expirance($_SESSION['user']);?></ul>
 								<h4>Current Status</h4>
 								<div class="alert alert-success"><i class="icon-ok-sign"></i> Working in ABC Company</div>
 								<h4>Some Projects</h4>
