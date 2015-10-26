@@ -12,6 +12,7 @@ function connexion($email, $mdp){
 			$_SESSION['user_nom']=$o->nom;
 			$_SESSION['user_prenom']=$o->prenom; 
 			$_SESSION['id_rank']=$o->id_rank;
+			$_SESSION['user_img']=$o->img_link;
 			redirect("index");
 		}
 	}

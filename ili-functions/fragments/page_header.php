@@ -57,7 +57,7 @@
 					<li class="dropdown mtop5"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Help"> <i class="icon-headphones"></i> </a> </li>
 					<!-- END SUPPORT --> 
 					<!-- BEGIN USER LOGIN DROPDOWN -->
-					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="<?php echo $site; ?>ili-style/img/avatar1_small.jpg" alt=""> <span class="username"><?php echo $_SESSION['user_nom'].' '.$_SESSION['user_prenom'] ; ?></span> <b class="caret"></b> </a>
+					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="<?php echo $_SESSION['user_img'] ;?>" width="29px" height="29px" alt=""> <span class="username"><?php echo $_SESSION['user_nom'].' '.$_SESSION['user_prenom'] ; ?></span> <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo $site; ?>ili-users/profile"><i class="icon-user"></i> Mon Profile</a></li>
 							<li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>

@@ -1,4 +1,5 @@
 <?php include"ili-functions/functions.php";?>
+<?php autorisation('2'); ?>
 <?php include"ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
 <body class="fixed-top">

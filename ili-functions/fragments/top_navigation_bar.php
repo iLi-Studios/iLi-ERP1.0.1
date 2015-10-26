@@ -56,7 +56,7 @@
 				<!-- BEGIN USER LOGIN DROPDOWN -->
 				<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="ili-style/img/avatar1_small.jpg" alt=""> <span class="username">Mosaddek Hossain</span> <b class="caret"></b> </a>
 					<ul class="dropdown-menu">
-						<li><a href="<?php echo $site.'ili-users/profile.php'; ?>"><i class="icon-user"></i> Mon Profile</a></li>
+						<li><a href="<?php echo $site.'ili-users/profile'; ?>"><i class="icon-user"></i> Mon Profile</a></li>
 						<li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>
 						<li><a href="#"><i class="icon-calendar"></i> Calendar</a></li>
 						<li class="divider"></li>
