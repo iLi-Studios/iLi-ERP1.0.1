@@ -6,10 +6,9 @@ function get_user_info($id){
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
 $user=get_user_info($_SESSION['user']);
-
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
-	if(query_execute('mysqli_num_rows', $query)=='0'){echo"PAS D'EXPERANCE";}
+	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
 	else{
 		$result=query_excute_while($query);
 		while ($o=mysqli_fetch_object($result)){
@@ -22,6 +21,41 @@ function get_users_expirance($id){
 		}
 	}
 }
+function get_users_skills($id){
+	$query="SELECT * FROM users_skills WHERE id_user='$id' ORDER BY id DESC;";
+	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE COMPETANCE!</strong>";}
+	else{
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			if($o->pourcentage >= '0' && $o->pourcentage <= '33'){$color='danger';}
+			if($o->pourcentage >'33' && $o->pourcentage <= '66'){$color='warning';}
+			if($o->pourcentage >'66' && $o->pourcentage <= '100'){$color='success';}
+			echo'
+				<tr>
+					<td class="span1"><span class="label label-inverse">'.$o->skills.'</span></td>
+					<td>
+						<div class="progress progress-'.$color.' progress-striped">
+							<div style="width: '.$o->pourcentage.'%" class="bar"></div>
+						</div>
+					</td>
+				</tr>';
+		}
+	}
+}
+function get_users_diploma($id){
+	$query="SELECT * FROM users_diploma WHERE id_user='$id' ORDER BY id DESC;";
+	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE DIPLOME!</strong>";}
+	else{
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			echo'	<li><i class="icon-hand-right"></i>
+						<strong>'.$o->diplome.'</strong><br/>
+						<em>'.$o->lieux.', '.$o->annee.'</em><br/>
+						<em><strong>'.$o->etablissement.'</strong></em><br>
+					</li><br>';
+		}
+	}
+}	
 ?>
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
@@ -107,54 +141,10 @@ function get_users_expirance($id){
 										</tr>
 									</tbody>
 								</table>
-								<h4>About</h4>
-								<p class="push">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ultrices, justo vel imperdiet gravida, urna ligula hendrerit nibh, ac cursus nibh sapien in purus. Mauris tincidunt tincidunt turpis in porta. Integer fermentum tincidunt auctor. Vestibulum ullamcorper, odio sed rhoncus imperdiet, enim elit sollicitudin orci, eget dictum leo mi nec lectus. Nam commodo turpis id lectus scelerisque vulputate. Integer sed dolor erat. Fusce erat ipsum, varius vel euismod sed, tristique et lectus? Etiam egestas fringilla enim, id convallis lectus laoreet at. Fusce purus nisi, gravida sed consectetur ut, interdum quis nisi. Quisque egestas nisl id lectus facilisis scelerisque? Proin rhoncus dui at ligula vestibulum ut facilisis ante sodales! Suspendisse potenti. Aliquam tincidunt sollicitudin sem nec ultrices. Sed at mi velit. Ut egestas tempor est, in cursus enim venenatis eget! Nulla quis ligula ipsum. Donec vitae ultrices dolor?</p>
-								<h4>Skills</h4>
+								
+								<h4>Compétances</h4>
 								<table class="table table-borderless">
-									<tbody>
-										<tr>
-											<td class="span1"><span class="label label-inverse">HTML</span></td>
-											<td><div class="progress progress-success progress-striped">
-													<div style="width: 90%" class="bar"></div>
-												</div></td>
-										</tr>
-										<tr>
-											<td class="span1"><span class="label label-inverse">CSS</span></td>
-											<td><div class="progress progress-warning progress-striped">
-													<div style="width: 85%" class="bar"></div>
-												</div></td>
-										</tr>
-										<tr>
-											<td class="span1"><span class="label label-inverse">Javascript</span></td>
-											<td><div class="progress progress-success progress-striped">
-													<div style="width: 60%" class="bar"></div>
-												</div></td>
-										</tr>
-										<tr>
-											<td class="span1"><span class="label label-inverse">PHP</span></td>
-											<td><div class="progress progress-success progress-striped">
-													<div style="width: 40%" class="bar"></div>
-												</div></td>
-										</tr>
-										<tr>
-											<td class="span1"><span class="label label-inverse">Photoshop</span></td>
-											<td><div class="progress progress-warning progress-striped">
-													<div style="width: 80%" class="bar"></div>
-												</div></td>
-										</tr>
-										<tr>
-											<td class="span1"><span class="label label-inverse">Node.js</span></td>
-											<td><div class="progress progress-danger progress-striped">
-													<div style="width: 45%" class="bar"></div>
-												</div></td>
-										</tr>
-										<tr>
-											<td class="span1"><span class="label label-inverse">Java</span></td>
-											<td><div class="progress progress-danger progress-striped">
-													<div style="width: 10%" class="bar"></div>
-												</div></td>
-										</tr>
-									</tbody>
+									<tbody><?php get_users_skills($_SESSION['user']); ?></tbody>
 								</table>
 								<h4>Addresse</h4>
 								<div class="well">
@@ -171,21 +161,8 @@ function get_users_expirance($id){
 							<div class="span3">
 								<h4>Expérance</h4>
 								<ul class="icons push"><?php get_users_expirance($_SESSION['user']);?></ul>
-								<h4>Current Status</h4>
-								<div class="alert alert-success"><i class="icon-ok-sign"></i> Working in ABC Company</div>
-								<h4>Some Projects</h4>
-								<ul class="unstyled">
-									<li> <strong>Project 1</strong>: <a href="javascript:void(0)">exampleproject1.com</a></li>
-									<li> <strong>Project 2</strong>: <a href="javascript:void(0)">exampleproject2.com</a></li>
-									<li> <strong>Project 3</strong>: <a href="javascript:void(0)">exampleproject3.com</a></li>
-									<li> <strong>Project 4</strong>: <a href="javascript:void(0)">exampleproject4.com</a></li>
-									<li> <strong>Project 5</strong>: <a href="javascript:void(0)">exampleproject5.com</a></li>
-									<li> <strong>Project 6</strong>: <a href="javascript:void(0)">exampleproject6.com</a></li>
-									<li> <strong>Project 7</strong>: <a href="javascript:void(0)">exampleproject7.com</a></li>
-									<li> <strong>Project 8</strong>: <a href="javascript:void(0)">exampleproject8.com</a></li>
-									<li> <strong>Project 9</strong>: <a href="javascript:void(0)">exampleproject9.com</a></li>
-									<li> <strong>Project 10</strong>: <a href="javascript:void(0)">exampleproject10.com</a></li>
-								</ul>
+								<h4>Diplômes</h4>
+								<ul class="icons push"><?php get_users_diploma($_SESSION['user']);?></ul>
 							</div>
 							<div class="space5"></div>
 						</div>
