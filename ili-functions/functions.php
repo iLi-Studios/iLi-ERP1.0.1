@@ -30,10 +30,7 @@ function autorisation($id){
 // get user info
 function user_get_info($user_id){
 	$query="SELECT * FROM `users` WHERE `id_user`='$user_id'";
-	if(query_execute("mysqli_fetch_object", $query) == true){
-		$o=query_execute("mysqli_fetch_object", $query);
-		return $o;
-	}
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
 
 // upload into database
