@@ -5,7 +5,7 @@
 			<div class="container-fluid">
 				<!-- BEGIN LOGO -->
 				<a class="brand" href="<?php echo $site;?>">
-				    <img src="" alt="iLi-ERP V1.0.1" />
+				    <img src="" alt="<?php echo $sytem_title;?>" />
 				</a>
 				<!-- END LOGO -->
 				<!-- BEGIN RESPONSIVE MENU TOGGLER -->
