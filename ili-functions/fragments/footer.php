@@ -1,6 +1,6 @@
 	<!-- BEGIN FOOTER -->
 	<div id="footer">
-		2016 &copy; iLi-ERP Dashboard.
+		<?php echo $copy_right ; ?>
 		<div class="span pull-right">
 			<span class="go-top"><i class="icon-arrow-up"></i></span>
 		</div>

@@ -77,7 +77,7 @@ if( (isset($_POST['email'])) && (isset($_POST['mdp'])) ){connexion($_POST['email
 </div>
 <!-- END LOGIN --> 
 <!-- BEGIN COPYRIGHT -->
-<div id="login-copyright"> 2016 &copy; iLi-ERP BETA </div>
+<div id="login-copyright"><?php echo $copy_right ; ?></div>
 <!-- END COPYRIGHT --> 
 <!-- BEGIN JAVASCRIPTS --> 
 <script src="ili-style/js/jquery-1.8.3.min.js"></script> 
