@@ -9,6 +9,8 @@ function connexion($email, $mdp){
 		if($o->id_rank=='1'){redirect("login?message=3");}
 		else{
 			$_SESSION['user']=$o->id_user;
+			$_SESSION['user_nom']=$o->nom;
+			$_SESSION['user_prenom']=$o->prenom; 
 			$_SESSION['id_rank']=$o->id_rank;
 			redirect("index");
 		}
