@@ -103,7 +103,7 @@ function get_users_expirance($id){
 										</tr>
 										<tr>
 											<td class="span2">Grade :</td>
-											<td><?php echo $user->poste; ?></td>
+											<td><?php echo $user->rank; ?></td>
 										</tr>
 									</tbody>
 								</table>
