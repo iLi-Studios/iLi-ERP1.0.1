@@ -16,7 +16,7 @@
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title">
 							Dashboard
-							<small> General Information </small>
+							<small> Informations Générales </small>
 						</h3>
 						<ul class="breadcrumb">
 							<li>
