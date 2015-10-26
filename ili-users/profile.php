@@ -100,6 +100,7 @@ function get_users_diploma($id){
 							<div class="span3">
 								<div class="text-center profile-pic"> <img src="img/profile-pic.jpg" alt=""> </div>
 								<ul class="nav nav-tabs nav-stacked">
+									<img src="<?php echo $_SESSION['user_img'] ;?>"><br><br>
 									<li><a href="<?php echo $user->fb; ?>" target="new"><i class="icon-facebook"></i> Facebook</a></li>
 									<li><a href="<?php echo $user->linkedin; ?>" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>
 									<li><a href="<?php echo $user->github; ?>" target="new"><i class="icon-github"></i> Github</a></li>
