@@ -8,6 +8,8 @@ function query_execute($mysqli_result_type, $query){
     exit();
 	}
 	else{
+		//correction de problémes des accents
+		mysqli_query($link, "SET NAMES UTF8"); 
 		//Execution de requêtte
 		if ($result=mysqli_query($link, $query)){
 			//Détermine le nombre de lignes du jeu de résultats
@@ -30,7 +32,10 @@ function query_excute_while($query){
     	printf("Échec de la connexion : %s\n", mysqli_connect_error());
     	exit();
 	}
-	else{if($result=mysqli_query($link, $query)){return $result;}}
+	else{//correction de problémes des accents
+		mysqli_query($link, "SET NAMES UTF8");
+		if($result=mysqli_query($link, $query)){return $result;}
+	}
 }
 
 function query_execute_insert($query){
@@ -41,6 +46,8 @@ function query_execute_insert($query){
     exit();
 	}
 	else{
+		//correction de problémes des accents
+		mysqli_query($link, "SET NAMES UTF8");
 		$result=mysqli_query($link, $query);
 		return $result;
 		mysqli_close($link);
