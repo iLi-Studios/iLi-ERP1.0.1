@@ -15,7 +15,7 @@ Website: http://thevectorlab.net/
 	<title> <?php echo $sytem_title;?></title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
-	<meta content="" name="author" />
+	<meta content="" name="author" />	
 	<link href="<?php echo $site; ?>ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="<?php echo $site; ?>ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
 	<link href="<?php echo $site; ?>ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
