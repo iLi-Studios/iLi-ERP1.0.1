@@ -9,7 +9,6 @@ function query_execute($mysqli_result_type, $query){
 	}
 	else{
 		//Execution de requêtte
-		$result=mysql_query($link, $query);
 		if ($result=mysqli_query($link, $query)){
 			//Détermine le nombre de lignes du jeu de résultats
 			if($mysqli_result_type){

@@ -1,4 +1,13 @@
 <?php include"../ili-functions/functions.php";?>
+<?php
+// get user info from id
+function user_get_info($id){
+	$query="SELECT * FROM `users` WHERE `id_user`='$id';";
+	if($o=(query_execute("mysqli_fetch_object", $query))){
+		return $o;}
+}
+$user=user_get_info($_SESSION['user']);
+?>
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
 <body class="fixed-top">
@@ -40,11 +49,6 @@
 						<div class="widget-body">
 							<div class="span3">
 								<div class="text-center profile-pic"> <img src="img/profile-pic.jpg" alt=""> </div>
-								<ul class="nav nav-tabs nav-stacked">
-									<li><a href="javascript:void(0)"><i class="icon-coffee"></i> Portfolio</a></li>
-									<li><a href="javascript:void(0)"><i class="icon-paper-clip"></i> Projects</a></li>
-									<li><a href="javascript:void(0)"><i class="icon-picture"></i> Gallery</a></li>
-								</ul>
 								<ul class="nav nav-tabs nav-stacked">
 									<li><a href="javascript:void(0)"><i class="icon-facebook"></i> Facebook</a></li>
 									<li><a href="javascript:void(0)"><i class="icon-twitter"></i> Twitter</a></li>
