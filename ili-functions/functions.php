@@ -13,13 +13,6 @@ function redirect($page){
 	header("Location: ".$site.$page);
 }
 	
-function autorisation2($min_id_rank_required){
-	if(!isset($_SESSION['user'])){
-		if(!isset($_SESSION['user'])){redirect("login?message=9");}
-		else{if($min_id_rank_required>$_SESSION['id_rank']){redirect('index?message=10');}}
-	}
-}
-
 // min id required to see this page
 function autorisation($id){
 	if(!isset($_SESSION['user'])){redirect('login?message=1');}
