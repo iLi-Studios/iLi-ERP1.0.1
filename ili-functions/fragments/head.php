@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <!--
-Template Name: Admin Lab Dashboard build with Bootstrap v2.3.1
-Template Version: 1.2
-Author: Mosaddek Hossain
-Website: http://thevectorlab.net/
+iLi-Studios
+Developed by SAKLY AYOUB
+Website: http://www.ili-studios.com/
 -->
 
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
