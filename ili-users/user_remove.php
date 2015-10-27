@@ -1,6 +1,6 @@
 <?php include"../ili-functions/functions.php";?>
 <?php 
-autorisation('6'); 
+autorisation('6', 'ili-users/user_remove'); 
 ?>
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->

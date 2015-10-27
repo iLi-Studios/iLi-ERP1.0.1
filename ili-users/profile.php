@@ -1,6 +1,6 @@
 <?php include"../ili-functions/functions.php";?>
 <?php
-autorisation('2');
+autorisation('2', 'ili-users/profile');
 // get user info from id
 function get_user_info($id){
 	$query="SELECT * FROM users, rank, users_rank WHERE users.id_user=users_rank.id_user AND rank.id_rank=users_rank.id_rank AND users.id_user='$id';";
