@@ -69,19 +69,32 @@ function get_users_list(){
 	while ($o=mysqli_fetch_object($result)){echo'
 				<div class="widget">
 					<div class="widget-title">
-						<h4><i class="icon-user"></i>'.$o->nom.' '.$o->prenom.' ('.get_user_rank($o->id_user).')</h4>
-						<span class="tools"> 
-							<a href="user_add" class="icon-plus-sign"></a>
-							<a href="user_remove" class=" icon-remove-sign"></a>
-							<a href="user_edit" class="icon-edit"></a> | 
-							<a href="javascript:;" class="icon-chevron-down"></a>
-						</span>
+						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.get_user_rank($o->id_user).')</h4>
+						<span class="tools" style="margin-top:-2px;">';
+						
+						if($_SESSION['id_rank']==6){echo'
+						<div class="btn-group" padding-bottom:-10px">
+                        	<a class="btn" href="#"><i class="icon-cog"></i> Paramétres</a>
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							<span class="icon-caret-down"></span>
+                            </a>
+							<ul class="dropdown-menu">
+								<li><a href="user_add"><i class="icon-plus"></i> Ajouter</a></li>
+								<li><a href="user_edit?id='.$o->id_user.'"><i class="icon-edit"></i> Modifier</a></li>
+								<li class="divider"></li>
+								<li><a href="user_remove?id='.$o->id_user.'"><i class="icon-trash"></i> Supprimer</a></li>
+								<li><a href="user_ban?id='.$o->id_user.'"><i class="icon-ban-circle"></i> Suspendre</a></li>
+							</ul>
+						</div>';}
+						
+						echo'
+						<a href="javascript:;" class="icon-chevron-down"></a></span>
 					</div>
 					<div class="widget-body">
 						<div class="span3">
 							<div class="text-center profile-pic"> <img src="img/profile-pic.jpg" alt=""> </div>
 							<ul class="nav nav-tabs nav-stacked">
-								<img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAXRAAAAJDhjOGZiMzFkLWQzODItNGMzZC1hZDMzLWVhYWNhODk3YjZhNA.jpg"><br>
+								<img src="'.$o->img_link.'"><br>
 								<br>';
 									if($o->fb){echo'<li><a href="'.$o->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Facebook (Non enregistrer)</a></li>';}
 									if($o->linkedin){echo'<li><a href="'.$o->linkedin.'" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>';}else{echo'<li><i class="icon-linkedin"></i> LinkedIn (Non enregistrer)</a></li>';}
