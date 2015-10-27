@@ -26,7 +26,7 @@ if( (isset($_POST['email'])) && (isset($_POST['mdp'])) ){connexion($_POST['email
 <body id="login-body">
 <div class="login-header"> 
 	<!-- BEGIN LOGO -->
-	<div id="logo" class="center"> <img src="ili-style/img/logo.png" alt="logo" class="center" /> </div>
+	<div id="logo" class="center"> <h4> <?php echo $sytem_title;?> </h4></div>
 	<!-- END LOGO --> 
 </div>
 
