@@ -31,8 +31,8 @@ function message($code){
 		case "4";
 		alert_notif("alert-success", "Vous êtes déconnecté");
 		break;
-		case "5";
-		alert_notif("alert-error", "Vous pouvez pas voire la page précédente!");
+		case "4";
+		alert_notif("alert-error", "Vous pouvez pas voire cette page");
 		break;
 		}
 	}

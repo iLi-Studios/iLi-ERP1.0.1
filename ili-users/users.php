@@ -1,6 +1,6 @@
 <?php include"../ili-functions/functions.php";?>
 <?php 
-autorisation('2', 'ili-users/users'); 
+autorisation('2'); 
 //$query2 = "SELECT * FROM users, users_diploma, users_expirance, users_rank, users_skills WHERE users.id_user=users_diploma.id_user AND users.id_user=users_expirance.id_user AND users.id_user=users_rank.id_user AND users.id_user=users_skills.id_user AND users.id_user='$id';";
 
 function get_user_rank($id){
@@ -139,7 +139,6 @@ function get_users_list(){
 <div id="main-content"> 
 	<!-- BEGIN PAGE CONTAINER-->
 	<div class="container-fluid"> 
-		<?php get_message('message'); ?>
 		<!-- BEGIN PAGE HEADER-->
 		<div class="row-fluid">
 			<div class="span12"> 

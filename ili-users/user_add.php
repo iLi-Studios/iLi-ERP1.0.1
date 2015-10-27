@@ -1,6 +1,6 @@
 <?php include"../ili-functions/functions.php";?>
 <?php 
-autorisation('5', 'ili-users/user_add'); 
+autorisation('5'); 
 ?>
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
