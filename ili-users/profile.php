@@ -22,6 +22,7 @@ function get_users_expirance($id){
 		}
 	}
 }
+
 function get_users_skills($id){
 	$query="SELECT * FROM users_skills WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE COMPETANCE!</strong>";}
@@ -43,6 +44,7 @@ function get_users_skills($id){
 		}
 	}
 }
+
 function get_users_diploma($id){
 	$query="SELECT * FROM users_diploma WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE DIPLOME!</strong>";}
@@ -101,9 +103,11 @@ function get_users_diploma($id){
 								<div class="text-center profile-pic"> <img src="img/profile-pic.jpg" alt=""> </div>
 								<ul class="nav nav-tabs nav-stacked">
 									<img src="<?php echo $_SESSION['user_img'] ;?>"><br><br>
-									<li><a href="<?php echo $user->fb; ?>" target="new"><i class="icon-facebook"></i> Facebook</a></li>
-									<li><a href="<?php echo $user->linkedin; ?>" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>
-									<li><a href="<?php echo $user->github; ?>" target="new"><i class="icon-github"></i> Github</a></li>
+									<?php
+									if($user->fb){echo'<li><a href="'.$user->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Facebook (Non enregistrer)</a></li>';}
+									if($user->linkedin){echo'<li><a href="'.$user->linkedin.'" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>';}else{echo'<li><i class="icon-linkedin"></i> LinkedIn (Non enregistrer)</a></li>';}
+									if($user->github){echo'<li><a href="'.$user->github.'" target="new"><i class="icon-github"></i> Github</a></li>';}else{echo'<li><i class="icon-github"></i> Github (Non enregistrer)</a></li>';}
+									?>
 								</ul>
 							</div>
 							<div class="span6">
