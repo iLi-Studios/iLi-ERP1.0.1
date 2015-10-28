@@ -100,9 +100,8 @@ function get_users_diploma($id){
 							<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
 						<div class="widget-body">
 							<div class="span3">
-								<div class="text-center profile-pic"> <img src="img/profile-pic.jpg" alt=""> </div>
+								<div class="text-center profile-pic"> <img src="<?php echo $_SESSION['user_img'] ;?>" width="100%" height="226px;"> </div>
 								<ul class="nav nav-tabs nav-stacked">
-									<img src="<?php echo $_SESSION['user_img'] ;?>"><br><br>
 									<?php
 									if($user->fb){echo'<li><a href="'.$user->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Facebook (Non enregistrer)</a></li>';}
 									if($user->linkedin){echo'<li><a href="'.$user->linkedin.'" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>';}else{echo'<li><i class="icon-linkedin"></i> LinkedIn (Non enregistrer)</a></li>';}
