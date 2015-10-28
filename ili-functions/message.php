@@ -31,11 +31,14 @@ function message($code){
 		case "4";
 		alert_notif("alert-success", "Vous êtes déconnecté");
 		break;
-		case "4";
+		case "5";
 		alert_notif("alert-error", "Vous pouvez pas voire cette page");
 		break;
-		case "5";
+		case "6";
 		alert_notif("alert-error", "ERREUR : Opération echoué!");
+		break;
+		case "7";
+		alert_notif("alert-success", "OK : Opération effectuer avec succée!");
 		break;
 		}
 	}

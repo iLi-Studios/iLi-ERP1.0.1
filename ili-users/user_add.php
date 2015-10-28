@@ -64,7 +64,7 @@ if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(i
 		<!-- END PAGE HEADER--> 
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span12"><?php get_message('message'); ?>
 				<div class="widget">
 					<div class="widget-title">
                         <h4><i class="icon-reorder"></i> Informations globales</h4>
@@ -74,8 +74,6 @@ if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(i
                         </span>
                      </div>
 					<div class="widget-body form">
-						<?php get_message('message'); ?>
-						<br>
 						<form action="#" class="form-horizontal" method="post">							
 							<div class="control-group">
 								<label class="control-label">N° CIN</label>

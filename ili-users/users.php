@@ -174,7 +174,10 @@ function get_users_list(){
 		<!-- END PAGE HEADER--> 
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row-fluid">
-			<div class="span12"><?php get_users_list(); ?></div>
+			<div class="span12">
+				<?php get_message('message'); ?>
+				<?php get_users_list(); ?>
+			</div>
 			<!-- END PAGE CONTENT--> 
 		</div>
 		<!-- END PAGE CONTAINER--> 
