@@ -1,14 +1,6 @@
 <?php include"../ili-functions/functions.php";?>
 <?php 
-autorisation('2'); 
-//$query2 = "SELECT * FROM users, users_diploma, users_expirance, users_rank, users_skills WHERE users.id_user=users_diploma.id_user AND users.id_user=users_expirance.id_user AND users.id_user=users_rank.id_user AND users.id_user=users_skills.id_user AND users.id_user='$id';";
-
-function get_user_rank($id){
-	$query="SELECT * FROM users, rank, users_rank WHERE users.id_user=users_rank.id_user AND rank.id_rank=users_rank.id_rank AND users.id_user='$id';";
-	if($o=query_execute("mysqli_fetch_object", $query)){
-	return $o->rank;
-	}
-}
+autorisation('2');
 
 function get_users_last_diploma($id){
 	$query="SELECT * FROM users_diploma WHERE id_user='$id' ORDER BY id DESC LIMIT 1;";
@@ -64,15 +56,15 @@ function get_users_skills($id){
 }
 
 function get_users_list(){
-	$query="SELECT * FROM users";
+	$query="SELECT * FROM users, users_rank WHERE users.id_rank=users_rank.id_rank";
 	$result=query_excute_while($query);
 	while ($o=mysqli_fetch_object($result)){echo'
 				<div class="widget">
 					<div class="widget-title">
-						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.get_user_rank($o->id_user).')</h4>
+						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.$o->rank.')</h4>
 						<span class="tools" style="margin-top:-2px;">';
 						
-						if($_SESSION['id_rank']==6){echo'
+						if($_SESSION['user_id_rank']==6){echo'
 						<div class="btn-group" padding-bottom:-10px">
                         	<a class="btn" href="#"><i class="icon-user"></i> Utilisateur </a>
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -119,7 +111,7 @@ function get_users_list(){
 									</tr>
 									<tr>
 										<td class="span2">Grade :</td>
-										<td>'.get_user_rank($o->id_user).'</td>
+										<td>'.$o->rank.'</td>
 									</tr>
 								</tbody>
 							</table>

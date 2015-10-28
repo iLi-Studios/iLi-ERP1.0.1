@@ -15,8 +15,8 @@ function redirect($page){
 	
 // min id required to see this page
 function autorisation($id){
-	if(!isset($_SESSION['user'])){redirect('login?message=1');}
-	else{if($_SESSION['id_rank']<$id){redirect('login?message=5');}
+	if(!isset($_SESSION['user_id'])){redirect('login?message=1');}
+	else{if($_SESSION['user_id_rank']<$id){redirect('login?message=5');}
 	}
 }
 

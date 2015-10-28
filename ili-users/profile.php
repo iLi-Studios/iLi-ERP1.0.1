@@ -3,10 +3,10 @@
 autorisation('2');
 // get user info from id
 function get_user_info($id){
-	$query="SELECT * FROM users, rank, users_rank WHERE users.id_user=users_rank.id_user AND rank.id_rank=users_rank.id_rank AND users.id_user='$id';";
+	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
-$user=get_user_info($_SESSION['user']);
+$user=get_user_info($_SESSION['user_id']);
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -148,7 +148,7 @@ function get_users_diploma($id){
 								
 								<h4>Compétances</h4>
 								<table class="table table-borderless">
-									<tbody><?php get_users_skills($_SESSION['user']); ?></tbody>
+									<tbody><?php get_users_skills($_SESSION['user_id']); ?></tbody>
 								</table>
 								<h4>Addresse</h4>
 								<div class="well">
@@ -164,9 +164,9 @@ function get_users_diploma($id){
 							</div>
 							<div class="span3">
 								<h4>Diplômes</h4>
-								<ul class="icons push"><?php get_users_diploma($_SESSION['user']);?></ul>
+								<ul class="icons push"><?php get_users_diploma($_SESSION['user_id']);?></ul>
 								<h4>Expérance</h4>
-								<ul class="icons push"><?php get_users_expirance($_SESSION['user']);?></ul>
+								<ul class="icons push"><?php get_users_expirance($_SESSION['user_id']);?></ul>
 							</div>
 							<div class="space5"></div>
 						</div>

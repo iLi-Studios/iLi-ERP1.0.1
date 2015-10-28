@@ -4,14 +4,15 @@
 
 
 function connexion($email, $mdp){
-	$query="SELECT * FROM users, rank, users_rank WHERE users.id_user=users_rank.id_user AND rank.id_rank=users_rank.id_rank AND users.email='$email' AND users.mdp='$mdp'";
+	$query="SELECT * FROM users, users_rank WHERE users.email='$email' AND users.mdp='$mdp' AND users.id_rank=users_rank.id_rank";
 	if( ($o=query_execute("mysqli_fetch_object", $query)) == true){
 		if($o->id_rank=='1'){redirect("login?message=3");}
 		else{
-			$_SESSION['user']=$o->id_user;
+			$_SESSION['user_id']=$o->id_user;
 			$_SESSION['user_nom']=$o->nom;
 			$_SESSION['user_prenom']=$o->prenom; 
-			$_SESSION['id_rank']=$o->id_rank;
+			$_SESSION['user_id_rank']=$o->id_rank;
+			$_SESSION['user_rank']=$o->rank;
 			$_SESSION['user_img']=$o->img_link;
 			redirect("index");
 		}
