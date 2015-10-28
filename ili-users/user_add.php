@@ -3,7 +3,7 @@
 autorisation('5'); 
 function grade_list(){
 	//$query="SELECT * FROM `rank` WHERE `id_rank`>'1' AND `id_rank`<'6' ORDER BY id_rank ASC";
-	$query="SELECT * FROM `rank` ORDER BY id_rank ASC";
+	$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
 	//if($_SESSION['user_id_rank']=6){$query==$query6;}else{$query==$query5;}
 	$result=query_excute_while($query);
 	while ($o=mysqli_fetch_object($result)){echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';}
