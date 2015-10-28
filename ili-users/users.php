@@ -84,10 +84,8 @@ function get_users_list(){
 					</div>
 					<div class="widget-body">
 						<div class="span3">
-							<div class="text-center profile-pic"> <img src="img/profile-pic.jpg" alt=""> </div>
-							<ul class="nav nav-tabs nav-stacked">
-								<img src="'.$o->img_link.'"><br>
-								<br>';
+							<div class="text-center profile-pic"> <img src="'.$o->img_link.'" width="100%" height="226px;"> </div>
+							<ul class="nav nav-tabs nav-stacked">';
 									if($o->fb){echo'<li><a href="'.$o->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Facebook (Non enregistrer)</a></li>';}
 									if($o->linkedin){echo'<li><a href="'.$o->linkedin.'" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>';}else{echo'<li><i class="icon-linkedin"></i> LinkedIn (Non enregistrer)</a></li>';}
 									if($o->github){echo'<li><a href="'.$o->github.'" target="new"><i class="icon-github"></i> Github</a></li>';}else{echo'<li><i class="icon-github"></i> Github (Non enregistrer)</a></li>';}						
