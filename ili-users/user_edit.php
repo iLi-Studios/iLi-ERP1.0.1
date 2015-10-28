@@ -48,6 +48,7 @@ autorisation('2');
 	</div>
 	<!-- END PAGE --> 
 </div>
+</div>
 <!-- END CONTAINER -->
 <?php include"../ili-functions/fragments/footer.php";?>
 <script>jQuery(document).ready(function() {App.init();});</script>

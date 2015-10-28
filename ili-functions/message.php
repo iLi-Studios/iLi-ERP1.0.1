@@ -34,6 +34,9 @@ function message($code){
 		case "4";
 		alert_notif("alert-error", "Vous pouvez pas voire cette page");
 		break;
+		case "5";
+		alert_notif("alert-error", "ERREUR : Opération echoué!");
+		break;
 		}
 	}
 ?>

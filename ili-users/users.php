@@ -74,7 +74,7 @@ function get_users_list(){
 						
 						if($_SESSION['id_rank']==6){echo'
 						<div class="btn-group" padding-bottom:-10px">
-                        	<a class="btn" href="#"><i class="icon-cog"></i> Paramétres</a>
+                        	<a class="btn" href="#"><i class="icon-user"></i> Utilisateur </a>
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 							<span class="icon-caret-down"></span>
                             </a>
