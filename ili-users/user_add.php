@@ -8,10 +8,11 @@ function grade_list(){
 	$result=query_excute_while($query);
 	while ($o=mysqli_fetch_object($result)){echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';}
 }
-function create_user(){
-	$query="INSERT INTO `ili_erp`.`users` (`id_user`, `id_rank`, `nom`, `prenom`, `email`, `poste`, `tel`, `adresse`, `date_naissance`, `mdp`, `mdp_update_date`, `fb`, `github`, `linkedin`, `img_link`, `created_by`, `created_date`) VALUES ('$cin', '$rank', '$nom', '$prenom', '$email', '$poste', '$tel', '$adresse', '$date_naissance', MD5('$mdp'), 'NOW()', '$fb', '$github', '$linkedin', '$img_url', 'Sakly Ayoub', 'NOW()');";
-	if(query_execute("mysqli_fetch_object", $query)){redirect('ili-users/users?message=7');}else{redirect('ili-users/users?message=6');}
+function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse, $date_naissance, $mdp, $fb, $github, $linkedin, $img_url, $admin){
+	$query="INSERT INTO `ili_erp`.`users` (`id_user`, `id_rank`, `nom`, `prenom`, `email`, `poste`, `tel`, `adresse`, `date_naissance`, `mdp`, `mdp_update_date`, `fb`, `github`, `linkedin`, `img_link`, `created_by`, `created_date`) VALUES ('$cin', '$rank', '$nom', '$prenom', '$email', '$poste', '$tel', '$adresse', '$date_naissance', MD5('$mdp'), NOW(), '$fb', '$github', '$linkedin', '$img_url', 'Sakly Ayoub', NOW());";
+	if(query_execute("mysqli_fetch_object", $query)){redirect('ili-users/user_add?message=7');}else{redirect('ili-users/user_add?message=6');}
 }
+
 
 if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(isset($_POST['email']))&&(isset($_POST['tel']))&&(isset($_POST['mdp']))&&(isset($_POST['poste']))&&(isset($_POST['rank']))&&(isset($_POST['adresse']))&&(isset($_POST['date_naissance']))){
 	$cin						=addslashes($_POST['cin']);
