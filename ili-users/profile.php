@@ -1,14 +1,13 @@
 <?php include"../ili-functions/functions.php";?>
 <?php
 autorisation('2');
+$id_user=$_GET['id'];
 // get user info from id
 function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
-
-$user=get_user_info($_SESSION['user_id']);
-
+$user=get_user_info($id_user);
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -101,7 +100,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 					<div class="widget">
 						<div class="widget-title">
 							<h4><i class="icon-user"></i> Profile</h4>
-							<span class="tools"><a href="user_edit?id=<?php echo $_SESSION['user_id'];?>" class="icon-edit tooltips" data-original-title="Modifier"></a></span> </div>
+							<span class="tools"><a href="user_edit?id=<?php echo $id_user;?>" class="icon-edit tooltips" data-original-title="Modifier"></a></span> </div>
 						<div class="widget-body">
 							<div class="span3">
 								<div class="text-center profile-pic"> <img src="<?php echo $_SESSION['user_img'] ;?>" width="100%" height="226px;"> </div>
@@ -120,7 +119,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 									<tbody>
 										<tr>
 											<td class="span2">CIN :</td>
-											<td><?php echo $_SESSION['user_id'] ;?></td>
+											<td><?php echo $id_user ;?></td>
 										</tr>
 										<tr>
 											<td class="span2">Nom :</td>
@@ -167,7 +166,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 								
 								<h4>Compétances</h4>
 								<table class="table table-borderless">
-									<tbody><?php get_users_skills($_SESSION['user_id']); ?></tbody>
+									<tbody><?php get_users_skills($id_user); ?></tbody>
 								</table>
 								<h4>Addresse</h4>
 								<div class="well">
@@ -183,9 +182,9 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 							</div>
 							<div class="span3">
 								<h4>Diplômes</h4>
-								<ul class="icons push"><?php get_users_diploma($_SESSION['user_id']);?></ul>
+								<ul class="icons push"><?php get_users_diploma($id_user);?></ul>
 								<h4>Expérance</h4>
-								<ul class="icons push"><?php get_users_expirance($_SESSION['user_id']);?></ul>
+								<ul class="icons push"><?php get_users_expirance($id_user);?></ul>
 							</div>
 							<div class="space5"></div>
 						</div>
