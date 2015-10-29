@@ -68,6 +68,7 @@ function get_users_list(){
 						if($_SESSION['user_id_rank']==6){echo'
 								<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
 								<a href="user_edit?id='.$o->id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>
+
 								<a href="#del'.$o->id_user.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>
 								<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>	
 						';
@@ -77,6 +78,26 @@ function get_users_list(){
 						$location_del_mod='\'document.location.href="user_remove?id='.$o->id_user.'";\'';
 						confirmation_modale($name_del_mod, $title_del_mod, $text_del_mod, $location_del_mod);
 						}
+								<a href="#myModal_del'.$o->id_user.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>
+								<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>
+	
+								<!-- Modale de confirmation de suppression -->
+								<div id="myModal_del'.$o->id_user.'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_del'.$o->id_user.'" aria-hidden="true">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h3 id="myModalLabel_del'.$o->id_user.'">Confirmation de suppression</h3>
+									</div>
+									<div class="modal-body">
+										<p>Vous êtes sur de vouloire supprimer le compte du <strong>'.$o->nom.' '.$o->prenom.'</strong>? <br> Cette action est <strong>irréversible!</strong></p>
+									</div>
+									<div class="modal-footer">
+										<form action="" method="post">
+											<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+											<button onClick=\'document.location.href="user_remove?id='.$o->id_user.'";\' data-dismiss="modal" class="btn btn-primary">Confirm</button>
+										</form>
+									</div>
+								</div><!-- Modale de confirmation de suppression -->
+						';}
 						
 						echo'
 						<a href="javascript:;" class="icon-chevron-down"></a></span>
