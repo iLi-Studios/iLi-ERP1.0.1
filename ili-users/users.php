@@ -1,8 +1,6 @@
 <?php include"../ili-functions/functions.php";?>
 <?php 
-if(isset($_POST['AYOUB'])){echo'SCHITAN';}
 autorisation('2');
-
 function get_users_last_diploma($id){
 	$query="SELECT * FROM users_diploma WHERE id_user='$id' ORDER BY id DESC LIMIT 1;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE DIPLOME!</strong>";}
@@ -76,7 +74,7 @@ function get_users_list(){
 							// ( (ADMIN || Developpeur) && (On peut pas se bannir nous même) && (On peut pas bannir un utilisateur déja banni) && (on peut pas bannir un developpeur) )
 							if( (($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5)) && ($_SESSION['user_id']!=$o->id_user) && ($o->id_rank!=1) && ($o->id_rank!=6) ){echo'<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>';}
 							echo'
-							<a href="profile?id='.$o->id_user.'" class="icon-eye-open tooltips" data-original-title="Voire plus"></a>
+							<a href="user_profile?id='.$o->id_user.'" class="icon-eye-open tooltips" data-original-title="Voire plus"></a>
 							<!-- Modale de confirmation de suppression -->
 							<div id="myModal_del'.$o->id_user.'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_del'.$o->id_user.'" aria-hidden="true">
 								<div class="modal-header">
@@ -159,10 +157,10 @@ function get_users_list(){
 		<div class="row-fluid">
 			<div class="span12"> 
 				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-				<h3 class="page-title"> Dashboard <small> Utilisateurs du système</small> </h3>
+				<h3 class="page-title"> Utilisateurs <small> Infos globales</small> </h3>
 				<ul class="breadcrumb">
-					<li> <a href="<?php echo $site ; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-					<li><a href="<?php echo $site ; ?>ili-users/users">Utilisateurs du système</a><span class="divider-last">&nbsp;</span></li>
+					<li> <a href="<?php echo $site ;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+					<li> <a href="<?php echo $site ;?>ili-users/users">Utilisateurs du système</a><span class="divider-last">&nbsp;</span></li>
 					<li class="pull-right search-wrap">
 						<form class="hidden-phone">
 							<div class="search-input-area">

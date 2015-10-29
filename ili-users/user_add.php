@@ -89,11 +89,11 @@ if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(i
 			<div class="row-fluid">
 				<div class="span12"> 
 					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-					<h3 class="page-title"> Dashboard <small> Création utilisateur</small> </h3>
+					<h3 class="page-title"> Utilisateurs <small> Création</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li><a href="<?php echo $site;?>ili-users/users">Utilisateurs du système</a><span class="divider">&nbsp;</span></li>
-						<li><a href="<?php echo $site;?>ili-users/user_add">Création</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="<?php echo $site;?>ili-users/users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
+						<li> <a href="<?php echo $site;?>ili-users/user_add">Création</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">

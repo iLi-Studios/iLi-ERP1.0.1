@@ -59,7 +59,7 @@
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="<?php echo $_SESSION['user_img'] ;?>" width="29px" height="29px" alt=""> <span class="username"><?php echo $_SESSION['user_nom'].' '.$_SESSION['user_prenom'] ; ?></span> <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
-							<li><a href="<?php echo $site; ?>ili-users/profile?id=<?php echo $_SESSION['user_id'];?>"><i class="icon-user"></i> Mon Profile</a></li>
+							<li><a href="<?php echo $site; ?>ili-users/user_profile?id=<?php echo $_SESSION['user_id'];?>"><i class="icon-user"></i> Mon Profile</a></li>
 							<li><a href="#"><i class="icon-tasks"></i> Mes Taches</a></li>
 							<li><a href="#"><i class="icon-calendar"></i> Calendrier</a></li>
 							<li class="divider"></li>

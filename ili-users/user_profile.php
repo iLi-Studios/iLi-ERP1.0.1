@@ -78,10 +78,11 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 			<div class="row-fluid">
 				<div class="span12"> 
 					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-					<h3 class="page-title"> Profile <small> Gestion de Profile</small> </h3>
+					<h3 class="page-title"> Utilisateurs <small> Profile</small> </h3>
 					<ul class="breadcrumb">
-						<li> <a href="<?php echo $site ; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li><a href="<?php echo $site ; ?>ili-users/profile">Profile</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+						<li> <a href="<?php echo $site;?>ili-users/users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
+						<li> <a href="ili-users/user_profile?id=<?php echo $id_user ;?>">Profile</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">

@@ -1,12 +1,13 @@
 <?php include"../ili-functions/functions.php";?>
 <?php
 autorisation('2');
+$id_user=$_GET['id'];
 // get user info from id
 function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
-$user=get_user_info($_SESSION['user_id']);
+$user=get_user_info($id_user);
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -58,7 +59,9 @@ function get_users_diploma($id){
 					</li><br>';
 		}
 	}
-}	
+}
+
+function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}	
 ?>
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
@@ -75,10 +78,11 @@ function get_users_diploma($id){
 			<div class="row-fluid">
 				<div class="span12"> 
 					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-					<h3 class="page-title"> Profile <small> Gestion de Profile</small> </h3>
+					<h3 class="page-title"> Utilisateurs <small> Modification</small> </h3>
 					<ul class="breadcrumb">
-						<li> <a href="<?php echo $site ; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li><a href="<?php echo $site ; ?>ili-users/profile">Profile</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+						<li> <a href="<?php echo $site;?>ili-users/users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
+						<li> <a href="<?php echo $site;?>ili-users/user_edit?id=<?php echo $id_user ;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">
@@ -96,11 +100,19 @@ function get_users_diploma($id){
 				<div class="span12">
 					<div class="widget">
 						<div class="widget-title">
-							<h4><i class="icon-user"></i>Profile</h4>
-							<span class="tools"><a href="" class="icon-edit tooltips" data-original-title="Modifier"></a></span> </div>
+							<h4><i class="icon-user"></i> Profile</h4>
+							<span class="tools">
+								<?php
+								// on peut modifier si
+								// DEV || ADMIN || (UTILISATEUR dans le profil ouvert et le sien)
+								if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) || ($_SESSION['user_id']==$id_user) ){
+									echo'<a href="user_edit?id='.$id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
+								}?>
+							</span> 
+						</div>
 						<div class="widget-body">
 							<div class="span3">
-								<div class="text-center profile-pic"> <img src="<?php echo $_SESSION['user_img'] ;?>" width="100%" height="226px;"> </div>
+								<div class="text-center profile-pic"> <img src="<?php echo $user->img_link;?>" width="100%" height="226px;"> </div>
 								<ul class="nav nav-tabs nav-stacked">
 									<?php
 									if($user->fb){echo'<li><a href="'.$user->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Facebook (Non enregistrer)</a></li>';}
@@ -115,6 +127,10 @@ function get_users_diploma($id){
 								<table class="table table-borderless">
 									<tbody>
 										<tr>
+											<td class="span2">CIN :</td>
+											<td><?php echo $id_user ;?></td>
+										</tr>
+										<tr>
 											<td class="span2">Nom :</td>
 											<td><?php echo $user->nom; ?></td>
 										</tr>
@@ -123,8 +139,8 @@ function get_users_diploma($id){
 											<td><?php echo $user->prenom; ?></td>
 										</tr>
 										<tr>
-											<td class="span2">Naissance :</td>
-											<td><?php echo $user->date_naissance; ?></td>
+											<td class="span2">Age :</td>
+											<td><?php echo age($user->date_naissance);?> ans</td>
 										</tr>
 										<tr>
 											<td class="span2">Poste :</td>
@@ -142,12 +158,24 @@ function get_users_diploma($id){
 											<td class="span2">Grade :</td>
 											<td><?php echo $user->rank; ?></td>
 										</tr>
+										<tr>
+											<td class="span2">Ajouté par :</td>
+											<td><?php echo $user->created_by; ?></td>
+										</tr>
+										<tr>
+											<td class="span2">Ajouté le :</td>
+											<td><?php echo $user->created_date; ?></td>
+										</tr>
+										<tr>
+											<td class="span2">Mot de passe mise à jour le :</td>
+											<td><?php echo $user->mdp_update_date; ?></td>
+										</tr>
 									</tbody>
 								</table>
 								
 								<h4>Compétances</h4>
 								<table class="table table-borderless">
-									<tbody><?php get_users_skills($_SESSION['user_id']); ?></tbody>
+									<tbody><?php get_users_skills($id_user); ?></tbody>
 								</table>
 								<h4>Addresse</h4>
 								<div class="well">
@@ -163,9 +191,9 @@ function get_users_diploma($id){
 							</div>
 							<div class="span3">
 								<h4>Diplômes</h4>
-								<ul class="icons push"><?php get_users_diploma($_SESSION['user_id']);?></ul>
+								<ul class="icons push"><?php get_users_diploma($id_user);?></ul>
 								<h4>Expérance</h4>
-								<ul class="icons push"><?php get_users_expirance($_SESSION['user_id']);?></ul>
+								<ul class="icons push"><?php get_users_expirance($id_user);?></ul>
 							</div>
 							<div class="space5"></div>
 						</div>
