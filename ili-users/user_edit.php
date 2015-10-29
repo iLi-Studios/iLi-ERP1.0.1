@@ -38,7 +38,7 @@ function get_users_skills($id){
 					<td class="span1">
 						<span class="label label-inverse">
 							<a href="" class="icon-edit tooltips" data-original-title="Modifier"></a>
-							<a href="" class="icon-trash tooltips" data-original-title="Supprimer"></a>
+							<a href="skills_remove?id_user='.$_GET['id'].'&id_skills='.$o->id.'" class="icon-trash tooltips" data-original-title="Supprimer"></a>
 							'.$o->skills.'
 						</span>
 					</td>
@@ -87,8 +87,9 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 					<h3 class="page-title"> Utilisateurs <small> Modification</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li> <a href="<?php echo $site;?>ili-users/users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
-						<li> <a href="<?php echo $site;?>ili-users/user_edit?id=<?php echo $id_user ;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href=">ili-users/users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
+						<li> <a href="user_profile?id=<?php echo $id_user ;?>">Profile </a><span class="divider">&nbsp;</span>
+						<li> <a href="ili-users/user_edit?id=<?php echo $id_user ;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">
