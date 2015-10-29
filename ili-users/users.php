@@ -81,10 +81,8 @@ function get_users_list(){
 										<p>Vous êtes sur de vouloire supprimer le compte du <strong>'.$o->nom.' '.$o->prenom.'</strong>? <br> Cette action est <strong>irréversible!</strong></p>
 									</div>
 									<div class="modal-footer">
-										<form action="" method="post">
-											<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-											<button onClick=\'document.location.href="user_remove?id='.$o->id_user.'";\' data-dismiss="modal" class="btn btn-primary">Confirm</button>
-										</form>
+										<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+										<button onClick=\'document.location.href="user_remove?id='.$o->id_user.'";\' data-dismiss="modal" class="btn btn-primary">Confirm</button>
 									</div>
 								</div><!-- Modale de confirmation de suppression -->
 						';}
