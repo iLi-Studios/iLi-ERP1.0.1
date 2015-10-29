@@ -42,15 +42,17 @@ function query_execute_insert($query){
 	$link=mysqli_connect(MYSQL_SERVEUR, MYSQL_UTILISATEUR, MYSQL_MOTDEPASSE, MYSQL_BASE);
 	//Vérification de la connexion
 	if (mysqli_connect_errno()) {
-    printf("Échec de la connexion : %s\n", mysqli_connect_error());
+    $result='Échec de la connexion : %s\n, '.mysqli_connect_error();
     exit();
 	}
 	else{
 		//correction de problémes des accents
 		mysqli_query($link, "SET NAMES UTF8");
-		$result=mysqli_query($link, $query);
-		return $result;
-		mysqli_close($link);
+		if(!($result=mysqli_query($link, $query))){
+			return $result='ERREUR : %s\n, '.mysqli_error();
+			mysqli_close($link);
+		}
 	}
 }
+
 ?>
