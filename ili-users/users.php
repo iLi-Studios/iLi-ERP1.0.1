@@ -59,28 +59,21 @@ function get_users_skills($id){
 function get_users_list(){
 	$query="SELECT * FROM users, users_rank WHERE users.id_rank=users_rank.id_rank";
 	$result=query_excute_while($query);
-	while ($o=mysqli_fetch_object($result)){echo'
+	while ($o=mysqli_fetch_object($result)){
+		echo'
 				<div class="widget">
 					<div class="widget-title">
 						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.$o->rank.')</h4>
 						<span class="tools" style="margin-top:-2px;">';
 						//<a href="user_remove?id='.$o->id_user.' class="icon-trash tooltips" data-original-title="Supprimer"></a>
-						if($_SESSION['user_id_rank']==6){echo'
+						if($_SESSION['user_id_rank']==6){
+							echo'
 								<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
 								<a href="user_edit?id='.$o->id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>
-
-								<a href="#del'.$o->id_user.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>
-								<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>	
-						';
-						$name_del_mod='del'.$o->id_user;
-						$title_del_mod='Confirmation de suppression';
-						$text_del_mod='Vous êtes sur de vouloire supprimer le compte du <strong>'.$o->nom.' '.$o->prenom.'</strong>? <br> Cette action est <strong>irréversible!';
-						$location_del_mod='\'document.location.href="user_remove?id='.$o->id_user.'";\'';
-						confirmation_modale($name_del_mod, $title_del_mod, $text_del_mod, $location_del_mod);
-						}
 								<a href="#myModal_del'.$o->id_user.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>
-								<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>
-	
+								<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>	
+							';
+							echo'
 								<!-- Modale de confirmation de suppression -->
 								<div id="myModal_del'.$o->id_user.'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_del'.$o->id_user.'" aria-hidden="true">
 									<div class="modal-header">
@@ -97,9 +90,8 @@ function get_users_list(){
 										</form>
 									</div>
 								</div><!-- Modale de confirmation de suppression -->
-						';}
-						
-						echo'
+							';}
+					echo'
 						<a href="javascript:;" class="icon-chevron-down"></a></span>
 					</div>
 					<div class="widget-body">
@@ -109,7 +101,8 @@ function get_users_list(){
 									if($o->fb){echo'<li><a href="'.$o->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Facebook (Non enregistrer)</a></li>';}
 									if($o->linkedin){echo'<li><a href="'.$o->linkedin.'" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>';}else{echo'<li><i class="icon-linkedin"></i> LinkedIn (Non enregistrer)</a></li>';}
 									if($o->github){echo'<li><a href="'.$o->github.'" target="new"><i class="icon-github"></i> Github</a></li>';}else{echo'<li><i class="icon-github"></i> Github (Non enregistrer)</a></li>';}						
-					echo'	</ul>
+					echo'	
+							</ul>
 						</div>
 						<div class="span6">
 							<h4>'.$o->poste.'<br/></h4>
@@ -147,9 +140,8 @@ function get_users_list(){
 						<div class="space5"></div>
 					</div>
 				</div>
-	';}
+			';}
 }
-
 ?>
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
