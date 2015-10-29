@@ -7,5 +7,6 @@ function ban($id){
 	$query="UPDATE `ili_erp`.`users_rank` SET `id_rank` = '1' WHERE `users_rank`.`id_user` ='$id' ;";
 	if(query_execute("mysqli_fetch_object", $query)){return true;}
 }
-if(ban($_GET['id'])){redirect('ili-users/users?message=7');}else{redirect('ili-users/users?message=6');}
+ban($_GET['id']);
+redirect('ili-users/users');
 ?>
