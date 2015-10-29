@@ -159,12 +159,8 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 											<td><?php echo $user->rank; ?></td>
 										</tr>
 										<tr>
-											<td class="span2">Ajouté par :</td>
-											<td><?php echo $user->created_by; ?></td>
-										</tr>
-										<tr>
 											<td class="span2">Ajouté le :</td>
-											<td><?php echo $user->created_date; ?></td>
+											<td><?php echo $user->created_date; ?> Par <?php echo $user->created_by; ?></td>
 										</tr>
 										<tr>
 											<td class="span2">Mot de passe mise à jour le :</td>
