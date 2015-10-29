@@ -55,6 +55,7 @@ function get_users_skills($id){
 		}
 	}
 }
+function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}	
 
 function get_users_list(){
 	$query="SELECT * FROM users, users_rank WHERE users.id_rank=users_rank.id_rank";
@@ -107,8 +108,12 @@ function get_users_list(){
 							<table class="table table-borderless">
 								<tbody>
 									<tr>
-										<td class="span2">Naissance :</td>
-										<td>'.$o->date_naissance.'</td>
+										<td class="span2">Grade :</td>
+										<td>'.$o->rank.'</td>
+									</tr>
+									<tr>
+										<td class="span2">Age :</td>
+										<td>'.age($o->date_naissance).' ans</td>
 									</tr>
 									<tr>
 										<td class="span2"> Email :</td>
@@ -117,10 +122,6 @@ function get_users_list(){
 									<tr>
 										<td class="span2"> Mobile :</td>
 										<td> '.$o->tel.' </td>
-									</tr>
-									<tr>
-										<td class="span2">Grade :</td>
-										<td>'.$o->rank.'</td>
 									</tr>
 								</tbody>
 							</table>
