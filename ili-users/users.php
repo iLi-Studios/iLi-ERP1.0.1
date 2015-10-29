@@ -63,21 +63,13 @@ function get_users_list(){
 					<div class="widget-title">
 						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.$o->rank.')</h4>
 						<span class="tools" style="margin-top:-2px;">';
-						
+
 						if($_SESSION['user_id_rank']==6){echo'
-						<div class="btn-group" padding-bottom:-10px">
-                        	<a class="btn" href="#"><i class="icon-user"></i> Utilisateur </a>
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-							<span class="icon-caret-down"></span>
-                            </a>
-							<ul class="dropdown-menu">
-								<li><a href="user_add"><i class="icon-plus"></i> Ajouter</a></li>
-								<li><a href="user_edit?id='.$o->id_user.'"><i class="icon-edit"></i> Modifier</a></li>
-								<li class="divider"></li>
-								<li><a href="user_remove?id='.$o->id_user.'"><i class="icon-trash"></i> Supprimer</a></li>
-								<li><a href="user_ban?id='.$o->id_user.'"><i class="icon-ban-circle"></i> Suspendre</a></li>
-							</ul>
-						</div>';}
+								<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
+								<a href="user_edit?id='.$o->id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>
+								<a href="user_remove?id='.$o->id_user.'" class="icon-trash tooltips" data-original-title="Supprimer"></a>
+								<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>
+						';}
 						
 						echo'
 						<a href="javascript:;" class="icon-chevron-down"></a></span>
