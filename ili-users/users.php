@@ -65,7 +65,6 @@ function get_users_list(){
 					<div class="widget-title">
 						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.$o->rank.')</h4>
 						<span class="tools" style="margin-top:-2px;">';
-						//<a href="user_remove?id='.$o->id_user.' class="icon-trash tooltips" data-original-title="Supprimer"></a>
 						if($_SESSION['user_id_rank']==6){
 							echo'
 								<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
