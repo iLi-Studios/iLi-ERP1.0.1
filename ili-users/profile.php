@@ -101,7 +101,12 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 						<div class="widget-title">
 							<h4><i class="icon-user"></i> Profile</h4>
 							<span class="tools">
-								<a href="user_edit?id=<?php echo $id_user;?>" class="icon-edit tooltips" data-original-title="Modifier"></a>
+								<?php
+								// on peut modifier si
+								// DEV || ADMIN || (UTILISATEUR dans le profil ouvert et le sien)
+								if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) || ($_SESSION['user_id']==$id_user) ){
+									echo'<a href="user_edit?id='.$id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
+								}?>
 							</span> 
 						</div>
 						<div class="widget-body">
