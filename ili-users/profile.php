@@ -6,7 +6,9 @@ function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
+
 $user=get_user_info($_SESSION['user_id']);
+
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -58,7 +60,9 @@ function get_users_diploma($id){
 					</li><br>';
 		}
 	}
-}	
+}
+
+function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}	
 ?>
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
@@ -115,6 +119,10 @@ function get_users_diploma($id){
 								<table class="table table-borderless">
 									<tbody>
 										<tr>
+											<td class="span2">CIN :</td>
+											<td><?php echo $_SESSION['user_id'] ;?></td>
+										</tr>
+										<tr>
 											<td class="span2">Nom :</td>
 											<td><?php echo $user->nom; ?></td>
 										</tr>
@@ -123,8 +131,8 @@ function get_users_diploma($id){
 											<td><?php echo $user->prenom; ?></td>
 										</tr>
 										<tr>
-											<td class="span2">Naissance :</td>
-											<td><?php echo $user->date_naissance; ?></td>
+											<td class="span2">Age :</td>
+											<td><?php echo age($user->date_naissance);?> ans</td>
 										</tr>
 										<tr>
 											<td class="span2">Poste :</td>
@@ -141,6 +149,18 @@ function get_users_diploma($id){
 										<tr>
 											<td class="span2">Grade :</td>
 											<td><?php echo $user->rank; ?></td>
+										</tr>
+										<tr>
+											<td class="span2">Ajouté par :</td>
+											<td><?php echo $user->created_by; ?></td>
+										</tr>
+										<tr>
+											<td class="span2">Ajouté le :</td>
+											<td><?php echo $user->created_date; ?></td>
+										</tr>
+										<tr>
+											<td class="span2">Mot de passe mise à jour le :</td>
+											<td><?php echo $user->mdp_update_date; ?></td>
 										</tr>
 									</tbody>
 								</table>
