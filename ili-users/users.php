@@ -68,8 +68,8 @@ function get_users_list(){
 							if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) ){echo'<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
 							// Modifier autorisation DEV & ADMIN & l'utilisateur a son compte uniquement
 							if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) || ($_SESSION['user_id']==$o->id_user) ){echo'<a href="user_edit?id='.$o->id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';}
-							// Supprimer ( DEV || ((ADMIN) && (un ADMIN ne peut pas supprimer un DEV)) )
-							if( ($_SESSION['user_id_rank']==6) || (($_SESSION['user_id_rank']==5) && ($o->id_rank!=6)) ){echo'<a href="#myModal_del'.$o->id_user.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';}
+							// Supprimer ( DEV || ((ADMIN) && (un ADMIN ne peut pas supprimer un DEV)) && (l'utilisateur ne peut pas se supprimer luis même) )
+							if( ($_SESSION['user_id_rank']==6) || (($_SESSION['user_id_rank']==5) && ($o->id_rank!=6)) && ($_SESSION['user_id']!=$o->id_user) ){echo'<a href="#myModal_del'.$o->id_user.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';}
 							// Bannir 
 							// ( (ADMIN || Developpeur) && (On peut pas se bannir nous même) && (On peut pas bannir un utilisateur déja banni) && (on peut pas bannir un developpeur) )
 							if( (($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5)) && ($_SESSION['user_id']!=$o->id_user) && ($o->id_rank!=1) && ($o->id_rank!=6) ){echo'<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>';}
