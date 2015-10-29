@@ -41,23 +41,4 @@ function db_upload($id, $file){
 	}
 	return $message;
 }
-
-function confirmation_modale($name, $title, $text, $location){
-	echo'
-	<!-- Modale de confirmation de suppression -->
-	<div id="myModal_'.$name.'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_'.$name.'" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel_'.$name.'">'.$title.'</h3>
-		</div>
-		<div class="modal-body">
-			<p>'.$text.'</p>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-			<button onClick=\'document.location.href="'.$location.'";\' data-dismiss="modal" class="btn btn-primary">Confirm</button>
-		</div>
-	</div><!-- Modale de confirmation de suppression -->
-	';
-}
 ?>
