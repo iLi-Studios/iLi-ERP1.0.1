@@ -97,7 +97,7 @@ function get_users_diploma($id){
 					<div class="widget">
 						<div class="widget-title">
 							<h4><i class="icon-user"></i>Profile</h4>
-							<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
+							<span class="tools"><a href="user_edit?id=<?php echo $_SESSION['user_id'];?>" class="icon-edit tooltips" data-original-title="Modifier"></a></span> </div>
 						<div class="widget-body">
 							<div class="span3">
 								<div class="text-center profile-pic"> <img src="<?php echo $_SESSION['user_img'] ;?>" width="100%" height="226px;"> </div>
