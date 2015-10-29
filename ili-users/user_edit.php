@@ -35,7 +35,13 @@ function get_users_skills($id){
 			if($o->pourcentage >'66' && $o->pourcentage <= '100'){$color='success';}
 			echo'
 				<tr>
-					<td class="span1"><span class="label label-inverse">'.$o->skills.'</span></td>
+					<td class="span1">
+						<span class="label label-inverse">
+							<a href="" class="icon-edit tooltips" data-original-title="Modifier"></a>
+							<a href="" class="icon-trash tooltips" data-original-title="Supprimer"></a>
+							'.$o->skills.'
+						</span>
+					</td>
 					<td>
 						<div class="progress progress-'.$color.' progress-striped">
 							<div style="width: '.$o->pourcentage.'%" class="bar"></div>
