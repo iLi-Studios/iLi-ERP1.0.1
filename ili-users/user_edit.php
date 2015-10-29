@@ -15,7 +15,10 @@ function get_users_expirance($id){
 		$result=query_excute_while($query);
 		while ($o=mysqli_fetch_object($result)){
 			echo'	<li><i class="icon-hand-right"></i>
-						<strong>'.$o->company.'</strong><br/>
+						<strong>'.$o->company.'</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
+						<a href="expirance_remove?id_user='.$_GET['id'].'&id_expirance='.$o->id.'" class="icon-trash tooltips" data-original-title="&nbsp;&nbsp;Supprimer"></a>
+						<br/>
 						<em>Durée : '.$o->duration.'</em><br/>
 						<em>&nbsp;&nbsp;&nbsp;'.$o->experience.'</em><br>
 						<a href="'.$o->company_url.'" target="new">'.$o->company_url.'</a>
