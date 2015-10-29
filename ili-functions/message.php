@@ -5,7 +5,6 @@ function get_message($message){
 		message($_GET['message']);
 	}
 }
-
 //alert notification
 //$type "", "alert-success", "alert-info", "alert-error"  
 function alert_notif($type, $message){
@@ -39,6 +38,12 @@ function message($code){
 		break;
 		case "7";
 		alert_notif("alert-success", "OK : Opération effectuer avec succée!");
+		break;
+		case "8";
+		alert_notif("alert-error", "ERREUR : Un utilisateur avec cette <strong>CIN</strong> exisite dans la base de données");
+		break;
+		case "9";
+		alert_notif("alert-error", "ERREUR : Un utilisateur avec cette <strong>EMAIL</strong> exisite dans la base de données");
 		break;
 		}
 	}
