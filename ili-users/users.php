@@ -1,5 +1,6 @@
 <?php include"../ili-functions/functions.php";?>
 <?php 
+if(isset($_POST['AYOUB'])){echo'SCHITAN';}
 autorisation('2');
 
 function get_users_last_diploma($id){
@@ -63,12 +64,29 @@ function get_users_list(){
 					<div class="widget-title">
 						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.$o->rank.')</h4>
 						<span class="tools" style="margin-top:-2px;">';
-
+						//<a href="user_remove?id='.$o->id_user.' class="icon-trash tooltips" data-original-title="Supprimer"></a>
 						if($_SESSION['user_id_rank']==6){echo'
 								<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
 								<a href="user_edit?id='.$o->id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>
-								<a href="user_remove?id='.$o->id_user.'" class="icon-trash tooltips" data-original-title="Supprimer"></a>
+								<a href="#myModal_del" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>
 								<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>
+	
+								<!-- Modale de confirmation de suppression -->
+								<div id="myModal_del" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_del" aria-hidden="true">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h3 id="myModalLabel_del">Confirmation de suppression</h3>
+									</div>
+									<div class="modal-body">
+										<p>Vous êtes sur de vouloire supprimer le compte du <strong>'.$o->nom.' '.$o->prenom.'</strong>? <br> Cette action est <strong>irréversible!</strong></p>
+									</div>
+									<div class="modal-footer">
+										<form action="" method="post">
+											<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+											<button onClick=\'document.location.href="user_remove_test?id='.$o->id_user.'";\' data-dismiss="modal" class="btn btn-primary">Confirm</button>
+										</form>
+									</div>
+								</div><!-- Modale de confirmation de suppression -->
 						';}
 						
 						echo'
@@ -167,5 +185,7 @@ function get_users_list(){
 	<!-- END PAGE --> 
 </div>
 <!-- END CONTAINER -->
+</div>
+
 <?php include"../ili-functions/fragments/footer.php";?>
 <script>jQuery(document).ready(function() {App.init();});</script>
