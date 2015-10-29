@@ -103,7 +103,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 							<span class="tools"><a href="user_edit?id=<?php echo $id_user;?>" class="icon-edit tooltips" data-original-title="Modifier"></a></span> </div>
 						<div class="widget-body">
 							<div class="span3">
-								<div class="text-center profile-pic"> <img src="<?php echo $_SESSION['user_img'] ;?>" width="100%" height="226px;"> </div>
+								<div class="text-center profile-pic"> <img src="<?php $user->img_link;?>" width="100%" height="226px;"> </div>
 								<ul class="nav nav-tabs nav-stacked">
 									<?php
 									if($user->fb){echo'<li><a href="'.$user->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Facebook (Non enregistrer)</a></li>';}
