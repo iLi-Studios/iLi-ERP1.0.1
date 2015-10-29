@@ -100,7 +100,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 				<div class="span12">
 					<div class="widget">
 						<div class="widget-title">
-							<h4><i class="icon-user"></i>Profile</h4>
+							<h4><i class="icon-user"></i> Profile</h4>
 							<span class="tools"><a href="user_edit?id=<?php echo $_SESSION['user_id'];?>" class="icon-edit tooltips" data-original-title="Modifier"></a></span> </div>
 						<div class="widget-body">
 							<div class="span3">
