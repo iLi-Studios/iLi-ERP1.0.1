@@ -1,8 +1,18 @@
 <?php include"../ili-functions/functions.php";?>
 <?php
 autorisation('2');
-$id_user=$_GET['id'];
 // get user info from id
+$id_user=$_GET['id'];
+//form skills add
+if( (isset($_POST['skills_name'])) && (isset($_POST['skills'])) ){
+	$skills_name 	= addslashes($_POST['skills_name']);
+	$skills			= addslashes($_POST['skills']);
+	$query_skill_insert = "INSERT INTO users_skills (`id`, `id_user`, `skills`, `pourcentage`) VALUES ('', '$id_user', '$skills_name', '$skills');";
+	query_execute_insert($query_skill_insert);
+	redirect('ili-users/user_edit?id='.$id_user);
+}
+//form skills mod
+
 function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
@@ -40,7 +50,6 @@ function get_users_skills($id){
 				<tr>
 					<td class="span1">
 						<span class="label label-inverse">
-							<a href="" class="icon-edit tooltips" data-original-title="Modifier"></a>
 							<a href="skills_remove?id_user='.$_GET['id'].'&id_skills='.$o->id.'" class="icon-trash tooltips" data-original-title="Supprimer"></a>
 							'.$o->skills.'
 						</span>
@@ -50,7 +59,8 @@ function get_users_skills($id){
 							<div style="width: '.$o->pourcentage.'%" class="bar"></div>
 						</div>
 					</td>
-				</tr>';
+				</tr>				
+				';				
 		}
 	}
 }
@@ -95,7 +105,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li> <a href=">ili-users/users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
 						<li> <a href="user_profile?id=<?php echo $id_user;?>">Profile </a><span class="divider">&nbsp;</span>
-						<li> <a href="ili-users/user_edit?id=<?php echo $id_user;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="user_edit?id=<?php echo $id_user;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">
@@ -182,7 +192,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 									</tbody>
 								</table>
 								
-								<h4>Compétances <span><a href="" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
+								<h4>Compétances <span><a href="#myModal_skills_add" data-toggle="modal" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<table class="table table-borderless">
 									<tbody><?php get_users_skills($id_user); ?></tbody>
 								</table>
@@ -216,5 +226,32 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 	<!-- END PAGE --> 
 </div>
 <!-- END CONTAINER -->
+
+<form action="" method="post">
+	<div id="myModal_skills_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_skills_add_Label" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModal_skills_add_Label">Compétance Ajout</h3>
+		</div>
+		<div class="modal-body">
+			<center>
+				<table width="80%">
+					<tr>
+						<td width="40%">Compétance</td>
+						<td width="60%"><input name="skills_name" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Niveau</td>
+						<td><input name="skills" required type="range" placeholder="de 1 a 99" class="input-large" /> %</td>
+					</tr>
+				</table>
+			</center>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			<input type="submit" class="btn btn-primary" value="Ajouter"/>
+		</div>
+	</div>
+</form><!-- End myModal_skills_add -->
 <?php include"../ili-functions/fragments/footer.php";?>
 <script>jQuery(document).ready(function() {App.init();});</script>
