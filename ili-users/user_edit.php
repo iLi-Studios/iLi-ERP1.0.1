@@ -59,7 +59,10 @@ function get_users_diploma($id){
 		$result=query_excute_while($query);
 		while ($o=mysqli_fetch_object($result)){
 			echo'	<li><i class="icon-hand-right"></i>
-						<strong>'.$o->diplome.'</strong><br/>
+						<strong>'.$o->diplome.'</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
+						<a href="diploma_remove?id_user='.$_GET['id'].'&id_diploma='.$o->id.'" class="icon-trash tooltips" data-original-title="&nbsp;&nbsp;Supprimer"></a>
+						<br/>
 						<em>'.$o->lieux.', '.$o->annee.'</em><br/>
 						<em><strong>'.$o->etablissement.'</strong></em><br>
 					</li><br>';
@@ -88,8 +91,8 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li> <a href=">ili-users/users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
-						<li> <a href="user_profile?id=<?php echo $id_user ;?>">Profile </a><span class="divider">&nbsp;</span>
-						<li> <a href="ili-users/user_edit?id=<?php echo $id_user ;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="user_profile?id=<?php echo $id_user;?>">Profile </a><span class="divider">&nbsp;</span>
+						<li> <a href="ili-users/user_edit?id=<?php echo $id_user;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">
@@ -170,13 +173,13 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 											<td><?php echo $user->created_date; ?> Par <?php echo $user->created_by; ?></td>
 										</tr>
 										<tr>
-											<td class="span2">Mot de passe mise à jour le :</td>
+											<td class="span2">Mot de passe mise à jour le : <a href="" class="icon-edit tooltips" data-original-title="Modifier"></a></td>
 											<td><?php echo $user->mdp_update_date; ?></td>
 										</tr>
 									</tbody>
 								</table>
 								
-								<h4>Compétances</h4>
+								<h4>Compétances <span><a href="" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<table class="table table-borderless">
 									<tbody><?php get_users_skills($id_user); ?></tbody>
 								</table>
@@ -193,9 +196,9 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 								</div>
 							</div>
 							<div class="span3">
-								<h4>Diplômes</h4>
+								<h4>Diplômes <span><a href="" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push"><?php get_users_diploma($id_user);?></ul>
-								<h4>Expérance</h4>
+								<h4>Expérance <span><a href="" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push"><?php get_users_expirance($id_user);?></ul>
 							</div>
 							<div class="space5"></div>
