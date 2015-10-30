@@ -223,12 +223,15 @@ function get_users_diploma($id){
 	}
 }
 function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
-function grade_list(){
+function grade_list($rank_user){
 	//$query="SELECT * FROM `rank` WHERE `id_rank`>'1' AND `id_rank`<'6' ORDER BY id_rank ASC";
 	$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
 	//if($_SESSION['user_id_rank']=6){$query==$query6;}else{$query==$query5;}
 	$result=query_excute_while($query);
-	while ($o=mysqli_fetch_object($result)){echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';}
+	while ($o=mysqli_fetch_object($result)){
+		if($rank_user==$o->id_rank){$selected='selected="selected"';}else{$selected='';}
+		echo'<option '.$selected.' value="'.$o->id_rank.'">'.$o->rank.'</option>';
+	}
 }	
 ?>
 
@@ -601,11 +604,11 @@ function grade_list(){
 					</tr>
 					<tr>
 						<td>Date de naissance</td>
-						<td><input name="tel" required type="date" value="<?php echo $user->date_naissance;?>" class="input-large" /></td>
+						<td><input name="date" required type="text" value="<?php echo $user->date_naissance;?>" class="input-large" /></td>
 					</tr>
 					<tr>
 						<td>Grade</td>
-						<td><select name="rank" required tabindex="1"><?php grade_list(); ?></select></td>
+						<td><select name="rank" required tabindex="1"><?php grade_list($user->id_rank); ?></select></td>
 					</tr>
 				</table>
 			</center>
