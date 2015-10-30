@@ -3,6 +3,11 @@ include"../ili-functions/functions.php";
 autorisation('2');
 // get user info from id
 $id_user=$_GET['id'];
+function get_user_info($id){
+	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+}
+$user=get_user_info($id_user);
 //form skills add
 if( (isset($_POST['skills_name'])) && (isset($_POST['skills'])) ){
 	$skills_name 	= addslashes($_POST['skills_name']);
@@ -66,11 +71,22 @@ if( (isset($_POST['exp_company_mod'])) && (isset($_POST['exp_companyurl_mod'])) 
 	query_execute_insert($query_experance_mod);
 	redirect('ili-users/user_edit?id='.$id_user);
 }
-function get_user_info($id){
-	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
-	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+//form mdp change
+if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['mdp_new2'])) ){
+	$mdp_now	=md5($_POST['mdp_now']);
+	$mdp_new	=md5($_POST['mdp_new']);
+	$mdp_new2	=md5($_POST['mdp_new2']);
+	if($mdp_now==$user->mdp){
+		if($mdp_new2==$mdp_new){
+			$query_update_mdp ="UPDATE users SET mdp_update_date=NOW(), mdp='$mdp_new' WHERE id_user='$id_user';";
+			query_execute("mysqli_fetch_object", $query_update_mdp);
+			redirect('ili-users/user_edit?message=12&id='.$id_user);
+		}
+		else{redirect('ili-users/user_edit?message=11&id='.$id_user);}
+	}
+	else{redirect('ili-users/user_edit?message=10&id='.$id_user);}
 }
-$user=get_user_info($id_user);
+
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -246,6 +262,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row-fluid">
 				<div class="span12">
+				<?php get_message('message'); ?>
 					<div class="widget">
 						<div class="widget-title">
 							<h4><i class="icon-user"></i> Profile</h4>
@@ -313,8 +330,8 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 											<td><?php echo $user->created_date; ?> Par <?php echo $user->created_by; ?></td>
 										</tr>
 										<tr>
-											<td class="span2">Mot de passe mise à jour le : <a href="" class="icon-edit tooltips" data-original-title="Modifier"></a></td>
-											<td><?php echo $user->mdp_update_date; ?></td>
+											<td class="span2">Mot de passe mise à jour le : </td>
+											<td><?php echo $user->mdp_update_date; ?> <span><a href="#myModal_mdp_edit" data-toggle="modal" class="icon-edit tooltips" data-original-title="Changer votre mot de passe"></a></span></td>
 										</tr>
 									</tbody>
 								</table>
@@ -482,5 +499,36 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 		</div>
 	</div>
 </form><!-- End myModal_expirance_mod -->
+<form action="" method="post">
+	<div id="myModal_mdp_edit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_mdp_edit_Label" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModal_mdp_edit_Label">Changer votre mot de passe</h3>
+		</div>
+		<div class="modal-body">
+			<center>
+				<table width="80%">
+					<tr>
+						<td width="40%">Mot de passe actuelle</td>
+						<td width="60%"><input name="mdp_now" required type="password" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Nouveau mot de passe</td>
+						<td><input name="mdp_new" required type="password" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Repeter votre nouveau mot de passe</td>
+						<td><input name="mdp_new2" required type="password" placeholder="" class="input-large" /></td>
+					</tr>
+
+				</table>
+			</center>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			<input type="submit" class="btn btn-primary" value="Changer"/>
+		</div>
+	</div>
+</form><!-- End myModal_mdp_edit -->
 <?php include"../ili-functions/fragments/footer.php";?>
 <script>jQuery(document).ready(function() {App.init();});</script>

@@ -45,6 +45,15 @@ function message($code){
 		case "9";
 		alert_notif("alert-error", "ERREUR : Un utilisateur avec cette <strong>EMAIL</strong> exisite dans la base de données");
 		break;
+		case "10";
+		alert_notif("alert-error", "ERREUR : Le mot de passe actuel saisi est incorrect");
+		break;
+		case "11";
+		alert_notif("alert-error", "ERREUR : les deux nouveaux mots de passe sont incohérent");
+		break;
+		case "12";
+		alert_notif("alert-success", "OK : Votre mot de passe a été changé avec succès!");
+		break;
 		}
 	}
 ?>
