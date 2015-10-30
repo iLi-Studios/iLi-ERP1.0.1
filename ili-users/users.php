@@ -92,7 +92,10 @@ function get_users_list(){
 					</div>
 					<div class="widget-body">
 						<div class="span3">
-							<div class="text-center profile-pic"> <img src="'.$o->img_link.'" width="100%" height="226px;"> </div>
+							<div class="text-center profile-pic">'; 
+								if($o->img_link==''){echo'Pas de photo de profile';}else{echo'<img src="'.$o->img_link.'" width="100%" height="226px;">';}
+								echo'
+							</div>
 							<ul class="nav nav-tabs nav-stacked">';
 									if($o->fb){echo'<li><a href="'.$o->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Pas de Facebook </a></li>';}
 									if($o->linkedin){echo'<li><a href="'.$o->linkedin.'" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>';}else{echo'<li><i class="icon-linkedin"></i> Pas de LinkedIn </a></li>';}

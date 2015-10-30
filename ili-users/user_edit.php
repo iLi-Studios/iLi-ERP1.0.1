@@ -260,7 +260,9 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 						</div>
 						<div class="widget-body">
 							<div class="span3">
-								<div class="text-center profile-pic"> <img src="<?php echo $user->img_link;?>" width="100%" height="226px;"> </div>
+								<div class="text-center profile-pic">
+									<?php if($user->img_link==''){echo'Pas de photo de profile';}else{echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
+								</div>
 								<ul class="nav nav-tabs nav-stacked">
 									<?php
 									if($user->fb){echo'<li><a href="'.$user->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Pas de Facebook </a></li>';}
