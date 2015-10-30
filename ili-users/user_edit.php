@@ -11,13 +11,42 @@ if( (isset($_POST['skills_name'])) && (isset($_POST['skills'])) ){
 	query_execute_insert($query_skill_insert);
 	redirect('ili-users/user_edit?id='.$id_user);
 }
-//form skills mod
+
+//form diploma add
+if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (isset($_POST['diploma_diplome'])) && (isset($_POST['diploma_etablissement'])) ){	
+	$diploma_annee	 		= addslashes($_POST['diploma_annee']);
+	$diploma_lieux	 		= addslashes($_POST['diploma_lieux']);
+	$diploma_diplome 		= addslashes($_POST['diploma_diplome']);
+	$diploma_etablissement 	= addslashes($_POST['diploma_etablissement']);
+	$query_diploma_insert	= "INSERT INTO `users_diploma` (`id`, `id_user`, `annee`, `lieux`, `diplome`, `etablissement`) VALUES ('', '$id_user', '$diploma_annee', '$diploma_lieux', '$diploma_diplome', '$diploma_etablissement');";
+	query_execute_insert($query_diploma_insert);
+	redirect('ili-users/user_edit?id='.$id_user);
+}
+
+//form diploma mod
+if( (isset($_POST['diploma_id_mod'])) && (isset($_POST['diploma_annee_mod'])) && (isset($_POST['diploma_lieux_mod'])) && (isset($_POST['diploma_diplome_mod'])) && (isset($_POST['diploma_etablissement_mod'])) ){	
+	$diploma_annee_mod	 		= addslashes($_POST['diploma_annee_mod']);
+	$diploma_lieux_mod	 		= addslashes($_POST['diploma_lieux_mod']);
+	$diploma_diplome_mod 		= addslashes($_POST['diploma_diplome_mod']);
+	$diploma_etablissement_mod 	= addslashes($_POST['diploma_etablissement_mod']);
+	$diploma_id_mod				= addslashes($_POST['diploma_id_mod']);
+	$query_diploma_mod	= "UPDATE `users_diploma` 
+							SET 
+									`annee`			= '$diploma_annee_mod',
+									`lieux`			= '$diploma_lieux_mod',
+									`diplome` 		= '$diploma_diplome_mod',
+									`etablissement`	= '$diploma_etablissement_mod' 
+							WHERE `users_diploma`.`id` ='$diploma_id_mod';";
+	query_execute("mysqli_fetch_object", $query_diploma_mod);
+	redirect('ili-users/user_edit?id='.$id_user);
+}
 
 function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
 $user=get_user_info($id_user);
+
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -73,12 +102,49 @@ function get_users_diploma($id){
 		while ($o=mysqli_fetch_object($result)){
 			echo'	<li><i class="icon-hand-right"></i>
 						<strong>'.$o->diplome.'</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
+						<a href="#myModal_diploma_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
 						<a href="diploma_remove?id_user='.$_GET['id'].'&id_diploma='.$o->id.'" class="icon-trash tooltips" data-original-title="&nbsp;&nbsp;Supprimer"></a>
 						<br/>
 						<em>'.$o->lieux.', '.$o->annee.'</em><br/>
 						<em><strong>'.$o->etablissement.'</strong></em><br>
-					</li><br>';
+					</li><br>
+					<!-- Start myModal_diploma_mod -->
+					<form action="" method="post">
+						<div id="myModal_diploma_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_diploma_mod_Label" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="myModal_diploma_mod_Label">Diplôme Modification</h3>
+							</div>
+							<div class="modal-body">
+								<center>
+									<table width="80%">
+										<tr>
+											<td width="40%">Annee</td>
+											<td width="60%"><input name="diploma_annee_mod" required type="text" value="'.$o->annee.'" class="input-large" /></td>
+										</tr>
+										<tr>
+											<td>Lieux</td>
+											<td><input name="diploma_lieux_mod" required type="text" value="'.$o->lieux.'" class="input-large" /></td>
+										</tr>
+										<tr>
+											<td>Diplôme</td>
+											<td><input name="diploma_diplome_mod" required type="text" value="'.$o->diplome.'" class="input-large" /></td>
+										</tr>
+										<tr>
+											<td>Etablissement</td>
+											<td><input name="diploma_etablissement_mod" required type="text" value="'.$o->etablissement.'" class="input-large" /></td>
+										</tr>
+											<input type="hidden" name="diploma_id_mod" value="'.$o->id.'"/>	
+									</table>
+								</center>
+							</div>
+							<div class="modal-footer">
+								<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+								<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
+							</div>
+						</div>
+					</form><!-- End myModal_diploma_mod -->
+					';				
 		}
 	}
 }
@@ -209,7 +275,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 								</div>
 							</div>
 							<div class="span3">
-								<h4>Diplômes <span><a href="" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
+								<h4>Diplômes <span><a href="#myModal_diploma_add" data-toggle="modal" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push"><?php get_users_diploma($id_user);?></ul>
 								<h4>Expérance <span><a href="" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push"><?php get_users_expirance($id_user);?></ul>
@@ -242,7 +308,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 					</tr>
 					<tr>
 						<td>Niveau</td>
-						<td><input name="skills" required type="range" placeholder="de 1 a 99" class="input-large" /> %</td>
+						<td><input name="skills" required type="range" class="input-large" /> %</td>
 					</tr>
 				</table>
 			</center>
@@ -253,5 +319,41 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 		</div>
 	</div>
 </form><!-- End myModal_skills_add -->
+<form action="" method="post">
+	<div id="myModal_diploma_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_diploma_add_Label" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModal_diploma_add_Label">Diplôme Ajout</h3>
+		</div>
+		<div class="modal-body">
+			<center>
+				<table width="80%">
+					<tr>
+						<td width="40%">Annee</td>
+						<td width="60%"><input name="diploma_annee" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Lieux</td>
+						<td><input name="diploma_lieux" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Diplôme</td>
+						<td><input name="diploma_diplome" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Etablissement</td>
+						<td><input name="diploma_etablissement" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+				</table>
+			</center>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			<input type="submit" class="btn btn-primary" value="Ajouter"/>
+		</div>
+	</div>
+</form><!-- End myModal_diploma_add -->
+
+
 <?php include"../ili-functions/fragments/footer.php";?>
 <script>jQuery(document).ready(function() {App.init();});</script>
