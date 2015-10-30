@@ -49,9 +49,23 @@ if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) 
 	redirect('ili-users/user_edit?id='.$id_user);
 }
 //form expirance mod
-
-
-
+if( (isset($_POST['exp_company_mod'])) && (isset($_POST['exp_companyurl_mod'])) && (isset($_POST['exp_duration_mod'])) && (isset($_POST['exp_experance_mod'])) && (isset($_POST['epx_id_mod'])) ){	
+	$exp_company_mod	 		= addslashes($_POST['exp_company_mod']);
+	$exp_companyurl_mod	 		= addslashes($_POST['exp_companyurl_mod']);
+	$exp_duration_mod 			= addslashes($_POST['exp_duration_mod']);
+	$exp_experance_mod 			= addslashes($_POST['exp_experance_mod']);
+	$epx_id_mod					= addslashes($_POST['epx_id_mod']);
+	$query_experance_mod		= " UPDATE users_expirance
+									SET 
+										id_user='$id_user',
+										company='$exp_company_mod',
+										company_url='$exp_companyurl_mod',
+										duration='$exp_duration_mod',
+										experience='$exp_experance_mod'
+									WHERE id='$epx_id_mod';";
+	query_execute_insert($query_experance_mod);
+	redirect('ili-users/user_edit?id='.$id_user);
+}
 function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
@@ -83,27 +97,28 @@ function get_users_expirance($id){
 										<table width="80%">
 											<tr>
 												<td width="40%">Etablissement</td>
-												<td width="60%"><input name="exp_company_mod" required type="text" placeholder="" class="input-large" /></td>
+												<td width="60%"><input name="exp_company_mod" required type="text" value="'.$o->company.'" class="input-large" /></td>
 											</tr>
 											<tr>
 												<td>URL Etablissement</td>
-												<td><input name="exp_companyurl_mod" required type="text" placeholder="" class="input-large" /></td>
+												<td><input name="exp_companyurl_mod" required type="text" value="'.$o->company_url.'" class="input-large" /></td>
 											</tr>
 											<tr>
 												<td>Durée</td>
-												<td><input name="exp_duration_mod" required type="text" placeholder="" class="input-large" /></td>
+												<td><input name="exp_duration_mod" required type="text" value="'.$o->duration.'" class="input-large" /></td>
 											</tr>
 											<tr>
 												<td>Expérance</td>
-												<td><textarea name="exp_experance_mod" style="resize: vertical; width:100%; max-height:150px;" rows="4"></textarea></td>
+												<td><textarea name="exp_experance_mod" style="resize: vertical; width:100%; max-height:150px;" rows="4">'.$o->experience.'</textarea></td>
 											</tr>
 										</table>
 									</center>
-									<h6>NB: URL Teablissement doit être complet <br>EXP. http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
+									<h6>NB: URL Etablissement doit être complet <br>EXP: http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
 								</div>
 								<div class="modal-footer">
+									<input type="hidden" name="epx_id_mod" value="'.$o->id.'"/>
 									<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-									<input type="submit" class="btn btn-primary" value="Ajouter"/>
+									<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
 								</div>
 							</div>
 						</form><!-- End myModal_expirance_mod -->						
@@ -176,12 +191,12 @@ function get_users_diploma($id){
 											<tr>
 												<td>Etablissement</td>
 												<td><input name="diploma_etablissement_mod" required type="text" value="'.$o->etablissement.'" class="input-large" /></td>
-											</tr>
-												<input type="hidden" name="diploma_id_mod" value="'.$o->id.'"/>	
+											</tr>	
 										</table>
 									</center>
 								</div>
 								<div class="modal-footer">
+									<input type="hidden" name="diploma_id_mod" value="'.$o->id.'"/>
 									<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
 									<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
 								</div>
@@ -457,7 +472,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 					</tr>
 				</table>
 			</center>
-			<h6>NB: URL Teablissement doit être complet <br>EXP. http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
+			<h6>NB: URL Etablissement doit être complet <br>EXP: http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
