@@ -1,5 +1,5 @@
-<?php include"../ili-functions/functions.php";?>
-<?php
+<?php 
+include"../ili-functions/functions.php";
 autorisation('2');
 // get user info from id
 $id_user=$_GET['id'];
@@ -11,7 +11,6 @@ if( (isset($_POST['skills_name'])) && (isset($_POST['skills'])) ){
 	query_execute_insert($query_skill_insert);
 	redirect('ili-users/user_edit?id='.$id_user);
 }
-
 //form diploma add
 if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (isset($_POST['diploma_diplome'])) && (isset($_POST['diploma_etablissement'])) ){	
 	$diploma_annee	 		= addslashes($_POST['diploma_annee']);
@@ -22,7 +21,6 @@ if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (iss
 	query_execute_insert($query_diploma_insert);
 	redirect('ili-users/user_edit?id='.$id_user);
 }
-
 //form expirance add
 if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) && (isset($_POST['exp_duration_add'])) && (isset($_POST['exp_experance_add'])) ){	
 	$exp_company_add	 		= addslashes($_POST['exp_company_add']);
@@ -56,7 +54,6 @@ function get_user_info($id){
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
 $user=get_user_info($id_user);
-
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -75,7 +72,6 @@ function get_users_expirance($id){
 		}
 	}
 }
-
 function get_users_skills($id){
 	$query="SELECT * FROM users_skills WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE COMPETANCE!</strong>";}
@@ -103,7 +99,6 @@ function get_users_skills($id){
 		}
 	}
 }
-
 function get_users_diploma($id){
 	$query="SELECT * FROM users_diploma WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE DIPLOME!</strong>";}
@@ -158,9 +153,9 @@ function get_users_diploma($id){
 		}
 	}
 }
-
 function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}	
 ?>
+
 <?php include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
 <body class="fixed-top">
@@ -300,9 +295,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 		<!-- END PAGE CONTAINER--> 
 	</div>
 	<!-- END PAGE --> 
-</div>
-<!-- END CONTAINER -->
-
+</div><!-- END CONTAINER -->
 <form action="" method="post">
 	<div id="myModal_skills_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_skills_add_Label" aria-hidden="true">
 		<div class="modal-header">
@@ -398,7 +391,5 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 		</div>
 	</div>
 </form><!-- End myModal_expirance_add -->
-
-
 <?php include"../ili-functions/fragments/footer.php";?>
 <script>jQuery(document).ready(function() {App.init();});</script>
