@@ -1,5 +1,5 @@
-<?php include"../ili-functions/functions.php";?>
 <?php 
+include"../ili-functions/functions.php"; 
 autorisation('2');
 function get_users_last_diploma($id){
 	$query="SELECT * FROM users_diploma WHERE id_user='$id' ORDER BY id DESC LIMIT 1;";
@@ -15,7 +15,6 @@ function get_users_last_diploma($id){
 		}
 	}
 }	
-
 function get_users_last_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC LIMIT 1;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -31,7 +30,6 @@ function get_users_last_expirance($id){
 		}
 	}
 }
-
 function get_users_skills($id){
 	$query="SELECT * FROM users_skills WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE COMPETANCE!</strong>";}
@@ -54,7 +52,6 @@ function get_users_skills($id){
 	}
 }
 function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}	
-
 function get_users_list(){
 	$query="SELECT * FROM users, users_rank WHERE users.id_rank=users_rank.id_rank";
 	$result=query_excute_while($query);
@@ -141,52 +138,50 @@ function get_users_list(){
 				</div>
 			';}
 }
-?>
-<?php include"../ili-functions/fragments/head.php";?>
+include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
 <body class="fixed-top">
 <?php include"../ili-functions/fragments/page_header.php";?>
 <!-- BEGIN CONTAINER -->
 <div id="container" class="row-fluid">
-<?php include"../ili-functions/fragments/sidebar.php";?>
-<!-- BEGIN PAGE -->
-<div id="main-content"> 
-	<!-- BEGIN PAGE CONTAINER-->
-	<div class="container-fluid"> 
-		<!-- BEGIN PAGE HEADER-->
-		<div class="row-fluid">
-			<div class="span12"> 
-				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-				<h3 class="page-title"> Utilisateurs <small> Infos globales</small> </h3>
-				<ul class="breadcrumb">
-					<li> <a href="<?php echo $site ;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-					<li> <a href="<?php echo $site ;?>ili-users/users">Utilisateurs du système</a><span class="divider-last">&nbsp;</span></li>
-					<li class="pull-right search-wrap">
-						<form class="hidden-phone">
-							<div class="search-input-area">
-								<input id=" " class="search-query" type="text" placeholder="Recherche ?">
-								<i class="icon-search"></i> </div>
-						</form>
-					</li>
-				</ul>
-				<!-- END PAGE TITLE & BREADCRUMB--> 
+	<?php include"../ili-functions/fragments/sidebar.php";?>
+	<!-- BEGIN PAGE -->
+	<div id="main-content"> 
+		<!-- BEGIN PAGE CONTAINER-->
+		<div class="container-fluid"> 
+			<!-- BEGIN PAGE HEADER-->
+			<div class="row-fluid">
+				<div class="span12"> 
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+					<h3 class="page-title"> Utilisateurs <small> Infos globales</small> </h3>
+					<ul class="breadcrumb">
+						<li> <a href="<?php echo $site ;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+						<li> <a href="<?php echo $site ;?>ili-users/users">Utilisateurs du système</a><span class="divider-last">&nbsp;</span></li>
+						<li class="pull-right search-wrap">
+							<form class="hidden-phone">
+								<div class="search-input-area">
+									<input id=" " class="search-query" type="text" placeholder="Recherche ?">
+									<i class="icon-search"></i> </div>
+							</form>
+						</li>
+					</ul>
+					<!-- END PAGE TITLE & BREADCRUMB--> 
+				</div>
 			</div>
-		</div>
-		<!-- END PAGE HEADER--> 
-		<!-- BEGIN PAGE CONTENT-->
-		<div class="row-fluid">
-			<div class="span12">
-				<?php get_message('message'); ?>
-				<?php get_users_list(); ?>
+			<!-- END PAGE HEADER--> 
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row-fluid">
+				<div class="span12">
+					<?php get_message('message'); ?>
+					<?php get_users_list(); ?>
+				</div>
+				<!-- END PAGE CONTENT--> 
 			</div>
-			<!-- END PAGE CONTENT--> 
+			<!-- END PAGE CONTAINER--> 
 		</div>
-		<!-- END PAGE CONTAINER--> 
+		<!-- END PAGE --> 
 	</div>
-	<!-- END PAGE --> 
+	<!-- END CONTAINER -->
 </div>
-<!-- END CONTAINER -->
-</div>
-
 <?php include"../ili-functions/fragments/footer.php";?>
 <script>jQuery(document).ready(function() {App.init();});</script>
