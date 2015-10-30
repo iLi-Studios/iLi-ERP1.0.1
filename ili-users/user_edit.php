@@ -86,6 +86,9 @@ if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['m
 	}
 	else{redirect('ili-users/user_edit?message=10&id='.$id_user);}
 }
+//form information change
+if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste'])) && (isset($_POST['email'])) && (isset($_POST['tel'])) && (isset($_POST['rank'])) ){
+}
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -224,15 +227,23 @@ function get_users_diploma($id){
 }
 function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
 function grade_list($rank_user){
-	//$query="SELECT * FROM `rank` WHERE `id_rank`>'1' AND `id_rank`<'6' ORDER BY id_rank ASC";
-	$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
-	//if($_SESSION['user_id_rank']=6){$query==$query6;}else{$query==$query5;}
-	$result=query_excute_while($query);
-	while ($o=mysqli_fetch_object($result)){
-		if($rank_user==$o->id_rank){$selected='selected="selected"';}else{$selected='';}
-		echo'<option '.$selected.' value="'.$o->id_rank.'">'.$o->rank.'</option>';
+	if($_SESSION['user_id_rank']==6){
+		$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			if($rank_user==$o->id_rank){$selected='selected="selected"';}else{$selected='';}
+			echo'<option '.$selected.' value="'.$o->id_rank.'">'.$o->rank.'</option>';
+		}
 	}
-}	
+	else{
+		$query="SELECT * FROM `users_rank` WHERE `id_rank`<'6' ORDER BY id_rank ASC";
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			if($rank_user==$o->id_rank){$selected='selected="selected"';}else{$selected='';}
+			echo'<option '.$selected.' value="'.$o->id_rank.'">'.$o->rank.'</option>';
+	}
+}
+}
 ?>
 
 <!DOCTYPE html>

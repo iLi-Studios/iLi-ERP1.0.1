@@ -2,11 +2,20 @@
 include"../ili-functions/functions.php";
 autorisation('5'); 
 function grade_list(){
-	//$query="SELECT * FROM `rank` WHERE `id_rank`>'1' AND `id_rank`<'6' ORDER BY id_rank ASC";
-	$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
-	//if($_SESSION['user_id_rank']=6){$query==$query6;}else{$query==$query5;}
-	$result=query_excute_while($query);
-	while ($o=mysqli_fetch_object($result)){echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';}
+	if($_SESSION['user_id_rank']==6){
+		$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';
+		}
+	}
+	else{
+		$query="SELECT * FROM `users_rank` WHERE `id_rank`<'6' ORDER BY id_rank ASC";
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';
+		}
+	}
 }
 function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse, $date_naissance, $mdp, $fb, $github, $linkedin, $img_url, $admin){
 	$query_test1 = "SELECT * FROM users WHERE id_user='$cin';";
