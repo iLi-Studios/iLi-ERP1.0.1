@@ -87,7 +87,26 @@ if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['m
 	else{redirect('ili-users/user_edit?message=10&id='.$id_user);}
 }
 //form information change
-if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste'])) && (isset($_POST['email'])) && (isset($_POST['tel'])) && (isset($_POST['rank'])) ){
+if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste'])) && (isset($_POST['email'])) && (isset($_POST['tel'])) && (isset($_POST['rank'])) && (isset($_POST['date_naissance'])) ){
+	$nom			=addslashes($_POST['nom']);
+	$prenom			=addslashes($_POST['prenom']);
+	$poste			=addslashes($_POST['poste']);
+	$email			=addslashes($_POST['email']);
+	$tel			=addslashes($_POST['tel']);
+	$rank			=addslashes($_POST['rank']);
+	$date_naissance =addslashes($_POST['date_naissance']);
+	$query_info_update="UPDATE `users` 
+						SET
+							`id_rank` 		='$rank',
+							`nom`			='$nom',
+							`prenom`		='$prenom',
+							`email`			='$email',
+							`poste`			='$poste',
+							`tel`			='$tel',
+							`date_naissance`='$date_naissance'
+						WHERE `id_user`='$id_user';";
+	query_execute("mysqli_fetch_object", $query_info_update);
+	redirect('ili-users/user_edit?id='.$id_user);	
 }
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
@@ -601,10 +620,13 @@ function grade_list($rank_user){
 						<td>Prénom</td>
 						<td><input name="prenom" required type="text" value="<?php echo $user->prenom;?>" class="input-large" /></td>
 					</tr>
+					<?php if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) ){echo'
 					<tr>
 						<td>Poste</td>
-						<td><input name="poste" required type="text" value="<?php echo $user->poste;?>" class="input-large" /></td>
+						<td><input name="poste" required type="text" value="';?><?php echo $user->poste;?><?php echo'" class="input-large" /></td>
 					</tr>
+					';}else{echo'<input name="poste" type="hidden" value="'.$user->poste.'"/>';}?>
+					
 					<tr>
 						<td>Email</td>
 						<td><input name="email" required type="email" value="<?php echo $user->email;?>" class="input-large" /></td>
@@ -615,12 +637,15 @@ function grade_list($rank_user){
 					</tr>
 					<tr>
 						<td>Date de naissance</td>
-						<td><input name="date" required type="text" value="<?php echo $user->date_naissance;?>" class="input-large" /></td>
+						<td><input name="date_naissance" required type="text" value="<?php echo $user->date_naissance;?>" class="input-large" /></td>
 					</tr>
+					<?php if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) ){echo'
 					<tr>
 						<td>Grade</td>
-						<td><select name="rank" required tabindex="1"><?php grade_list($user->id_rank); ?></select></td>
+						<td><select name="rank" required tabindex="1">';?><?php grade_list($user->id_rank);?><?php echo'</select></td>
 					</tr>
+					';}else{echo'<input name="rank" type="hidden" value="'.$user->id_rank.'"/>';}?>					
+					
 				</table>
 			</center>
 		</div>
