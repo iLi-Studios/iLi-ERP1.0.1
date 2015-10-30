@@ -228,7 +228,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 					<h3 class="page-title"> Utilisateurs <small> Modification</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li> <a href=">ili-users/users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
+						<li> <a href="users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
 						<li> <a href="user_profile?id=<?php echo $id_user;?>">Profile </a><span class="divider">&nbsp;</span>
 						<li> <a href="user_edit?id=<?php echo $id_user;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
