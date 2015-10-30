@@ -48,6 +48,9 @@ if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) 
 	query_execute_insert($query_experance_add);
 	redirect('ili-users/user_edit?id='.$id_user);
 }
+//form expirance mod
+
+
 
 function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
@@ -62,13 +65,49 @@ function get_users_expirance($id){
 		while ($o=mysqli_fetch_object($result)){
 			echo'	<li><i class="icon-hand-right"></i>
 						<strong>'.$o->company.'</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
+						<a href="#myModal_expirance_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
 						<a href="expirance_remove?id_user='.$_GET['id'].'&id_expirance='.$o->id.'" class="icon-trash tooltips" data-original-title="&nbsp;&nbsp;Supprimer"></a>
 						<br/>
 						<em>Durée : '.$o->duration.'</em><br/>
 						<em>&nbsp;&nbsp;&nbsp;'.$o->experience.'</em><br>
 						<a href="'.$o->company_url.'" target="new">'.$o->company_url.'</a>
-					</li><br>';
+						<!-- Start myModal_expirance_mod -->					
+						<form action="" method="post">
+							<div id="myModal_expirance_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_mod_Label" aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h3 id="myModal_expirance_mod_Label">Diplôme Ajout</h3>
+								</div>
+								<div class="modal-body">
+									<center>
+										<table width="80%">
+											<tr>
+												<td width="40%">Etablissement</td>
+												<td width="60%"><input name="exp_company_mod" required type="text" placeholder="" class="input-large" /></td>
+											</tr>
+											<tr>
+												<td>URL Etablissement</td>
+												<td><input name="exp_companyurl_mod" required type="text" placeholder="" class="input-large" /></td>
+											</tr>
+											<tr>
+												<td>Durée</td>
+												<td><input name="exp_duration_mod" required type="text" placeholder="" class="input-large" /></td>
+											</tr>
+											<tr>
+												<td>Expérance</td>
+												<td><textarea name="exp_experance_mod" style="resize: vertical; width:100%; max-height:150px;" rows="4"></textarea></td>
+											</tr>
+										</table>
+									</center>
+									<h6>NB: URL Teablissement doit être complet <br>EXP. http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
+								</div>
+								<div class="modal-footer">
+									<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+									<input type="submit" class="btn btn-primary" value="Ajouter"/>
+								</div>
+							</div>
+						</form><!-- End myModal_expirance_mod -->						
+					</li>';
 		}
 	}
 }
@@ -112,43 +151,43 @@ function get_users_diploma($id){
 						<br/>
 						<em>'.$o->lieux.', '.$o->annee.'</em><br/>
 						<em><strong>'.$o->etablissement.'</strong></em><br>
-					</li><br>
-					<!-- Start myModal_diploma_mod -->
-					<form action="" method="post">
-						<div id="myModal_diploma_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_diploma_mod_Label" aria-hidden="true">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 id="myModal_diploma_mod_Label">Diplôme Modification</h3>
+						<!-- Start myModal_diploma_mod -->
+						<form action="" method="post">
+							<div id="myModal_diploma_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_diploma_mod_Label" aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h3 id="myModal_diploma_mod_Label">Diplôme Modification</h3>
+								</div>
+								<div class="modal-body">
+									<center>
+										<table width="80%">
+											<tr>
+												<td width="40%">Annee</td>
+												<td width="60%"><input name="diploma_annee_mod" required type="text" value="'.$o->annee.'" class="input-large" /></td>
+											</tr>
+											<tr>
+												<td>Lieux</td>
+												<td><input name="diploma_lieux_mod" required type="text" value="'.$o->lieux.'" class="input-large" /></td>
+											</tr>
+											<tr>
+												<td>Diplôme</td>
+												<td><input name="diploma_diplome_mod" required type="text" value="'.$o->diplome.'" class="input-large" /></td>
+											</tr>
+											<tr>
+												<td>Etablissement</td>
+												<td><input name="diploma_etablissement_mod" required type="text" value="'.$o->etablissement.'" class="input-large" /></td>
+											</tr>
+												<input type="hidden" name="diploma_id_mod" value="'.$o->id.'"/>	
+										</table>
+									</center>
+								</div>
+								<div class="modal-footer">
+									<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+									<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
+								</div>
 							</div>
-							<div class="modal-body">
-								<center>
-									<table width="80%">
-										<tr>
-											<td width="40%">Annee</td>
-											<td width="60%"><input name="diploma_annee_mod" required type="text" value="'.$o->annee.'" class="input-large" /></td>
-										</tr>
-										<tr>
-											<td>Lieux</td>
-											<td><input name="diploma_lieux_mod" required type="text" value="'.$o->lieux.'" class="input-large" /></td>
-										</tr>
-										<tr>
-											<td>Diplôme</td>
-											<td><input name="diploma_diplome_mod" required type="text" value="'.$o->diplome.'" class="input-large" /></td>
-										</tr>
-										<tr>
-											<td>Etablissement</td>
-											<td><input name="diploma_etablissement_mod" required type="text" value="'.$o->etablissement.'" class="input-large" /></td>
-										</tr>
-											<input type="hidden" name="diploma_id_mod" value="'.$o->id.'"/>	
-									</table>
-								</center>
-							</div>
-							<div class="modal-footer">
-								<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-								<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
-							</div>
-						</div>
-					</form><!-- End myModal_diploma_mod -->
+						</form><!-- End myModal_diploma_mod -->
+					</li>
 					';				
 		}
 	}
@@ -391,5 +430,40 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 		</div>
 	</div>
 </form><!-- End myModal_expirance_add -->
+<form action="" method="post">
+	<div id="myModal_expirance_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_mod_Label" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModal_expirance_mod_Label">Diplôme Ajout</h3>
+		</div>
+		<div class="modal-body">
+			<center>
+				<table width="80%">
+					<tr>
+						<td width="40%">Etablissement</td>
+						<td width="60%"><input name="exp_company_mod" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>URL Etablissement</td>
+						<td><input name="exp_companyurl_mod" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Durée</td>
+						<td><input name="exp_duration_mod" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Expérance</td>
+						<td><textarea name="exp_experance_mod" style="resize: vertical; width:100%; max-height:150px;" rows="4"></textarea></td>
+					</tr>
+				</table>
+			</center>
+			<h6>NB: URL Teablissement doit être complet <br>EXP. http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			<input type="submit" class="btn btn-primary" value="Ajouter"/>
+		</div>
+	</div>
+</form><!-- End myModal_expirance_mod -->
 <?php include"../ili-functions/fragments/footer.php";?>
 <script>jQuery(document).ready(function() {App.init();});</script>

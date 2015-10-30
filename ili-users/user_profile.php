@@ -1,5 +1,5 @@
-<?php include"../ili-functions/functions.php";?>
-<?php
+<?php 
+include"../ili-functions/functions.php";
 autorisation('2');
 $id_user=$_GET['id'];
 // get user info from id
@@ -8,22 +8,6 @@ function get_user_info($id){
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
 $user=get_user_info($id_user);
-function get_users_expirance($id){
-	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
-	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
-	else{
-		$result=query_excute_while($query);
-		while ($o=mysqli_fetch_object($result)){
-			echo'	<li><i class="icon-hand-right"></i>
-						<strong>'.$o->company.'</strong><br/>
-						<em>Durée : '.$o->duration.'</em><br/>
-						<em>&nbsp;&nbsp;&nbsp;'.$o->experience.'</em><br>
-						<a href="'.$o->company_url.'" target="new">'.$o->company_url.'</a>
-					</li><br>';
-		}
-	}
-}
-
 function get_users_skills($id){
 	$query="SELECT * FROM users_skills WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE COMPETANCE!</strong>";}
@@ -45,7 +29,6 @@ function get_users_skills($id){
 		}
 	}
 }
-
 function get_users_diploma($id){
 	$query="SELECT * FROM users_diploma WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE DIPLOME!</strong>";}
@@ -60,7 +43,21 @@ function get_users_diploma($id){
 		}
 	}
 }
-
+function get_users_expirance($id){
+	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
+	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
+	else{
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			echo'	<li><i class="icon-hand-right"></i>
+						<strong>'.$o->company.'</strong><br/>
+						<em>Durée : '.$o->duration.'</em><br/>
+						<em>&nbsp;&nbsp;&nbsp;'.$o->experience.'</em><br>
+						<a href="'.$o->company_url.'" target="new">'.$o->company_url.'</a>
+					</li><br>';
+		}
+	}
+}
 function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}	
 ?>
 <?php include"../ili-functions/fragments/head.php";?>
