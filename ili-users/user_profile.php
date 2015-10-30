@@ -173,7 +173,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 								<table class="table table-borderless">
 									<tbody><?php get_users_skills($id_user); ?></tbody>
 								</table>
-								<h4>Addresse</h4>
+								<h4>Adresse</h4>
 								<div class="well">
 									<address>
 									<strong><?php echo $user->nom; ?> <?php echo $user->prenom; ?></strong><br>
