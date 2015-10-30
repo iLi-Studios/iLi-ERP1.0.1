@@ -86,7 +86,6 @@ if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['m
 	}
 	else{redirect('ili-users/user_edit?message=10&id='.$id_user);}
 }
-
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
