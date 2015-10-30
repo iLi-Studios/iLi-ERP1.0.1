@@ -21,16 +21,6 @@ if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (iss
 	query_execute_insert($query_diploma_insert);
 	redirect('ili-users/user_edit?id='.$id_user);
 }
-//form expirance add
-if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) && (isset($_POST['exp_duration_add'])) && (isset($_POST['exp_experance_add'])) ){	
-	$exp_company_add	 		= addslashes($_POST['exp_company_add']);
-	$exp_companyurl_add	 		= addslashes($_POST['exp_companyurl_add']);
-	$exp_duration_add 			= addslashes($_POST['exp_duration_add']);
-	$exp_experance_add 			= addslashes($_POST['exp_experance_add']);
-	$query_experance_add		= "INSERT INTO `users_expirance` (`id`, `id_user`, `company`, `company_url`, `duration`, `experience`) VALUES (NULL, '$id_user', '$exp_company_add', '$exp_companyurl_add', '$exp_duration_add', '$exp_experance_add');";
-	query_execute_insert($query_experance_add);
-	redirect('ili-users/user_edit?id='.$id_user);
-}
 //form diploma mod
 if( (isset($_POST['diploma_id_mod'])) && (isset($_POST['diploma_annee_mod'])) && (isset($_POST['diploma_lieux_mod'])) && (isset($_POST['diploma_diplome_mod'])) && (isset($_POST['diploma_etablissement_mod'])) ){	
 	$diploma_annee_mod	 		= addslashes($_POST['diploma_annee_mod']);
@@ -46,6 +36,16 @@ if( (isset($_POST['diploma_id_mod'])) && (isset($_POST['diploma_annee_mod'])) &&
 									`etablissement`	= '$diploma_etablissement_mod' 
 							WHERE `users_diploma`.`id` ='$diploma_id_mod';";
 	query_execute("mysqli_fetch_object", $query_diploma_mod);
+	redirect('ili-users/user_edit?id='.$id_user);
+}
+//form expirance add
+if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) && (isset($_POST['exp_duration_add'])) && (isset($_POST['exp_experance_add'])) ){	
+	$exp_company_add	 		= addslashes($_POST['exp_company_add']);
+	$exp_companyurl_add	 		= addslashes($_POST['exp_companyurl_add']);
+	$exp_duration_add 			= addslashes($_POST['exp_duration_add']);
+	$exp_experance_add 			= addslashes($_POST['exp_experance_add']);
+	$query_experance_add		= "INSERT INTO `users_expirance` (`id`, `id_user`, `company`, `company_url`, `duration`, `experience`) VALUES (NULL, '$id_user', '$exp_company_add', '$exp_companyurl_add', '$exp_duration_add', '$exp_experance_add');";
+	query_execute_insert($query_experance_add);
 	redirect('ili-users/user_edit?id='.$id_user);
 }
 
