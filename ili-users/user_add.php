@@ -1,5 +1,5 @@
-<?php include"../ili-functions/functions.php";?>
 <?php 
+include"../ili-functions/functions.php";
 autorisation('5'); 
 function grade_list(){
 	//$query="SELECT * FROM `rank` WHERE `id_rank`>'1' AND `id_rank`<'6' ORDER BY id_rank ASC";
@@ -8,7 +8,6 @@ function grade_list(){
 	$result=query_excute_while($query);
 	while ($o=mysqli_fetch_object($result)){echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';}
 }
-
 function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse, $date_naissance, $mdp, $fb, $github, $linkedin, $img_url, $admin){
 	$query_test1 = "SELECT * FROM users WHERE id_user='$cin';";
 	$query_test2 = "SELECT * FROM users WHERE email='$email';";
@@ -19,8 +18,7 @@ function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse,
 		else{query_execute_insert($query);redirect('ili-users/users');}
 	}
 }
-
-
+// forme user_add
 if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(isset($_POST['email']))&&(isset($_POST['tel']))&&(isset($_POST['mdp']))&&(isset($_POST['poste']))&&(isset($_POST['rank']))&&(isset($_POST['adresse']))&&(isset($_POST['date_naissance']))){
 	$cin						=addslashes($_POST['cin']);
 	$nom						=addslashes($_POST['nom']);
