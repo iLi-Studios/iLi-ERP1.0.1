@@ -23,6 +23,16 @@ if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (iss
 	redirect('ili-users/user_edit?id='.$id_user);
 }
 
+//form expirance add
+if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) && (isset($_POST['exp_duration_add'])) && (isset($_POST['exp_experance_add'])) ){	
+	$exp_company_add	 		= addslashes($_POST['exp_company_add']);
+	$exp_companyurl_add	 		= addslashes($_POST['exp_companyurl_add']);
+	$exp_duration_add 			= addslashes($_POST['exp_duration_add']);
+	$exp_experance_add 			= addslashes($_POST['exp_experance_add']);
+	$query_experance_add		= "INSERT INTO `users_expirance` (`id`, `id_user`, `company`, `company_url`, `duration`, `experience`) VALUES (NULL, '$id_user', '$exp_company_add', '$exp_companyurl_add', '$exp_duration_add', '$exp_experance_add');";
+	query_execute_insert($query_experance_add);
+	redirect('ili-users/user_edit?id='.$id_user);
+}
 //form diploma mod
 if( (isset($_POST['diploma_id_mod'])) && (isset($_POST['diploma_annee_mod'])) && (isset($_POST['diploma_lieux_mod'])) && (isset($_POST['diploma_diplome_mod'])) && (isset($_POST['diploma_etablissement_mod'])) ){	
 	$diploma_annee_mod	 		= addslashes($_POST['diploma_annee_mod']);
@@ -262,7 +272,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 								<table class="table table-borderless">
 									<tbody><?php get_users_skills($id_user); ?></tbody>
 								</table>
-								<h4>Addresse</h4>
+								<h4>Adresse</h4>
 								<div class="well">
 									<address>
 									<strong><?php echo $user->nom; ?> <?php echo $user->prenom; ?></strong><br>
@@ -277,7 +287,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 							<div class="span3">
 								<h4>Diplômes <span><a href="#myModal_diploma_add" data-toggle="modal" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push"><?php get_users_diploma($id_user);?></ul>
-								<h4>Expérance <span><a href="" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
+								<h4>Expérance <span><a href="#myModal_expirance_add" data-toggle="modal"  class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push"><?php get_users_expirance($id_user);?></ul>
 							</div>
 							<div class="space5"></div>
@@ -353,6 +363,41 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 		</div>
 	</div>
 </form><!-- End myModal_diploma_add -->
+<form action="" method="post">
+	<div id="myModal_expirance_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_add_Label" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModal_expirance_add_Label">Diplôme Ajout</h3>
+		</div>
+		<div class="modal-body">
+			<center>
+				<table width="80%">
+					<tr>
+						<td width="40%">Etablissement</td>
+						<td width="60%"><input name="exp_company_add" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>URL Etablissement</td>
+						<td><input name="exp_companyurl_add" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Durée</td>
+						<td><input name="exp_duration_add" required type="text" placeholder="" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Expérance</td>
+						<td><textarea name="exp_experance_add" style="resize: vertical; width:100%; max-height:150px;" rows="4"></textarea></td>
+					</tr>
+				</table>
+			</center>
+			<h6>NB: URL Teablissement doit être complet <br>EXP. http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			<input type="submit" class="btn btn-primary" value="Ajouter"/>
+		</div>
+	</div>
+</form><!-- End myModal_expirance_add -->
 
 
 <?php include"../ili-functions/fragments/footer.php";?>
