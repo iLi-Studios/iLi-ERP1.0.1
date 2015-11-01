@@ -117,6 +117,16 @@ if( isset($_POST['img_url_mod']) ){
 	query_execute("mysqli_fetch_object", $query_img_url_mod);
 	redirect('ili-users/user_edit?id='.$id_user);
 }
+//form Social
+if( (isset($_POST['fb_url'])) && (isset($_POST['linkedin_url'])) && (isset($_POST['github_url'])) ){
+	$fb_url				= addslashes($_POST['fb_url']);
+	$linkedin_url		= addslashes($_POST['linkedin_url']);
+	$github_url			= addslashes($_POST['github_url']);
+	$query_socieaux_edit= "UPDATE `users` SET `fb`='$fb_url', `github`='$linkedin_url', `linkedin`='$github_url' WHERE `id_user`='$id_user';";
+	
+	query_execute("mysqli_fetch_object", $query_socieaux_edit);
+	redirect('ili-users/user_edit?id='.$id_user);
+}
 
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
@@ -362,7 +372,7 @@ function grade_list($rank_user){
 							<div class="span3">
 								<div class="text-center profile-pic">
 									<?php if($user->img_link==''){echo'Pas de photo de profile';}else{echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
-									<span><a href="#myModal_img_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier"></a></span>
+									<span><a href="#myModal_img_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier votre photo"></a></span>
 								</div>
 								<ul class="nav nav-tabs nav-stacked">
 									<?php
@@ -370,6 +380,7 @@ function grade_list($rank_user){
 									if($user->linkedin){echo'<li><a href="'.$user->linkedin.'" target="new"><i class="icon-linkedin"></i> LinkedIn</a></li>';}else{echo'<li><i class="icon-linkedin"></i> Pas de LinkedIn </a></li>';}
 									if($user->github){echo'<li><a href="'.$user->github.'" target="new"><i class="icon-github"></i> Github</a></li>';}else{echo'<li><i class="icon-github"></i> Pas de Github </a></li>';}
 									?>
+									<a href="#myModal_social_edit" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier vos lien socieaux"></a>
 								</ul>
 							</div>
 							<div class="span6">
@@ -674,7 +685,7 @@ function grade_list($rank_user){
 	<div id="myModal_img_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_img_mod_Label" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModal_img_mod_Label">Image Modif</h3>
+			<h3 id="myModal_img_mod_Label">Photo de profile</h3>
 		</div>
 		<div class="modal-body">
 			<center>
@@ -693,6 +704,37 @@ function grade_list($rank_user){
 		</div>
 	</div>
 </form><!-- End myModal_img_mod -->
+<form action="" method="post">
+	<div id="myModal_social_edit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_social_edit_Label" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModal_social_edit_Label">URL Socieaux</h3>
+		</div>
+		<div class="modal-body">
+			<center>
+				<table width="80%">
+					<tr>
+						<td>URL Facebook</td>
+						<td><input name="fb_url" type="url" value="<?php echo $user->fb;?>" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>URL LinkedIn</td>
+						<td><input name="linkedin_url" type="url" value="<?php echo $user->linkedin;?>" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>URL Gitub</td>
+						<td><input name="github_url" type="url" value="<?php echo $user->github;?>" class="input-large" /></td>
+					</tr>
+				</table>
+			</center><br>
+			<h6><strong>Exp.</strong> http://www.facebook.com/<br><strong>INFO :</strong> Laissé vide si vous voulez pas affichié vos lien socieaux!</h6>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
+		</div>
+	</div>
+</form><!-- End myModal_social_edit -->
 
 <div id="footer"> 2013 &copy; Admin Lab Dashboard.
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>
