@@ -59,8 +59,7 @@ function get_users_expirance($id){
 	}
 }
 function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}	
-?>
-<?php include"../ili-functions/fragments/head.php";?>
+include"../ili-functions/fragments/head.php";?>
 <!-- BEGIN BODY -->
 <body class="fixed-top">
 <?php include"../ili-functions/fragments/page_header.php";?>
