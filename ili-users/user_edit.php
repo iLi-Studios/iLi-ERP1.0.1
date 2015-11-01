@@ -110,6 +110,14 @@ if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste']
 	query_execute("mysqli_fetch_object", $query_info_update);
 	redirect('ili-users/user_edit?id='.$id_user);	
 }
+//form img_modif
+if( isset($_POST['img_url_mod']) ){
+	$img_url_mod				= addslashes($_POST['img_url_mod']);
+	$query_img_url_mod			= "UPDATE `users` SET `img_link`='$img_url_mod' WHERE `id_user`='$id_user';";
+	query_execute("mysqli_fetch_object", $query_img_url_mod);
+	redirect('ili-users/user_edit?id='.$id_user);
+}
+
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
@@ -354,6 +362,7 @@ function grade_list($rank_user){
 							<div class="span3">
 								<div class="text-center profile-pic">
 									<?php if($user->img_link==''){echo'Pas de photo de profile';}else{echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
+									<span><a href="#myModal_img_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier"></a></span>
 								</div>
 								<ul class="nav nav-tabs nav-stacked">
 									<?php
@@ -519,7 +528,7 @@ function grade_list($rank_user){
 					</tr>
 					<tr>
 						<td>URL Etablissement</td>
-						<td><input name="exp_companyurl_add" required type="text" placeholder="" class="input-large" /></td>
+						<td><input name="exp_companyurl_add" required type="url" placeholder="" class="input-large" /></td>
 					</tr>
 					<tr>
 						<td>Durée</td>
@@ -554,7 +563,7 @@ function grade_list($rank_user){
 					</tr>
 					<tr>
 						<td>URL Etablissement</td>
-						<td><input name="exp_companyurl_mod" required type="text" placeholder="" class="input-large" /></td>
+						<td><input name="exp_companyurl_mod" required type="url" placeholder="" class="input-large" /></td>
 					</tr>
 					<tr>
 						<td>Durée</td>
@@ -661,6 +670,29 @@ function grade_list($rank_user){
 		</div>
 	</div>
 </form><!-- End myModal_info_mod -->
+<form action="" method="post">
+	<div id="myModal_img_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_img_mod_Label" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModal_img_mod_Label">Image Modif</h3>
+		</div>
+		<div class="modal-body">
+			<center>
+				<table width="80%">
+					<tr>
+						<td>URL Image</td>
+						<td><input name="img_url_mod" type="url" value="<?php echo $user->img_link;?>" class="input-large" /></td>
+					</tr>
+				</table>
+			</center><br>
+			<h6><strong>Exp.</strong> http://www.ili-studios.com/img/test.png<br><strong>INFO :</strong> Laissé vide si vous voulez pas affichié votre photo!</h6>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
+		</div>
+	</div>
+</form><!-- End myModal_img_mod -->
 
 <div id="footer"> 2013 &copy; Admin Lab Dashboard.
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>
