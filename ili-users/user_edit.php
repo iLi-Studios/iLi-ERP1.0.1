@@ -87,13 +87,14 @@ if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['m
 	else{redirect('ili-users/user_edit?message=10&id='.$id_user);}
 }
 //form information change
-if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste'])) && (isset($_POST['email'])) && (isset($_POST['tel'])) && (isset($_POST['rank'])) && (isset($_POST['date_naissance'])) ){
+if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste'])) && (isset($_POST['email'])) && (isset($_POST['tel'])) && (isset($_POST['rank'])) && (isset($_POST['date_naissance'])) && (isset($_POST['adresse'])) ){
 	$nom			=addslashes($_POST['nom']);
 	$prenom			=addslashes($_POST['prenom']);
 	$poste			=addslashes($_POST['poste']);
 	$email			=addslashes($_POST['email']);
 	$tel			=addslashes($_POST['tel']);
 	$rank			=addslashes($_POST['rank']);
+	$adresse		=addslashes($_POST['adresse']);
 	$date_naissance =addslashes($_POST['date_naissance']);
 	$query_info_update="UPDATE `users` 
 						SET
@@ -103,7 +104,8 @@ if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste']
 							`email`			='$email',
 							`poste`			='$poste',
 							`tel`			='$tel',
-							`date_naissance`='$date_naissance'
+							`date_naissance`='$date_naissance',
+							`adresse`		='$adresse'
 						WHERE `id_user`='$id_user';";
 	query_execute("mysqli_fetch_object", $query_info_update);
 	redirect('ili-users/user_edit?id='.$id_user);	
@@ -634,6 +636,10 @@ function grade_list($rank_user){
 					<tr>
 						<td>Mobile</td>
 						<td><input name="tel" required type="text" value="<?php echo $user->tel;?>" class="input-large" /></td>
+					</tr>
+					<tr>
+						<td>Adresse</td>
+						<td><input name="adresse" required type="text" value="<?php echo $user->adresse;?>" class="input-large" /></td>
 					</tr>
 					<tr>
 						<td>Date de naissance</td>
