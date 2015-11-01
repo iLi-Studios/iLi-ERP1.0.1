@@ -110,7 +110,7 @@ function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365)
 						<div class="widget-body">
 							<div class="span3">
 								<div class="text-center profile-pic">
-									<?php if($user->img_link==''){echo'Pas de photo de profile';}else{echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
+									<?php if($user->img_link!=''){echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
 								</div>
 								<ul class="nav nav-tabs nav-stacked">
 									<?php

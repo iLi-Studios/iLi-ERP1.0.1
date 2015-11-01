@@ -93,7 +93,7 @@ function get_users_list(){
 					<div class="widget-body">
 						<div class="span3">
 							<div class="text-center profile-pic">'; 
-								if($o->img_link==''){echo'Pas de photo de profile';}else{echo'<img src="'.$o->img_link.'" width="100%" height="226px;">';}
+								if($o->img_link!=''){echo'<img src="'.$o->img_link.'" width="100%" height="226px;">';}
 								echo'
 							</div>
 							<ul class="nav nav-tabs nav-stacked">';
