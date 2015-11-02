@@ -54,6 +54,8 @@ function message($code){
 		case "12";
 		alert_notif("alert-success", "OK : Votre mot de passe a été changé avec succès!");
 		break;
+		case "13";
+		alert_notif("alert-error", "Combinaison incorrect!<br> Vous avez essayé plus de 3 fois, <br>La connexion ne sera possible qu'après 30 min");
 		}
 	}
 ?>
