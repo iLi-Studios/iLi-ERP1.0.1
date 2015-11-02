@@ -1,6 +1,10 @@
 <?php
 // Declaration de session
-if (!isset($_SESSION)){session_start();}
+if (!isset($_SESSION)){
+	session_start();
+	//duré de vie de la session 30min
+	ini_set("session.lifetime",1800);
+}
 
 //global includes
 include"config.php";
