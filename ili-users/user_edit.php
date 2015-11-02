@@ -136,7 +136,7 @@ function get_users_expirance($id){
 		while ($o=mysqli_fetch_object($result)){
 			echo'	<li><i class="icon-hand-right"></i>
 						<strong>'.$o->company.'</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#myModal_expirance_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
+						<a href="#myModal_expirance_mod'.$o->id.'" data-toggle="modal" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
 						<a href="expirance_remove?id_user='.$_GET['id'].'&id_expirance='.$o->id.'" class="icon-trash tooltips" data-original-title="&nbsp;&nbsp;Supprimer"></a>
 						<br/>
 						<em>Durée : '.$o->duration.'</em><br/>
@@ -144,10 +144,10 @@ function get_users_expirance($id){
 						<a href="'.$o->company_url.'" target="new">'.$o->company_url.'</a>
 						<!-- Start myModal_expirance_mod -->					
 						<form action="" method="post">
-							<div id="myModal_expirance_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_mod_Label" aria-hidden="true">
+							<div id="myModal_expirance_mod'.$o->id.'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_mod'.$o->id.'_Label" aria-hidden="true">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									<h3 id="myModal_expirance_mod_Label">Diplôme Ajout</h3>
+									<h3 id="myModal_expirance_mod'.$o->id.'_Label">Expérance Modifier</h3>
 								</div>
 								<div class="modal-body">
 									<center>
@@ -158,7 +158,7 @@ function get_users_expirance($id){
 											</tr>
 											<tr>
 												<td>URL Etablissement</td>
-												<td><input name="exp_companyurl_mod" required type="text" value="'.$o->company_url.'" class="input-large" /></td>
+												<td><input name="exp_companyurl_mod" type="text" value="'.$o->company_url.'" class="input-large" /></td>
 											</tr>
 											<tr>
 												<td>Durée</td>
@@ -218,17 +218,17 @@ function get_users_diploma($id){
 		while ($o=mysqli_fetch_object($result)){
 			echo'	<li><i class="icon-hand-right"></i>
 						<strong>'.$o->diplome.'</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#myModal_diploma_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
+						<a href="#myModal_diploma_mod'.$o->id.'" data-toggle="modal" class="icon-edit tooltips" data-original-title="&nbsp;&nbsp;Modifier"></a>
 						<a href="diploma_remove?id_user='.$_GET['id'].'&id_diploma='.$o->id.'" class="icon-trash tooltips" data-original-title="&nbsp;&nbsp;Supprimer"></a>
 						<br/>
 						<em>'.$o->lieux.', '.$o->annee.'</em><br/>
 						<em><strong>'.$o->etablissement.'</strong></em><br>
 						<!-- Start myModal_diploma_mod -->
 						<form action="" method="post">
-							<div id="myModal_diploma_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_diploma_mod_Label" aria-hidden="true">
+							<div id="myModal_diploma_mod'.$o->id.'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_diploma_mod'.$o->id.'_Label" aria-hidden="true">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									<h3 id="myModal_diploma_mod_Label">Diplôme Modification</h3>
+									<h3 id="myModal_diploma_mod'.$o->id.'_Label">Diplôme Modification</h3>
 								</div>
 								<div class="modal-body">
 									<center>
@@ -528,7 +528,7 @@ function grade_list($rank_user){
 	<div id="myModal_expirance_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_add_Label" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModal_expirance_add_Label">Diplôme Ajout</h3>
+			<h3 id="myModal_expirance_add_Label">Expérance Ajout</h3>
 		</div>
 		<div class="modal-body">
 			<center>
@@ -539,7 +539,7 @@ function grade_list($rank_user){
 					</tr>
 					<tr>
 						<td>URL Etablissement</td>
-						<td><input name="exp_companyurl_add" required type="url" placeholder="" class="input-large" /></td>
+						<td><input name="exp_companyurl_add" type="url" placeholder="" class="input-large" /></td>
 					</tr>
 					<tr>
 						<td>Durée</td>
@@ -559,41 +559,6 @@ function grade_list($rank_user){
 		</div>
 	</div>
 </form><!-- End myModal_expirance_add -->
-<form action="" method="post">
-	<div id="myModal_expirance_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_mod_Label" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModal_expirance_mod_Label">Diplôme Ajout</h3>
-		</div>
-		<div class="modal-body">
-			<center>
-				<table width="80%">
-					<tr>
-						<td width="40%">Etablissement</td>
-						<td width="60%"><input name="exp_company_mod" required type="text" placeholder="" class="input-large" /></td>
-					</tr>
-					<tr>
-						<td>URL Etablissement</td>
-						<td><input name="exp_companyurl_mod" required type="url" placeholder="" class="input-large" /></td>
-					</tr>
-					<tr>
-						<td>Durée</td>
-						<td><input name="exp_duration_mod" required type="text" placeholder="" class="input-large" /></td>
-					</tr>
-					<tr>
-						<td>Expérance</td>
-						<td><textarea name="exp_experance_mod" style="resize: vertical; width:100%; max-height:150px;" rows="4"></textarea></td>
-					</tr>
-				</table>
-			</center>
-			<h6>NB: URL Etablissement doit être complet <br>EXP: http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-			<input type="submit" class="btn btn-primary" value="Ajouter"/>
-		</div>
-	</div>
-</form><!-- End myModal_expirance_mod -->
 <form action="" method="post">
 	<div id="myModal_mdp_edit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_mdp_edit_Label" aria-hidden="true">
 		<div class="modal-header">
