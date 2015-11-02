@@ -15,8 +15,7 @@ include"database.php";
 function redirect($page){
 	global $site;
 	header("Location: ".$site.$page);
-}
-	
+}	
 // min id required to see this page
 function autorisation($id){
 	if(!isset($_SESSION['user_id'])){redirect('login?message=1');}
@@ -25,7 +24,6 @@ function autorisation($id){
 }
 
 // upload into database
-
 function db_upload($id, $file){
 	$message=false;
 	if($file['error'] == 0) {
