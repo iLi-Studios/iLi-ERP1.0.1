@@ -3,15 +3,12 @@ include"ili-functions/functions.php";
 autorisation('2');?>
 <!DOCTYPE html>
 <!--
-Template Name: Admin Lab Dashboard build with Bootstrap v2.3.1
-Template Version: 1.2
-Author: Mosaddek Hossain
-Website: http://thevectorlab.net/
+<?php echo $sytem_title.'<br>'.$Developper; ?>
 -->
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="fr">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
