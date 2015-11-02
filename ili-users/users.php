@@ -51,7 +51,44 @@ function get_users_skills($id){
 		}
 	}
 }
-function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}	
+function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
+
+//test privileges
+function users_pannel($id_user_propre, $rank_user_propre, $id_user_controled, $rank_user_controled){
+	//ADMIN
+	if($rank_user_propre==3){
+		//C IN ALL
+		echo'<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';	
+		//U IN ALL
+		echo'<a href="user_edit?id='.$id_user_controled.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
+		//D IN ALL BUT HIM
+		if($id_user_propre!=$id_user_controled){echo'<a href="#myModal_del'.$id_user_controled.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';}
+		//B IN ALL BUT HIM 
+		if($id_user_propre!=$id_user_controled){
+			if($rank_user_controled==1){echo'<a href="user_deban?id='.$id_user_controled.'" class="icon-repeat tooltips" data-original-title="Débannir"></a>';}
+			if($rank_user_controled==2){echo'<a href="user_ban?id='.$id_user_controled.'" class="icon-ban-circle tooltips" data-original-title="Bannir"></a>';}
+		}
+		//S IN ALL
+		echo'<a href="user_profile?id='.$id_user_controled.'" class="icon-eye-open tooltips" data-original-title="Voire plus"></a>';
+	}
+	//USER
+	if($rank_user_propre==2){
+		$up=user_privileges("users", $id_user_propre);$s=$up->s;$u=$up->u;$c=$up->c;$d=$up->d;$b=$up->b;
+		//C IN ALL BUT ADMIN
+		if( ($c) && ($rank_user_propre>=$rank_user_controled) ){echo'<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
+		//U IN ALL BUT ADMIN
+		if( (($u) && ($rank_user_propre>=$rank_user_controled)) || ($id_user_propre==$id_user_controled) ){echo'<a href="user_edit?id='.$id_user_controled.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';}
+		//D IN ALL BUT HIM && ADMIN
+		if( ($d) && ($id_user_propre!=$id_user_controled) && ($rank_user_propre>=$rank_user_controled) ){echo'<a href="#myModal_del'.$id_user_controled.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';}
+		//B IN ALL BUT HIM && ADMIN
+		if( ($b) && ($id_user_propre!=$id_user_controled) && ($rank_user_propre>=$rank_user_controled) ){
+			if($rank_user_controled==1){echo'<a href="user_deban?id='.$id_user_controled.'" class="icon-repeat tooltips" data-original-title="Débannir"></a>';}
+			if($rank_user_controled==2){echo'<a href="user_ban?id='.$id_user_controled.'" class="icon-ban-circle tooltips" data-original-title="Bannir"></a>';}
+		}
+		//S IN ALL BUT ADMIN
+		if( (($s) && ($rank_user_propre>=$rank_user_controled)) || ($id_user_propre==$id_user_controled)){echo'<a href="user_profile?id='.$id_user_controled.'" class="icon-eye-open tooltips" data-original-title="Voire plus"></a>';}	
+	}
+}
 function get_users_list(){
 	$query="SELECT * FROM users, users_rank WHERE users.id_rank=users_rank.id_rank";
 	$result=query_excute_while($query);
@@ -61,17 +98,8 @@ function get_users_list(){
 					<div class="widget-title">
 						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.$o->rank.')</h4>
 						<span class="tools" style="margin-top:-2px;">';
-							// Ajouter autorisation DEV & ADMIN
-							if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) ){echo'<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
-							// Modifier autorisation DEV & ADMIN & l'utilisateur a son compte uniquement
-							if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) || ($_SESSION['user_id']==$o->id_user) ){echo'<a href="user_edit?id='.$o->id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';}
-							// Supprimer ( DEV || ((ADMIN) && (un ADMIN ne peut pas supprimer un DEV)) && (l'utilisateur ne peut pas se supprimer luis même) )
-							if( ($_SESSION['user_id_rank']==6) || (($_SESSION['user_id_rank']==5) && ($o->id_rank!=6)) && ($_SESSION['user_id']!=$o->id_user) ){echo'<a href="#myModal_del'.$o->id_user.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';}
-							// Bannir 
-							// ( (ADMIN || Developpeur) && (On peut pas se bannir nous même) && (On peut pas bannir un utilisateur déja banni) && (on peut pas bannir un developpeur) )
-							if( (($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5)) && ($_SESSION['user_id']!=$o->id_user) && ($o->id_rank!=1) && ($o->id_rank!=6) ){echo'<a href="user_ban?id='.$o->id_user.'" class="icon-ban-circle tooltips" data-original-title="Suspendre"></a>';}
+							users_pannel($_SESSION['user_id'], $_SESSION['user_id_rank'], $o->id_user, $o->id_rank);
 							echo'
-							<a href="user_profile?id='.$o->id_user.'" class="icon-eye-open tooltips" data-original-title="Voire plus"></a>
 							<!-- Modale de confirmation de suppression -->
 							<div id="myModal_del'.$o->id_user.'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_del'.$o->id_user.'" aria-hidden="true">
 								<div class="modal-header">

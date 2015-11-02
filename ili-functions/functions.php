@@ -19,6 +19,7 @@ function redirect($page){
 // min id required to see this page
 function autorisation($id){
 	if(!isset($_SESSION['user_id'])){redirect('login?message=1');}
+	//revérifier
 	else{if($_SESSION['user_id_rank']<$id){redirect('login?message=5');}
 	}
 }
@@ -42,5 +43,11 @@ function db_upload($id, $file){
 		if($result==0){$message=='11';}
 	}
 	return $message;
+}
+
+function user_privileges($bloc, $id_user){
+	$query="SELECT * FROM `users_privileges` WHERE `id_user`='$id_user' AND `bloc`='$bloc';";
+	$o = query_execute("mysqli_fetch_object", $query);
+	return $o;
 }
 ?>
