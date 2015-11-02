@@ -48,15 +48,21 @@ if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(i
 }
 ?>
 <!DOCTYPE html>
+<!--
+iLi-ERP
+Développer par : SAKLY AYOUB
+Société	: iLi-Studios SARL
+Site : http://www.ili-studios.com/
+-->
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="fr">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8" />
-<title>Form Components</title>
+<title><?php echo $sytem_title;?></title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
@@ -149,10 +155,8 @@ if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(i
 									<div class="controls">
 										<div class="input-append date date-picker span6" data-date="12-02-2012" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
 											<input class="m-ctrl-medium date-picker span6 popovers" name="date_naissance" size="16" type="text" required />
-											<span class="add-on"><i class="icon-calendar"></i></span>
-										</div>
-										<span class="help-inline"> Champ obligatoire</span>
-									</div>
+											<span class="add-on"><i class="icon-calendar"></i></span> </div>
+										<span class="help-inline"> Champ obligatoire</span> </div>
 								</div>
 								<!--Date de naissance-->
 								<div class="control-group">
@@ -245,9 +249,6 @@ if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(i
 	</div>
 </div>
 <!-- END CONTAINER -->
-
-
-
 
 <div id="footer"> 2013 &copy; Admin Lab Dashboard.
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>

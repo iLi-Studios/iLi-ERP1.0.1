@@ -284,17 +284,22 @@ function grade_list($rank_user){
 }
 }
 ?>
-
 <!DOCTYPE html>
+<!--
+iLi-ERP
+Développer par : SAKLY AYOUB
+Société	: iLi-Studios SARL
+Site : http://www.ili-studios.com/
+-->
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="fr">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8" />
-<title>Form Components</title>
+<title><?php echo $sytem_title;?></title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
@@ -355,25 +360,23 @@ function grade_list($rank_user){
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row-fluid">
 				<div class="span12">
-				<?php get_message('message'); ?>
+					<?php get_message('message'); ?>
 					<div class="widget">
 						<div class="widget-title">
 							<h4><i class="icon-user"></i> Profile</h4>
 							<span class="tools">
-								<?php
+							<?php
 								// on peut modifier si
 								// DEV || ADMIN || (UTILISATEUR dans le profil ouvert et le sien)
 								if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) || ($_SESSION['user_id']==$id_user) ){
 									echo'<a href="user_profile?id='.$id_user.'" class="icon-lock tooltips" data-original-title="verrouiller"></a>';
 								}?>
-							</span> 
-						</div>
+							</span> </div>
 						<div class="widget-body">
 							<div class="span3">
 								<div class="text-center profile-pic">
 									<?php if($user->img_link==''){echo'Pas de photo de profile';}else{echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
-									<span><a href="#myModal_img_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier votre photo"></a></span>
-								</div>
+									<span><a href="#myModal_img_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier votre photo"></a></span> </div>
 								<ul class="nav nav-tabs nav-stacked">
 									<?php
 									if($user->fb){echo'<li><a href="'.$user->fb.'" target="new"><i class="icon-facebook"></i> Facebook</a></li>';}else{echo'<li><i class="icon-facebook"></i> Pas de Facebook </a></li>';}
@@ -414,7 +417,7 @@ function grade_list($rank_user){
 										</tr>
 										<tr>
 											<td class="span2"> Mobile :</td>
-											<td> <?php echo $user->tel; ?> </td>
+											<td><?php echo $user->tel; ?></td>
 										</tr>
 										<tr>
 											<td class="span2">Grade :</td>
@@ -430,10 +433,11 @@ function grade_list($rank_user){
 										</tr>
 									</tbody>
 								</table>
-								
 								<h4>Compétances <span><a href="#myModal_skills_add" data-toggle="modal" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<table class="table table-borderless">
-									<tbody><?php get_users_skills($id_user); ?></tbody>
+									<tbody>
+										<?php get_users_skills($id_user); ?>
+									</tbody>
 								</table>
 								<h4>Adresse</h4>
 								<div class="well">
@@ -449,9 +453,13 @@ function grade_list($rank_user){
 							</div>
 							<div class="span3">
 								<h4>Diplômes <span><a href="#myModal_diploma_add" data-toggle="modal" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
-								<ul class="icons push"><?php get_users_diploma($id_user);?></ul>
+								<ul class="icons push">
+									<?php get_users_diploma($id_user);?>
+								</ul>
 								<h4>Expérance <span><a href="#myModal_expirance_add" data-toggle="modal"  class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
-								<ul class="icons push"><?php get_users_expirance($id_user);?></ul>
+								<ul class="icons push">
+									<?php get_users_expirance($id_user);?>
+								</ul>
 							</div>
 							<div class="space5"></div>
 						</div>
@@ -463,7 +471,8 @@ function grade_list($rank_user){
 		<!-- END PAGE CONTAINER--> 
 	</div>
 	<!-- END PAGE --> 
-</div><!-- END CONTAINER -->
+</div>
+<!-- END CONTAINER -->
 <form action="" method="post">
 	<div id="myModal_skills_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_skills_add_Label" aria-hidden="true">
 		<div class="modal-header">
@@ -479,7 +488,8 @@ function grade_list($rank_user){
 					</tr>
 					<tr>
 						<td>Niveau</td>
-						<td><input name="skills" required type="range" class="input-large" /> %</td>
+						<td><input name="skills" required type="range" class="input-large" />
+							%</td>
 					</tr>
 				</table>
 			</center>
@@ -489,7 +499,8 @@ function grade_list($rank_user){
 			<input type="submit" class="btn btn-primary" value="Ajouter"/>
 		</div>
 	</div>
-</form><!-- End myModal_skills_add -->
+</form>
+<!-- End myModal_skills_add -->
 <form action="" method="post">
 	<div id="myModal_diploma_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_diploma_add_Label" aria-hidden="true">
 		<div class="modal-header">
@@ -523,7 +534,8 @@ function grade_list($rank_user){
 			<input type="submit" class="btn btn-primary" value="Ajouter"/>
 		</div>
 	</div>
-</form><!-- End myModal_diploma_add -->
+</form>
+<!-- End myModal_diploma_add -->
 <form action="" method="post">
 	<div id="myModal_expirance_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_add_Label" aria-hidden="true">
 		<div class="modal-header">
@@ -551,14 +563,17 @@ function grade_list($rank_user){
 					</tr>
 				</table>
 			</center>
-			<h6>NB: URL Teablissement doit être complet <br>EXP. http://www.ili-studios.com/<br> <strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
+			<h6>NB: URL Teablissement doit être complet <br>
+				EXP. http://www.ili-studios.com/<br>
+				<strong>CONCEIL :</strong> Copiez-le directement depuis le navigateur</h6>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
 			<input type="submit" class="btn btn-primary" value="Ajouter"/>
 		</div>
 	</div>
-</form><!-- End myModal_expirance_add -->
+</form>
+<!-- End myModal_expirance_add -->
 <form action="" method="post">
 	<div id="myModal_mdp_edit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_mdp_edit_Label" aria-hidden="true">
 		<div class="modal-header">
@@ -580,7 +595,6 @@ function grade_list($rank_user){
 						<td>Repeter votre nouveau mot de passe</td>
 						<td><input name="mdp_new2" required type="password" placeholder="" class="input-large" /></td>
 					</tr>
-
 				</table>
 			</center>
 		</div>
@@ -589,7 +603,8 @@ function grade_list($rank_user){
 			<input type="submit" class="btn btn-primary" value="Changer"/>
 		</div>
 	</div>
-</form><!-- End myModal_mdp_edit -->
+</form>
+<!-- End myModal_mdp_edit -->
 <form action="" method="post">
 	<div id="myModal_info_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_info_mod_Label" aria-hidden="true">
 		<div class="modal-header">
@@ -610,10 +625,10 @@ function grade_list($rank_user){
 					<?php if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) ){echo'
 					<tr>
 						<td>Poste</td>
-						<td><input name="poste" required type="text" value="';?><?php echo $user->poste;?><?php echo'" class="input-large" /></td>
+						<td><input name="poste" required type="text" value="';?>
+					<?php echo $user->poste;?><?php echo'" class="input-large" /></td>
 					</tr>
 					';}else{echo'<input name="poste" type="hidden" value="'.$user->poste.'"/>';}?>
-					
 					<tr>
 						<td>Email</td>
 						<td><input name="email" required type="email" value="<?php echo $user->email;?>" class="input-large" /></td>
@@ -633,10 +648,11 @@ function grade_list($rank_user){
 					<?php if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) ){echo'
 					<tr>
 						<td>Grade</td>
-						<td><select name="rank" required tabindex="1">';?><?php grade_list($user->id_rank);?><?php echo'</select></td>
+						<td><select name="rank" required tabindex="1">';?>
+					<?php grade_list($user->id_rank);?>
+					<?php echo'</select></td>
 					</tr>
-					';}else{echo'<input name="rank" type="hidden" value="'.$user->id_rank.'"/>';}?>					
-					
+					';}else{echo'<input name="rank" type="hidden" value="'.$user->id_rank.'"/>';}?>
 				</table>
 			</center>
 		</div>
@@ -645,7 +661,8 @@ function grade_list($rank_user){
 			<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
 		</div>
 	</div>
-</form><!-- End myModal_info_mod -->
+</form>
+<!-- End myModal_info_mod -->
 <form action="" method="post">
 	<div id="myModal_img_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_img_mod_Label" aria-hidden="true">
 		<div class="modal-header">
@@ -660,15 +677,18 @@ function grade_list($rank_user){
 						<td><input name="img_url_mod" type="url" value="<?php echo $user->img_link;?>" class="input-large" /></td>
 					</tr>
 				</table>
-			</center><br>
-			<h6><strong>Exp.</strong> http://www.ili-studios.com/img/test.png<br><strong>INFO :</strong> Laissé vide si vous voulez pas affichié votre photo!</h6>
+			</center>
+			<br>
+			<h6><strong>Exp.</strong> http://www.ili-studios.com/img/test.png<br>
+				<strong>INFO :</strong> Laissé vide si vous voulez pas affichié votre photo!</h6>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
 			<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
 		</div>
 	</div>
-</form><!-- End myModal_img_mod -->
+</form>
+<!-- End myModal_img_mod -->
 <form action="" method="post">
 	<div id="myModal_social_edit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_social_edit_Label" aria-hidden="true">
 		<div class="modal-header">
@@ -691,15 +711,18 @@ function grade_list($rank_user){
 						<td><input name="github_url" type="url" value="<?php echo $user->github;?>" class="input-large" /></td>
 					</tr>
 				</table>
-			</center><br>
-			<h6><strong>Exp.</strong> http://www.facebook.com/<br><strong>INFO :</strong> Laissé vide si vous voulez pas affichié vos lien socieaux!</h6>
+			</center>
+			<br>
+			<h6><strong>Exp.</strong> http://www.facebook.com/<br>
+				<strong>INFO :</strong> Laissé vide si vous voulez pas affichié vos lien socieaux!</h6>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
 			<input type="submit" class="btn btn-primary" value="Mettre à jour ?"/>
 		</div>
 	</div>
-</form><!-- End myModal_social_edit -->
+</form>
+<!-- End myModal_social_edit -->
 
 <div id="footer"> 2013 &copy; Admin Lab Dashboard.
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>
