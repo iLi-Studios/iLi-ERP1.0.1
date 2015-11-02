@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 02 Novembre 2015 à 02:20
+-- Généré le :  Lun 02 Novembre 2015 à 10:47
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -19,22 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `ili_erp`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `file`
---
-
-CREATE TABLE IF NOT EXISTS `file` (
-  `id` varchar(50) NOT NULL DEFAULT '0',
-  `name` varchar(255) DEFAULT NULL,
-  `mime` varchar(50) DEFAULT NULL,
-  `size` bigint(20) DEFAULT NULL,
-  `data` longblob,
-  `date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -70,8 +54,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id_user`, `id_rank`, `nom`, `prenom`, `email`, `poste`, `tel`, `adresse`, `date_naissance`, `mdp`, `mdp_update_date`, `fb`, `github`, `linkedin`, `img_link`, `created_by`, `created_date`) VALUES
-(8088718, 6, 'Sakly', 'Ayoub', 'sakly@ili-studios.com', 'CEO & Founder iLi-Studios SARL', '36166996', '19 Rue Ibn Zid AGBA 2010 MANOUBA TUNISIE', '1988-09-22', '21232f297a57a5a743894a0e4a801fc3', '2015-10-30', 'http://www.faecbook.com/saklyayoub', 'http://www.linkedin.com/', '', '', 'Sakly Ayoub', '2015-10-28'),
-(9188047, 4, 'Battikh', 'Aziz', 'battikh@ili-studios.com', 'Head Team Designer', '55836311', 'test', '10/30/2015', '140f6969d5213fd0ece03148e62e461e', '2015-10-30', '', '', '', '', 'Sakly Ayoub', '2015-10-30');
+(8088718, 6, 'Sakly Sakly', 'Ayoub', 'sakly@ili-studios.com', 'CEO & Founder iLi-Studios SARL', '20666996', '19 Rue Ibn Zid AGBA 2010 MANOUBA TUNISIE', '1988-09-22', '3cb61b94f984497b9230075a6f777346', '2015-11-02', 'http://www.faecbook.com/saklyayoub', 'http://www.linkedin.com/', 'http://www.linkedin.com/', 'http://www.ili-studios.com/img/saklyayoub.png', 'Sakly Ayoub', '2015-10-28');
 
 -- --------------------------------------------------------
 
@@ -89,7 +72,19 @@ CREATE TABLE IF NOT EXISTS `users_diploma` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_user_2` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=8 ;
+
+--
+-- Contenu de la table `users_diploma`
+--
+
+INSERT INTO `users_diploma` (`id`, `id_user`, `annee`, `lieux`, `diplome`, `etablissement`) VALUES
+(2, 8088718, 2008, 'Kef', 'Bac Technique', 'Lycé Technique Ahmed Amara'),
+(3, 8088718, 2011, 'Tunis', 'BTS WebMaster', 'Khawarezmi Centre'),
+(4, 8088718, 2013, 'Tunis', 'BTS Developpement sur Internet', 'IMSET'),
+(5, 8088718, 2014, 'Kef', 'CEFEE', 'Bureau D''emploie'),
+(6, 8088718, 2014, 'Sousse', 'HP-Life E-learning', 'HP'),
+(7, 8088718, 2015, 'Manouba', 'Formation sur le projet <création d''une boite de développement>', 'API');
 
 -- --------------------------------------------------------
 
@@ -107,15 +102,16 @@ CREATE TABLE IF NOT EXISTS `users_expirance` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_user_2` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Contenu de la table `users_expirance`
 --
 
 INSERT INTO `users_expirance` (`id`, `id_user`, `company`, `company_url`, `duration`, `experience`) VALUES
-(8, 8088718, 't1', 't2', 't3', 't4'),
-(9, 8088718, 'test1', 'test2', 'test3', 'test4');
+(10, 8088718, 'WorkGroup', '', 'Jan. - Mars 2001', 'Developpeur Web WebMaster<br> •	Conception, Developpement, et realisation d’un site e-commerce pour une bijouterie, avec sont système de facturation.'),
+(11, 8088718, 'OkToBoot', 'http://www.oktoboot.com/', 'Sep. - Dec 2012', 'Developpeur Web<br>\r\n•	Conception, Developpement, et realisation d’un système ERP a base de Magento sur ZendFrimework\r\n'),
+(12, 8088718, 'Solution Interactives Visuelles', '', 'Jan. - Mars 2013', 'Developpeur Web, Administrateur Système<br>•	Conception, Developpement, et integration de système de gestion des serveurs de jeux avec un site de factorisation sur un serveur VPS a base de Linux\r\n•	Administration de serveur Linux, Creation de solution de backup automatisé.\r\n');
 
 -- --------------------------------------------------------
 
@@ -155,16 +151,18 @@ CREATE TABLE IF NOT EXISTS `users_skills` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_user_2` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=13 ;
 
 --
 -- Contenu de la table `users_skills`
 --
 
 INSERT INTO `users_skills` (`id`, `id_user`, `skills`, `pourcentage`) VALUES
-(1, 8088718, 'PHP', '84'),
-(2, 8088718, 'HTML5', '82'),
-(6, 8088718, 'C#', '81');
+(8, 8088718, 'PHP/MySQL', '83'),
+(9, 8088718, 'HTML5/CSS3', '82'),
+(10, 8088718, 'JQuery/Ajax/JavaScript', '13'),
+(11, 8088718, 'Ubuntu/Linux/WebMin', '80'),
+(12, 8088718, 'Git/Kdiff/SubVersion', '90');
 
 --
 -- Contraintes pour les tables exportées
