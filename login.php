@@ -1,8 +1,31 @@
 <?php include"ili-functions/functions.php"; ?>
-<?php include"ili-functions/fragments/head.php";?>
+<!DOCTYPE html>
+<!--
+iLi-ERP
+Développer par : SAKLY AYOUB
+Société	: iLi-Studios SARL
+Site : http://www.ili-studios.com/
+-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="fr">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8" />
+<title><?php echo $sytem_title;?></title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<link href="ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="ili-style/css/style.css" rel="stylesheet" />
+<link href="ili-style/css/style_responsive.css" rel="stylesheet" />
+<link href="ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
+</head>
+<!-- END HEAD -->
 <?php
-
-
 function connexion($email, $mdp){
 	$query="SELECT * FROM users, users_rank WHERE users.email='$email' AND users.mdp='$mdp' AND users.id_rank=users_rank.id_rank";
 	if( ($o=query_execute("mysqli_fetch_object", $query)) == true){
@@ -19,7 +42,6 @@ function connexion($email, $mdp){
 	}
 	else{redirect("login?message=2");}
 }
-
 // forum login
 if( (isset($_POST['email'])) && (isset($_POST['mdp'])) ){connexion($_POST['email'], md5($_POST['mdp']));}
 ?>
@@ -27,7 +49,9 @@ if( (isset($_POST['email'])) && (isset($_POST['mdp'])) ){connexion($_POST['email
 <body id="login-body">
 <div class="login-header"> 
 	<!-- BEGIN LOGO -->
-	<div id="logo" class="center"> <h4> <?php echo $sytem_title;?> </h4></div>
+	<div id="logo" class="center">
+		<h4> <?php echo $sytem_title;?> </h4>
+	</div>
 	<!-- END LOGO --> 
 </div>
 
@@ -81,7 +105,7 @@ if( (isset($_POST['email'])) && (isset($_POST['mdp'])) ){connexion($_POST['email
 </div>
 <!-- END LOGIN --> 
 <!-- BEGIN COPYRIGHT -->
-<div id="login-copyright"><?php echo $copy_right ; ?></div>
+<div id="login-copyright"><?php echo $copy_right;?></div>
 <!-- END COPYRIGHT --> 
 <!-- BEGIN JAVASCRIPTS --> 
 <script src="ili-style/js/jquery-1.8.3.min.js"></script> 
