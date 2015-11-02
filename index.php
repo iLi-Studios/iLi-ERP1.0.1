@@ -3,7 +3,10 @@ include"ili-functions/functions.php";
 autorisation('2');?>
 <!DOCTYPE html>
 <!--
-<?php echo $sytem_title.'<br>'.$Developper; ?>
+iLi-ERP
+Développer par : SAKLY AYOUB
+Société	: iLi-Studios SARL
+Site : http://www.ili-studios.com/
 -->
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
