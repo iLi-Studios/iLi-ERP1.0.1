@@ -52,8 +52,6 @@ function get_users_skills($id){
 	}
 }
 function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
-
-//test privileges
 function users_pannel($id_user_propre, $rank_user_propre, $id_user_controled, $rank_user_controled){
 	//ADMIN
 	if($rank_user_propre==3){
@@ -73,15 +71,15 @@ function users_pannel($id_user_propre, $rank_user_propre, $id_user_controled, $r
 	}
 	//USER
 	if($rank_user_propre==2){
-		$up=user_privileges("users", $id_user_propre);$s=$up->s;$u=$up->u;$c=$up->c;$d=$up->d;$b=$up->b;
+		$up=user_privileges("users", $id_user_propre);$s=$up->s;$c=$up->c;$u=$up->u;$d=$up->d;
 		//C IN ALL BUT ADMIN
 		if( ($c) && ($rank_user_propre>=$rank_user_controled) ){echo'<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
 		//U IN ALL BUT ADMIN
 		if( (($u) && ($rank_user_propre>=$rank_user_controled)) || ($id_user_propre==$id_user_controled) ){echo'<a href="user_edit?id='.$id_user_controled.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';}
 		//D IN ALL BUT HIM && ADMIN
 		if( ($d) && ($id_user_propre!=$id_user_controled) && ($rank_user_propre>=$rank_user_controled) ){echo'<a href="#myModal_del'.$id_user_controled.'" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';}
-		//B IN ALL BUT HIM && ADMIN
-		if( ($b) && ($id_user_propre!=$id_user_controled) && ($rank_user_propre>=$rank_user_controled) ){
+		//B IF HE CAN UPDATE HE CAN BAN ALL BUT HIM && ADMIN
+		if( ($u) && ($id_user_propre!=$id_user_controled) && ($rank_user_propre>=$rank_user_controled) ){
 			if($rank_user_controled==1){echo'<a href="user_deban?id='.$id_user_controled.'" class="icon-repeat tooltips" data-original-title="Débannir"></a>';}
 			if($rank_user_controled==2){echo'<a href="user_ban?id='.$id_user_controled.'" class="icon-ban-circle tooltips" data-original-title="Bannir"></a>';}
 		}
