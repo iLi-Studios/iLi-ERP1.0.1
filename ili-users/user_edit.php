@@ -370,12 +370,7 @@ Site : http://www.ili-studios.com/
 						<div class="widget-title">
 							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profile</h4>
 							<span class="tools">
-							<?php
-								// on peut modifier si
-								// DEV || ADMIN || (UTILISATEUR dans le profil ouvert et le sien)
-								if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) || ($_SESSION['user_id']==$id_user) ){
-									echo'<a href="user_profile?id='.$id_user.'" class="icon-lock tooltips" data-original-title="verrouiller"></a>';
-								}?>
+							<?php echo'<a href="user_profile?id='.$id_user.'" class="icon-lock tooltips" data-original-title="verrouiller"></a>';?>
 							</span> </div>
 						<div class="widget-body">
 							<div class="span3">
