@@ -2,7 +2,6 @@
 include"../ili-functions/functions.php";
 autorisation('2');
 $id_user=$_GET['id'];
-// get user info from id
 function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
@@ -58,7 +57,21 @@ function get_users_expirance($id){
 		}
 	}
 }
-function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}?>
+function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
+function profile_pannel($id){
+	// AUTORISATION SYSTEM
+	// EDIT IF ADMIN || IF USER{IF HIS PROFILE || HASE PERMESSION TO EDIT}
+	if($_SESSION['user_id_rank']==3){
+		echo'<a href="user_edit?id='.$id.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
+	}
+	if($_SESSION['user_id_rank']==2){
+		$up=user_privileges("users", $_SESSION['user_id']);$u=$up->u;
+		if( ($u)||($_SESSION['user_id']==$id) ){
+			echo'<a href="user_edit?id='.$id.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
+		}
+	}
+}
+?>
 <!DOCTYPE html>
 <!--
 iLi-ERP
@@ -128,12 +141,7 @@ Site : http://www.ili-studios.com/
 						<div class="widget-title">
 							<h4><i class="icon-user"></i> Profile</h4>
 							<span class="tools">
-							<?php
-								// on peut modifier si
-								// DEV || ADMIN || (UTILISATEUR dans le profil ouvert et le sien)
-								if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) || ($_SESSION['user_id']==$id_user) ){
-									echo'<a href="user_edit?id='.$id_user.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
-								}?>
+							<?php profile_pannel($id_user);?>
 							</span> </div>
 						<div class="widget-body">
 							<div class="span3">

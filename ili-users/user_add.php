@@ -1,7 +1,7 @@
 <?php 
 include"../ili-functions/functions.php";
-autorisation('5'); 
-function grade_list(){
+autorisation('2'); 
+/*function grade_list(){
 	if($_SESSION['user_id_rank']==6){
 		$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
 		$result=query_excute_while($query);
@@ -16,7 +16,7 @@ function grade_list(){
 			echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';
 		}
 	}
-}
+}*/
 function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse, $date_naissance, $mdp, $fb, $github, $linkedin, $img_url, $admin){
 	$query_test1 = "SELECT * FROM users WHERE id_user='$cin';";
 	$query_test2 = "SELECT * FROM users WHERE email='$email';";
@@ -28,7 +28,7 @@ function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse,
 	}
 }
 // forme user_add
-if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(isset($_POST['email']))&&(isset($_POST['tel']))&&(isset($_POST['mdp']))&&(isset($_POST['poste']))&&(isset($_POST['rank']))&&(isset($_POST['adresse']))&&(isset($_POST['date_naissance']))){
+if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(isset($_POST['email']))&&(isset($_POST['tel']))&&(isset($_POST['mdp']))&&(isset($_POST['poste']))&&(isset($_POST['adresse']))&&(isset($_POST['date_naissance']))){
 	$cin						=addslashes($_POST['cin']);
 	$nom						=addslashes($_POST['nom']);
 	$prenom						=addslashes($_POST['prenom']);
@@ -38,13 +38,12 @@ if((isset($_POST['cin']))&&(isset($_POST['nom']))&&(isset($_POST['prenom']))&&(i
 	$adresse					=addslashes($_POST['adresse']);
 	$date_naissance				=addslashes($_POST['date_naissance']);
 	$mdp						=addslashes($_POST['mdp']);
-	$rank						=addslashes($_POST['rank']);
 	if(isset($_POST['fb'])){$fb=$_POST['fb'];}else{$fb='';}
 	if(isset($_POST['github'])){$github=$_POST['github'];}else{$github='';}
 	if(isset($_POST['linkedin'])){$linkedin=$_POST['linkedin'];}else{$linkedin='';}
 	if(isset($_POST['img_url'])){$img_url=$_POST['img_url'];}else{$img_url='';}
 	$admin						= $_SESSION['user_nom'].' '.$_SESSION['user_nom'];
-	create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse, $date_naissance, $mdp, $fb, $github, $linkedin, $img_url, $admin);
+	create_user($cin, '2', $nom, $prenom, $email, $poste, $tel, $adresse, $date_naissance, $mdp, $fb, $github, $linkedin, $img_url, $admin);
 }
 ?>
 <!DOCTYPE html>
@@ -220,15 +219,6 @@ Site : http://www.ili-studios.com/
 									<div class="controls">
 										<input type="text" required name="poste" class="span6  popovers" />
 										<span class="help-inline"> Champ obligatoire</span> </div>
-								</div>
-								<!--Poste*-->
-								<div class="control-group">
-									<label class="control-label">Grade</label>
-									<div class="controls">
-										<select name="rank" required class="span6 chosen" data-placeholder="Choose a Category" tabindex="1">
-											<?php grade_list(); ?>
-										</select>
-									</div>
 								</div>
 								<!--rank*--> 
 								<br>
