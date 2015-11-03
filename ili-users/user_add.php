@@ -1,30 +1,16 @@
 <?php 
 include"../ili-functions/functions.php";
 autorisation('2'); 
-/*function grade_list(){
-	if($_SESSION['user_id_rank']==6){
-		$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
-		$result=query_excute_while($query);
-		while ($o=mysqli_fetch_object($result)){
-			echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';
-		}
-	}
-	else{
-		$query="SELECT * FROM `users_rank` WHERE `id_rank`<'6' ORDER BY id_rank ASC";
-		$result=query_excute_while($query);
-		while ($o=mysqli_fetch_object($result)){
-			echo'<option value="'.$o->id_rank.'">'.$o->rank.'</option>';
-		}
-	}
-}*/
 function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse, $date_naissance, $mdp, $fb, $github, $linkedin, $img_url, $admin){
 	$query_test1 = "SELECT * FROM users WHERE id_user='$cin';";
 	$query_test2 = "SELECT * FROM users WHERE email='$email';";
-	$query="INSERT INTO `ili_erp`.`users` (`id_user`, `id_rank`, `nom`, `prenom`, `email`, `poste`, `tel`, `adresse`, `date_naissance`, `mdp`, `mdp_update_date`, `fb`, `github`, `linkedin`, `img_link`, `created_by`, `created_date`) VALUES ('$cin', '$rank', '$nom', '$prenom', '$email', '$poste', '$tel', '$adresse', '$date_naissance', MD5('$mdp'), NOW(), '$fb', '$github', '$linkedin', '$img_url', 'Sakly Ayoub', NOW());";
+	$add_by		 = $_SESSION['user_nom'].' '.$_SESSION['user_prenom']; 
+	$query="INSERT INTO `ili_erp`.`users` (`id_user`, `id_rank`, `nom`, `prenom`, `email`, `poste`, `tel`, `adresse`, `date_naissance`, `mdp`, `mdp_update_date`, `fb`, `github`, `linkedin`, `img_link`, `created_by`, `created_date`) VALUES ('$cin', '$rank', '$nom', '$prenom', '$email', '$poste', '$tel', '$adresse', '$date_naissance', MD5('$mdp'), NOW(), '$fb', '$github', '$linkedin', '$img_url', '$add_by', NOW());";
+	$query2="INSERT INTO `ili_erp`.`users_privileges` (`id`, `id_user`, `bloc`, `s`, `c`, `u`, `d`) VALUES (NULL, '$cin', 'users', '0', '0', '0', '0');";
 	if(query_execute('mysqli_fetch_object', $query_test1)){redirect('ili-users/user_add?message=8');}
 	else{
 		if(query_execute('mysqli_fetch_object', $query_test2)){redirect('ili-users/user_add?message=9');}
-		else{query_execute_insert($query);redirect('ili-users/users');}
+		else{query_execute_insert($query);query_execute_insert($query2);redirect('ili-users/users');}
 	}
 }
 // forme user_add
