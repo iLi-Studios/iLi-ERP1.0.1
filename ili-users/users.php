@@ -1,6 +1,11 @@
 <?php 
 include"../ili-functions/functions.php"; 
 autorisation('2');
+function user_icon($rank){
+	if($rank==1){echo'icon-ban-circle';}
+	if($rank==2){echo'icon-user';}
+	if($rank==3){echo'icon-briefcase';}
+}
 function get_users_last_diploma($id){
 	$query="SELECT * FROM users_diploma WHERE id_user='$id' ORDER BY id DESC LIMIT 1;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE DIPLOME!</strong>";}
@@ -94,7 +99,7 @@ function get_users_list(){
 		echo'
 				<div class="widget">
 					<div class="widget-title">
-						<h4><i class="icon-user"></i> '.$o->nom.' '.$o->prenom.' ('.$o->rank.')</h4>
+						<h4><i class="';?><?php user_icon($o->id_rank);?><?php echo'"></i> '.$o->nom.' '.$o->prenom.'</h4>
 						<span class="tools" style="margin-top:-2px;">';
 							users_pannel($o->id_user, $o->id_rank);
 							echo'
