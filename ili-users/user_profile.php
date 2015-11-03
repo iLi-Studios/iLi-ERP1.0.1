@@ -6,6 +6,11 @@ function get_user_info($id){
 	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
+function user_icon($rank){
+	if($rank==1){echo'icon-ban-circle';}
+	if($rank==2){echo'icon-user';}
+	if($rank==3){echo'icon-briefcase';}
+}
 $user=get_user_info($id_user);
 function get_users_skills($id){
 	$query="SELECT * FROM users_skills WHERE id_user='$id' ORDER BY id DESC;";
@@ -139,7 +144,7 @@ Site : http://www.ili-studios.com/
 				<div class="span12">
 					<div class="widget">
 						<div class="widget-title">
-							<h4><i class="icon-user"></i> Profile</h4>
+							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profile</h4>
 							<span class="tools">
 							<?php profile_pannel($id_user);?>
 							</span> </div>

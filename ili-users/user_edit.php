@@ -283,6 +283,11 @@ function grade_list($rank_user){
 	}
 }
 }
+function user_icon($rank){
+	if($rank==1){echo'icon-ban-circle';}
+	if($rank==2){echo'icon-user';}
+	if($rank==3){echo'icon-briefcase';}
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -363,7 +368,7 @@ Site : http://www.ili-studios.com/
 					<?php get_message('message'); ?>
 					<div class="widget">
 						<div class="widget-title">
-							<h4><i class="icon-user"></i> Profile</h4>
+							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profile</h4>
 							<span class="tools">
 							<?php
 								// on peut modifier si
