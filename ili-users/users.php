@@ -22,7 +22,7 @@ function get_users_last_diploma($id){
 }	
 function get_users_last_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC LIMIT 1;";
-	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
+	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERIENCE!</strong>";}
 	else{
 		$result=query_excute_while($query);
 		while ($o=mysqli_fetch_object($result)){
@@ -164,7 +164,7 @@ function get_users_list(){
 						<div class="span3">
 							<h4>Dérnier diplômes</h4>
 							<ul class="icons push">';get_users_last_diploma($o->id_user); echo'</ul>
-							<h4>Dériniére expérance</h4>
+							<h4>Dériniére expérience</h4>
 							<ul class="icons push">';get_users_last_expirance($o->id_user);echo'</ul>
 						</div>
 						<div class="space5"></div>

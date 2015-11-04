@@ -130,7 +130,7 @@ if( (isset($_POST['fb_url'])) && (isset($_POST['linkedin_url'])) && (isset($_POS
 
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
-	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
+	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERIENCE!</strong>";}
 	else{
 		$result=query_excute_while($query);
 		while ($o=mysqli_fetch_object($result)){
@@ -147,7 +147,7 @@ function get_users_expirance($id){
 							<div id="myModal_expirance_mod'.$o->id.'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_mod'.$o->id.'_Label" aria-hidden="true">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									<h3 id="myModal_expirance_mod'.$o->id.'_Label">Expérance Modifier</h3>
+									<h3 id="myModal_expirance_mod'.$o->id.'_Label">Expérience Modifier</h3>
 								</div>
 								<div class="modal-body">
 									<center>
@@ -165,7 +165,7 @@ function get_users_expirance($id){
 												<td><input name="exp_duration_mod" required type="text" value="'.$o->duration.'" class="input-large" /></td>
 											</tr>
 											<tr>
-												<td>Expérance</td>
+												<td>Expérience</td>
 												<td><textarea name="exp_experance_mod" style="resize: vertical; width:100%; max-height:150px;" rows="4">'.$o->experience.'</textarea></td>
 											</tr>
 										</table>
@@ -456,7 +456,7 @@ Site : http://www.ili-studios.com/
 								<ul class="icons push">
 									<?php get_users_diploma($id_user);?>
 								</ul>
-								<h4>Expérance <span><a href="#myModal_expirance_add" data-toggle="modal"  class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
+								<h4>Expériance <span><a href="#myModal_expirance_add" data-toggle="modal"  class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push">
 									<?php get_users_expirance($id_user);?>
 								</ul>
@@ -540,7 +540,7 @@ Site : http://www.ili-studios.com/
 	<div id="myModal_expirance_add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_expirance_add_Label" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModal_expirance_add_Label">Expérance Ajout</h3>
+			<h3 id="myModal_expirance_add_Label">Expériance Ajout</h3>
 		</div>
 		<div class="modal-body">
 			<center>
@@ -558,7 +558,7 @@ Site : http://www.ili-studios.com/
 						<td><input name="exp_duration_add" required type="text" placeholder="" class="input-large" /></td>
 					</tr>
 					<tr>
-						<td>Expérance</td>
+						<td>Expériance</td>
 						<td><textarea name="exp_experance_add" style="resize: vertical; width:100%; max-height:150px;" rows="4"></textarea></td>
 					</tr>
 				</table>
