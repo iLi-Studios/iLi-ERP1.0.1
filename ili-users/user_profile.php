@@ -49,7 +49,7 @@ function get_users_diploma($id){
 }
 function get_users_expirance($id){
 	$query="SELECT * FROM users_expirance WHERE id_user='$id' ORDER BY id DESC;";
-	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERANCE!</strong>";}
+	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS D'EXPERIENCE!</strong>";}
 	else{
 		$result=query_excute_while($query);
 		while ($o=mysqli_fetch_object($result)){
@@ -76,6 +76,48 @@ function profile_pannel($id){
 		}
 	}
 }
+function priviléges($id, $rank){
+	if($rank==2){
+		echo'
+		<ul class="nav nav-tabs nav-stacked" style="margin-left:-15%;">
+			<div class="widget-body">
+				<div class="space10"></div>
+					<ul id="tree_2" class="tree">
+						<li>
+							<a data-toggle="branch" class="tree-toggle" data-role="branch" href="#">Autorisations</a>
+		';
+		$query="SELECT `bloc` FROM `users_privileges` WHERE `id_user`='$id'";
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			$query2="SELECT `s`, `c`, `u`, `d` FROM `users_privileges` WHERE `id_user`='$id' AND `bloc`='$o->bloc';";
+			echo'
+				<ul class="branch in">
+					<li><a data-toggle="branch" class="tree-toggle closed" data-role="branch" href="">'.$o->bloc.'</a>';
+					$result2=query_excute_while($query2);
+					while ($b=mysqli_fetch_object($result2)){
+						echo'
+							<ul class="branch">';
+								if($b->s){echo'<li><a><p class="icon-eye-open"></p></a> Voire</li>';}
+								if($b->c){echo'<li><a><p class="icon-plus"></p></a> Créer</li>';}
+								if($b->u){echo'<li><a><p class="icon-edit"></p></a> Modifier</li>';}
+								if($b->d){echo'<li><a><p class="icon-trash"></p></a> Supprimer</li>';}
+						echo'	
+							</ul>
+						';
+					}		
+				echo'
+					</li>
+				</ul>
+				';
+			}
+		echo'
+					</li>
+				</ul>
+			</div>
+		</ul>
+		';	
+	}
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -92,7 +134,7 @@ Site : http://www.ili-studios.com/
 <!-- BEGIN HEAD -->
 <head>
    <meta charset="utf-8" />
-   <title>Tree View Page</title>
+   <title><?php echo $sytem_title;?></title>
    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
    <meta content="" name="description" />
    <meta content="" name="author" />
@@ -163,26 +205,7 @@ Site : http://www.ili-studios.com/
 									if($user->github){echo'<li><a href="'.$user->github.'" target="new"><i class="icon-github"></i> Github</a></li>';}
 									?>
 								</ul>
-								<ul class="nav nav-tabs nav-stacked" style="margin-left:-15%;">
-									<div class="widget-body">
-										<div class="space10"></div>
-										<ul id="tree_2" class="tree">
-											<li>
-												<a data-value="Bootstrap_Tree" data-toggle="branch" class="tree-toggle" data-role="branch" href="#">Autorisations</a>
-												<ul class="branch in">
-													<li><a data-value="XML_Example" data-toggle="branch" class="tree-toggle closed" data-role="branch" href="assets/bootstrap-tree/xmlexample.xml">users</a>
-														<ul class="branch">
-															<li><a data-role="leaf" href="#"><i class="icon-eye-open"></i> Voire</a></li>
-															<li><a data-role="leaf" href="#"><i class="icon-plus"></i> Créer</a></li>
-															<li><a data-role="leaf" href="#"><i class="icon-edit"></i> Modifier</a></li>
-															<li><a data-role="leaf" href="#"><i class="icon-trash"></i> Supprimer</a></li>
-														</ul>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</div>
-								</ul>
+								<?php priviléges($id_user, $user->id_rank);?>			
 							</div>
 							<div class="span6">
 								<h4><?php echo $user->nom; ?> <?php echo $user->prenom; ?><br/>
@@ -254,7 +277,7 @@ Site : http://www.ili-studios.com/
 								<ul class="icons push">
 									<?php get_users_diploma($id_user);?>
 								</ul>
-								<h4>Expérance</h4>
+								<h4>Expérience</h4>
 								<ul class="icons push">
 									<?php get_users_expirance($id_user);?>
 								</ul>
