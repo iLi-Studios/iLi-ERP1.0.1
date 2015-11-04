@@ -72,7 +72,7 @@ function users_pannel($id, $rank){
 			if($rank==2){echo'<a href="user_ban?id='.$id.'" class="icon-ban-circle tooltips" data-original-title="Bannir"></a>';}
 		}
 		//S IN ALL
-		echo'<a href="user_profile?id='.$id.'" class="icon-eye-open tooltips" data-original-title="Voire plus"></a>';
+		echo'<a href="user_profil?id='.$id.'" class="icon-eye-open tooltips" data-original-title="Voir plus"></a>';
 	}
 	//USER
 	if($_SESSION['user_id_rank']==2){
@@ -89,7 +89,7 @@ function users_pannel($id, $rank){
 			if($rank==2){echo'<a href="user_ban?id='.$id.'" class="icon-ban-circle tooltips" data-original-title="Bannir"></a>';}
 		}
 		//S IN ALL BUT ADMIN
-		if( (($s) && ($_SESSION['user_id_rank']>=$rank)) || ($_SESSION['user_id']==$id)){echo'<a href="user_profile?id='.$id.'" class="icon-eye-open tooltips" data-original-title="Voire plus"></a>';}	
+		if( (($s) && ($_SESSION['user_id_rank']>=$rank)) || ($_SESSION['user_id']==$id)){echo'<a href="user_profil?id='.$id.'" class="icon-eye-open tooltips" data-original-title="Voir plus"></a>';}	
 	}
 }
 function get_users_list(){
@@ -123,7 +123,7 @@ function get_users_list(){
 					</div>
 					<div class="widget-body">
 						<div class="span3">
-							<div class="text-center profile-pic">'; 
+							<div class="text-center profil-pic">'; 
 								if($o->img_link!=''){echo'<img src="'.$o->img_link.'" width="100%" height="226px;">';}
 								echo'
 							</div>

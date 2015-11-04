@@ -63,7 +63,7 @@ function get_users_expirance($id){
 	}
 }
 function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
-function profile_pannel($id){
+function profil_pannel($id){
 	// AUTORISATION SYSTEM
 	// EDIT IF ADMIN || IF USER{IF HIS PROFILE || HASE PERMESSION TO EDIT}
 	if($_SESSION['user_id_rank']==3){
@@ -97,7 +97,7 @@ function priviléges($id, $rank){
 					while ($b=mysqli_fetch_object($result2)){
 						echo'
 							<ul class="branch">';
-								if($b->s){echo'<li><a><p class="icon-eye-open"></p></a> Voire</li>';}
+								if($b->s){echo'<li><a><p class="icon-eye-open"></p></a> Voir</li>';}
 								if($b->c){echo'<li><a><p class="icon-plus"></p></a> Créer</li>';}
 								if($b->u){echo'<li><a><p class="icon-edit"></p></a> Modifier</li>';}
 								if($b->d){echo'<li><a><p class="icon-trash"></p></a> Supprimer</li>';}
@@ -167,11 +167,11 @@ Site : http://www.ili-studios.com/
 			<div class="row-fluid">
 				<div class="span12"> 
 					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-					<h3 class="page-title"> Utilisateurs <small> Profile</small> </h3>
+					<h3 class="page-title"> Utilisateurs <small> Profil</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li> <a href="users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
-						<li> <a href="user_profile?id=<?php echo $id_user ;?>">Profile</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="user_profil?id=<?php echo $id_user ;?>">Profil</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">
@@ -189,13 +189,13 @@ Site : http://www.ili-studios.com/
 				<div class="span12">
 					<div class="widget">
 						<div class="widget-title">
-							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profile</h4>
+							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profil</h4>
 							<span class="tools">
-							<?php profile_pannel($id_user);?>
+							<?php profil_pannel($id_user);?>
 							</span> </div>
 						<div class="widget-body">
 							<div class="span3">
-								<div class="text-center profile-pic">
+								<div class="text-center profil-pic">
 									<?php if($user->img_link!=''){echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
 								</div>
 								<ul class="nav nav-tabs nav-stacked">

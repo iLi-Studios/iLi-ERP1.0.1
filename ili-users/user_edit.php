@@ -348,7 +348,7 @@ Site : http://www.ili-studios.com/
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li> <a href="users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
-						<li> <a href="user_profile?id=<?php echo $id_user;?>">Profile </a><span class="divider">&nbsp;</span>
+						<li> <a href="user_profil?id=<?php echo $id_user;?>">Profil </a><span class="divider">&nbsp;</span>
 						<li> <a href="user_edit?id=<?php echo $id_user;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
@@ -368,14 +368,14 @@ Site : http://www.ili-studios.com/
 					<?php get_message('message'); ?>
 					<div class="widget">
 						<div class="widget-title">
-							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profile</h4>
+							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profil</h4>
 							<span class="tools">
-							<?php echo'<a href="user_profile?id='.$id_user.'" class="icon-lock tooltips" data-original-title="verrouiller"></a>';?>
+							<?php echo'<a href="user_profil?id='.$id_user.'" class="icon-lock tooltips" data-original-title="verrouiller"></a>';?>
 							</span> </div>
 						<div class="widget-body">
 							<div class="span3">
-								<div class="text-center profile-pic">
-									<?php if($user->img_link==''){echo'Pas de photo de profile';}else{echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
+								<div class="text-center profil-pic">
+									<?php if($user->img_link==''){echo'Pas de photo de profil';}else{echo'<img src="'.$user->img_link.'" width="100%" height="226px;">';}?>
 									<span><a href="#myModal_img_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier votre photo"></a></span> </div>
 								<ul class="nav nav-tabs nav-stacked">
 									<?php
@@ -667,7 +667,7 @@ Site : http://www.ili-studios.com/
 	<div id="myModal_img_mod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_img_mod_Label" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModal_img_mod_Label">Photo de profile</h3>
+			<h3 id="myModal_img_mod_Label">Photo de profil</h3>
 		</div>
 		<div class="modal-body">
 			<center>

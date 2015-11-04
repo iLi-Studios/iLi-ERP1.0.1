@@ -107,7 +107,7 @@
                     </a>
                     <ul class="sub">
                         <li><a class="" href="ili-style-src/lock.html">Lock Screen</a></li>
-                        <li><a class="" href="ili-style-src/profile.html">Profile</a></li>
+                        <li><a class="" href="ili-style-src/profil.html">Profil</a></li>
                         <li><a class="" href="ili-style-src/invoice.html">Invoice</a></li>
                         <li><a class="" href="ili-style-src/pricing_tables.html">Pricing Tables</a></li>
                         <li><a class="" href="ili-style-src/faq.html">FAQ</a></li>
