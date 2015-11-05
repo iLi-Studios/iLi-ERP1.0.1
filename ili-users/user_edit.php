@@ -288,6 +288,154 @@ function user_icon($rank){
 	if($rank==2){echo'icon-user';}
 	if($rank==3){echo'icon-briefcase';}
 }
+function priviléges($id){
+	if( ($_SESSION['user_id_rank']==3)&&($_SESSION['user_id']!=$id) ){
+		echo'
+		<ul class="nav nav-tabs nav-stacked" style="margin-left:-15%;">
+			<div class="widget-body">
+				<div class="space10"></div>
+				<ul id="tree_2" class="tree">
+					<li>
+						<a data-toggle="branch" class="tree-toggle" data-role="branch" href="#">Autorisations</a>
+						<ul class="branch in">';
+		$query="SELECT `bloc` FROM `users_privileges` WHERE `id_user`='$id'";
+		$result=query_excute_while($query);
+		while ($o=mysqli_fetch_object($result)){
+			echo'
+							<li><a data-toggle="branch" class="tree-toggle closed" data-role="branch" href="#">'.$o->bloc.'</a>';
+			$query2="SELECT * FROM `users_privileges` WHERE `id_user`='$id' AND `bloc`='$o->bloc';";
+			$result2=query_excute_while($query2);
+			while ($b=mysqli_fetch_object($result2)){
+				echo'
+								<ul class="branch">
+					';			
+									if($b->s){echo'
+									<li>
+										<form action="" method="post" style="margin-bottom:-2px;">
+											<input type="hidden" name="'.$b->id.'s0" value="1">
+											<input type="checkbox" name="s0" value="0" checked onChange="this.form.submit()">
+											<a><p class="icon-eye-open"></p></a> Voir
+										</form>
+									</li>
+								    ';}
+									else{echo'
+									<li>
+										<form action="" method="post" style="margin-bottom:-2px;">
+											<input type="checkbox" name="'.$b->id.'s1" value="1" onChange="this.form.submit()">
+											<a><p class="icon-eye-open"></p></a> Voir
+										</form>
+									</li>
+									';}
+									if($b->c){echo'
+									<li>
+										<form action="" method="post" style="margin-bottom:-2px;">
+											<input type="hidden" name="'.$b->id.'c0" value="1">
+											<input type="checkbox" name="c0" value="0" checked onChange="this.form.submit()">
+											<a><p class="icon-plus"></p></a> Créer
+										</form>
+									</li>
+								    ';}
+									else{echo'
+									<li>
+										<form action="" method="post" style="margin-bottom:-2px;">
+											<input type="checkbox" name="'.$b->id.'c1" value="1" onChange="this.form.submit()">
+											<a><p class="icon-plus"></p></a> Créer
+										</form>
+									</li>
+									';}
+									if($b->u){echo'
+									<li>
+										<form action="" method="post" style="margin-bottom:-2px;">
+											<input type="hidden" name="'.$b->id.'u0" value="1">
+											<input type="checkbox" name="u0" value="0" checked onChange="this.form.submit()">
+											<a><p class="icon-edit"></p></a> Modifier
+										</form>
+									</li>
+								    ';}
+									else{echo'
+									<li>
+										<form action="" method="post" style="margin-bottom:-2px;">
+											<input type="checkbox" name="'.$b->id.'u1" value="1" onChange="this.form.submit()">
+											<a><p class="icon-edit"></p></a> Modifier
+										</form>
+									</li>
+									';}
+									if($b->d){echo'
+									<li>
+										<form action="" method="post" style="margin-bottom:-2px;">
+											<input type="hidden" name="'.$b->id.'d0" value="1">
+											<input type="checkbox" name="d0" value="0" checked onChange="this.form.submit()">
+											<a><p class="icon-trash"></p></a> Supprimer
+										</form>
+									</li>
+								    ';}
+									else{echo'
+									<li>
+										<form action="" method="post" style="margin-bottom:-2px;">
+											<input type="checkbox" name="'.$b->id.'d1" value="1" onChange="this.form.submit()">
+											<a><p class="icon-trush"></p></a> Supprimer
+										</form>
+									</li>
+									';}
+									if(isset($_POST[$b->id.'s0'])){
+										$query="UPDATE users_privileges SET s='0' WHERE id='$b->id';";
+										query_execute_insert($query);
+										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
+									}
+									if(isset($_POST[$b->id.'s1'])){
+										$query="UPDATE users_privileges SET s='1' WHERE id='$b->id';";
+										query_execute_insert($query);
+										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
+									}
+									if(isset($_POST[$b->id.'c0'])){
+										$query="UPDATE users_privileges SET c='0' WHERE id='$b->id';";
+										query_execute_insert($query);
+										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
+									}
+									if(isset($_POST[$b->id.'c1'])){
+										$query="UPDATE users_privileges SET c='1' WHERE id='$b->id';";
+										query_execute_insert($query);
+										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
+									}
+									if(isset($_POST[$b->id.'u0'])){
+										$query="UPDATE users_privileges SET u='0' WHERE id='$b->id';";
+										query_execute_insert($query);
+										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
+									}
+									if(isset($_POST[$b->id.'u1'])){
+										$query="UPDATE users_privileges SET u='1' WHERE id='$b->id';";
+										query_execute_insert($query);
+										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
+									}
+									if(isset($_POST[$b->id.'d0'])){
+										$query="UPDATE users_privileges SET d='0' WHERE id='$b->id';";
+										query_execute_insert($query);
+										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
+									}
+									if(isset($_POST[$b->id.'d1'])){
+										$query="UPDATE users_privileges SET d='1' WHERE id='$b->id';";
+										query_execute_insert($query);
+										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
+									}
+	
+				echo'		
+								</ul>
+				';
+			}
+			echo'
+							</li>
+				';
+		}
+						echo'	
+						</ul>		
+					</li>
+				</ul>
+			</div>
+		</ul>
+		';
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <!--
@@ -303,31 +451,24 @@ Site : http://www.ili-studios.com/
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-<meta charset="utf-8" />
-<title><?php echo $sytem_title;?></title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<meta content="" name="description" />
-<meta content="" name="author" />
-<link href="../ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="../ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<link href="../ili-style/assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
-<link href="../ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link href="../ili-style/css/style.css" rel="stylesheet" />
-<link href="../ili-style/css/style_responsive.css" rel="stylesheet" />
-<link href="../ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
-<link href="../ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/gritter/css/jquery.gritter.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/uniform/css/uniform.default.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/chosen-bootstrap/chosen/chosen.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/jquery-tags-input/jquery.tagsinput.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/clockface/css/clockface.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/bootstrap-datepicker/css/datepicker.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/bootstrap-timepicker/compiled/timepicker.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/bootstrap-colorpicker/css/colorpicker.css" />
-<link rel="stylesheet" href="../ili-style/assets/bootstrap-toggle-buttons/static/stylesheets/bootstrap-toggle-buttons.css" />
-<link rel="stylesheet" href="../ili-style/assets/data-tables/DT_bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="../ili-style/assets/bootstrap-daterangepicker/daterangepicker.css" />
+   <meta charset="utf-8" />
+   <title><?php echo $sytem_title;?></title>
+   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+   <meta content="" name="description" />
+   <meta content="" name="author" />
+   <link href="../ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="../ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+   <link href="../ili-style/assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
+   <link href="../ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+   <link href="../ili-style/css/style.css" rel="stylesheet" />
+   <link href="../ili-style/css/style_responsive.css" rel="stylesheet" />
+   <link href="../ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
+
+   <link href="../ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+   <link rel="stylesheet" type="text/css" href="../ili-style/assets/uniform/css/uniform.default.css" />
+
+   <link rel="stylesheet" type="text/css" href="../ili-style/assets/bootstrap-tree/bootstrap-tree/css/bootstrap-tree.css" />
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -385,6 +526,7 @@ Site : http://www.ili-studios.com/
 									?>
 									<a href="#myModal_social_edit" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier vos lien socieaux"></a>
 								</ul>
+								<?php priviléges($id_user);?>
 							</div>
 							<div class="span6">
 								<h4><?php echo $user->nom; ?> <?php echo $user->prenom; ?> <span><a href="#myModal_info_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier les informations personnelles"></a></span><br/>
@@ -728,40 +870,32 @@ Site : http://www.ili-studios.com/
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>
 </div>
 <!-- END FOOTER --> 
-<!-- BEGIN JAVASCRIPTS --> 
-<!-- Load javascripts at bottom, this will reduce page load time --> 
-<script src="../ili-style/js/jquery-1.8.2.min.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/ckeditor/ckeditor.js"></script> 
-<script src="../ili-style/assets/bootstrap/js/bootstrap.min.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap/js/bootstrap-fileupload.js"></script> 
-<script src="../ili-style/js/jquery.blockui.js"></script> 
-<!-- ie8 fixes --> 
-<!--[if lt IE 9]>
+   <!-- BEGIN JAVASCRIPTS -->    
+   <!-- Load javascripts at bottom, this will reduce page load time -->
+   <script src="../ili-style/js/jquery-1.8.3.min.js"></script>
+   <script src="../ili-style/assets/bootstrap/js/bootstrap.min.js"></script>
+   <script src="../ili-style/js/jquery.blockui.js"></script>
+   <!-- ie8 fixes -->
+   <!--[if lt IE 9]>
    <script src="js/excanvas.js"></script>
    <script src="js/respond.js"></script>
-   <![endif]--> 
-<script type="text/javascript" src="../ili-style/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/uniform/jquery.uniform.min.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/clockface/js/clockface.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/jquery-tags-input/jquery.tagsinput.min.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-toggle-buttons/static/js/jquery.toggle.buttons.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-daterangepicker/date.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-daterangepicker/daterangepicker.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script> 
-<script type="text/javascript" src="../ili-style/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script> 
-<script src="../ili-style/assets/fancybox/source/jquery.fancybox.pack.js"></script> 
-<script src="../ili-style/js/scripts.js"></script> 
-<script>
+   <![endif]-->
+   <script type="text/javascript" src="../ili-style/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
+   <script type="text/javascript" src="../ili-style/assets/uniform/jquery.uniform.min.js"></script>
+
+   <script src="../ili-style/assets/bootstrap-tree/bootstrap-tree/js/bootstrap-tree.js"></script>
+
+   <script src="../ili-style/js/scripts.js"></script>
+   <script src="../ili-style/js/ui-tree.js"></script>
+
+   <script>
       jQuery(document).ready(function() {       
          // initiate layout and plugins
          App.init();
+         UITree.init();
       });
-   </script> 
-<!-- END JAVASCRIPTS -->
+   </script>
+   <!-- END JAVASCRIPTS -->   
 </body>
 <!-- END BODY -->
 </html>

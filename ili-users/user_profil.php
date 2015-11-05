@@ -85,14 +85,14 @@ function priviléges($id, $rank){
 					<ul id="tree_2" class="tree">
 						<li>
 							<a data-toggle="branch" class="tree-toggle" data-role="branch" href="#">Autorisations</a>
+							<ul class="branch in">
 		';
 		$query="SELECT `bloc` FROM `users_privileges` WHERE `id_user`='$id'";
 		$result=query_excute_while($query);
 		while ($o=mysqli_fetch_object($result)){
 			$query2="SELECT `s`, `c`, `u`, `d` FROM `users_privileges` WHERE `id_user`='$id' AND `bloc`='$o->bloc';";
 			echo'
-				<ul class="branch in">
-					<li><a data-toggle="branch" class="tree-toggle closed" data-role="branch" href="">'.$o->bloc.'</a>';
+					<li><a data-toggle="branch" class="tree-toggle closed" data-role="branch" href="#">'.$o->bloc.'</a>';
 					$result2=query_excute_while($query2);
 					while ($b=mysqli_fetch_object($result2)){
 						echo'
@@ -101,21 +101,11 @@ function priviléges($id, $rank){
 								if($b->c){echo'<li><a><p class="icon-plus"></p></a> Créer</li>';}
 								if($b->u){echo'<li><a><p class="icon-edit"></p></a> Modifier</li>';}
 								if($b->d){echo'<li><a><p class="icon-trash"></p></a> Supprimer</li>';}
-						echo'	
-							</ul>
-						';
+						echo'</ul>';
 					}		
-				echo'
-					</li>
-				</ul>
-				';
+				echo'</li>';
 			}
-		echo'
-					</li>
-				</ul>
-			</div>
-		</ul>
-		';	
+		echo'</ul></li></ul></div></ul>';	
 	}
 }
 ?>
