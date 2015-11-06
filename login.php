@@ -38,6 +38,7 @@ function connexion($email, $mdp){
 				$_SESSION['user_id_rank']=$o->id_rank;
 				$_SESSION['user_rank']=$o->rank;
 				$_SESSION['user_img']=$o->img_link;
+				write_log("Connexion");
 				redirect("index");
 			}
 		}

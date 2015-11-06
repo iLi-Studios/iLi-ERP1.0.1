@@ -76,7 +76,7 @@ function users_pannel($id, $rank){
 	}
 	//USER
 	if($_SESSION['user_id_rank']==2){
-		$up=user_privileges("users", $_SESSION['user_id']);$s=$up->s;$c=$up->c;$u=$up->u;$d=$up->d;
+		$up=user_privileges("USERS", $_SESSION['user_id']);$s=$up->s;$c=$up->c;$u=$up->u;$d=$up->d;
 		//C IN ALL
 		if($c){echo'<a href="user_add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
 		//U IN ALL BUT ADMIN

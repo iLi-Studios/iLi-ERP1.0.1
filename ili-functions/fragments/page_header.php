@@ -53,7 +53,7 @@
 				<ul class="nav pull-right top-menu" >
 					
 					<!-- BEGIN SUPPORT -->
-					<li class="dropdown mtop5"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Chat"> <i class="icon-comments-alt"></i> </a> </li>
+					<?php if($_SESSION['user_id_rank']==3){echo'<li class="dropdown mtop5"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="'.$site.'log" data-original-title="Journal Systéme"> <i class="icon-tasks"></i> </a> </li>';}?>
 					<li class="dropdown mtop5"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="<?php echo $site; ?>ili-users/users" data-original-title="Utilisateurs"> <i class="icon-group"></i> </a> </li>
 					<!-- END SUPPORT --> 
 					<!-- BEGIN USER LOGIN DROPDOWN -->

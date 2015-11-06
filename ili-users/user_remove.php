@@ -3,9 +3,12 @@
 autorisation('5'); 
 function user_remove($id){
 	$query="DELETE FROM users WHERE id_user='$id';";
-	if(query_execute("mysqli_fetch_object", $query)){return 1;}
+	query_execute_insert($query);
 }
-user_remove($_GET['id']);
+
+$id=$_GET['id'];
+user_remove($id);
+write_log("Suppression de l\'utilisateur avec CIN=".$id);
 redirect('ili-users/users');
 
 ?>

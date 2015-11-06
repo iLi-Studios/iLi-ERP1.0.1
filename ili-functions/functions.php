@@ -24,30 +24,15 @@ function autorisation($id){
 	}
 }
 
-// upload into database
-function db_upload($id, $file){
-	$message=false;
-	if($file['error'] == 0) {
-		// Gather all required data
-		$name = $dbLink->real_escape_string($file['name']);
-		$mime = $dbLink->real_escape_string($file['type']);
-		$data = $dbLink->real_escape_string(file_get_contents($file['tmp_name']));
-		$size = intval($file['size']);	
-		
-		$query = "INSERT INTO `file` 	
-		(`id`, `name`, `mime`, `size`, `data`, `created`) VALUES 
-		('{$id}', '{$name}', '{$mime}', {$size}, '{$data}', NOW() )";
-		
-		// Execute the query
-		$result=query_execute_insert($query);
-		if($result==0){$message=='11';}
-	}
-	return $message;
-}
-
 function user_privileges($bloc, $id_user){
 	$query="SELECT * FROM `users_privileges` WHERE `id_user`='$id_user' AND `bloc`='$bloc';";
 	$o = query_execute("mysqli_fetch_object", $query);
 	return $o;
+}
+function write_log($operation){
+	$now= date("m/d/y-H:i:s"); 
+	$id_user=$_SESSION['user_id'];
+	$query="INSERT INTO `system_log` (`id`, `id_user`, `date_operation`, `operation`) VALUES (NULL, '$id_user', '$now', '$operation'); ";
+	query_execute_insert($query);
 }
 ?>
