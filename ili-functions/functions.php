@@ -35,4 +35,5 @@ function write_log($operation){
 	$query="INSERT INTO `system_log` (`id`, `id_user`, `date_operation`, `operation`) VALUES (NULL, '$id_user', '$now', '$operation'); ";
 	query_execute_insert($query);
 }
+
 ?>

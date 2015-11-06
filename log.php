@@ -1,31 +1,6 @@
 <?php 
 include"ili-functions/functions.php";
 autorisation('2');
-function read_log(){
-	$query="SELECT * FROM `system_log` ORDER BY `id` DESC;";
-	if(query_execute('mysqli_num_rows', $query)=='0'){
-		$now= date("d/m/y-H:i:s");
-		echo'
-		<tr class="odd gradeX">
-			<td>SYSTEM</td>
-			<td class="hidden-phone">PAS DE LOGS</td>
-			<td class="center hidden-phone">'.$now.'</td>
-		</tr>
-	';
-	}
-	else{
-		$result=query_excute_while($query);
-		while ($o=mysqli_fetch_object($result)){
-			echo'
-			<tr class="odd gradeX">
-				<td><a href="ili-users/user_profil?id='.$o->id_user.'">'.$o->id_user.'</a></td>
-				<td class="hidden-phone">'.$o->operation.'</td>
-				<td class="center hidden-phone">'.$o->date_operation.'</td>
-			</tr>
-			';
-		}
-	}
-}
 ?>
 <!DOCTYPE html>
 <!--
@@ -54,6 +29,8 @@ Site : http://www.ili-studios.com/
 <link href="ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
 <link href="ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="ili-style/assets/uniform/css/uniform.default.css" />
+<script src="ili-style/js/jquery-latest.js"></script>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -100,11 +77,20 @@ Site : http://www.ili-studios.com/
 								<thead>
 									<tr>
 										<th width="10%">Opératuer</th>
-										<th class="hidden-phone" width="80%">Opération</th>
-										<th class="hidden-phone" width="10%">Date</th>
+										<th class="hidden-phone" width="75%">Opération</th>
+										<th class="hidden-phone" width="15%">Date</th>
 									</tr>
 								</thead>
-								<tbody><?php read_log();?></tbody>
+								<script>
+								 $(document).ready(function() {
+									 $("#log-table").load("ili-functions/log.php");
+								   var refreshId = setInterval(function() {
+									  $("#log-table").load('ili-functions/log.php?randval='+ Math.random());
+								   }, 9000);
+								   $.ajaxSetup({ cache: false });
+								});
+								</script>
+								<tbody id="log-table"></tbody>
 							</table>
 						</div>
 					</div>
