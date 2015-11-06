@@ -18,7 +18,7 @@
 					    <span class="icon-box"> <i class="icon-dashboard"></i></span> Dashboard
                     </a>
 				</li>
-				<li><a class="" href="ili-functions/logout"><span class="icon-box"><i class="icon-user"></i></span> Déconexion</a></li>
+				<li><a class="" href="<?php echo $site;?>ili-functions/logout"><span class="icon-box"><i class="icon-user"></i></span> Déconexion</a></li>
 			</ul>
 			<!-- END SIDEBAR MENU -->
 		</div>
