@@ -10,20 +10,16 @@ if (!isset($_SESSION)){
 include"config.php";
 include"alert.php";
 include"database.php";
-
-//fonction de rederection
 function redirect($page){
 	global $site;
 	header("Location: ".$site.$page);
 }	
-// min id required to see this page
 function autorisation($id){
 	if(!isset($_SESSION['user_id'])){redirect('login?message=1');}
 	//revérifier
 	else{if($_SESSION['user_id_rank']<$id){redirect('login?message=5');}
 	}
 }
-
 function user_privileges($bloc, $id_user){
 	$query="SELECT * FROM `users_privileges` WHERE `id_user`='$id_user' AND `bloc`='$bloc';";
 	$o = query_execute("mysqli_fetch_object", $query);
@@ -75,5 +71,10 @@ function diff_date($date){
 			
 			else
 				echo 'Le '.date('d/m/Y à H:i:s', $date);
+}
+function notif($user, $notif){
+	$date_notif = date("d-m-Y H:i:s");
+	$query="INSERT INTO `system_notif` VALUES (NULL, '$user', '$notif', '$date_notif', '0');";
+	query_execute_insert($query);
 }
 ?>
