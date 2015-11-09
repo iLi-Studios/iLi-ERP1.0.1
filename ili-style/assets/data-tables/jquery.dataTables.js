@@ -4065,7 +4065,7 @@
 				nTh.removeAttribute('aria-label');
 				
 				/* In ARIA only the first sorting column can be marked as sorting - no multi-sort option */
-				if ( aoColumns[i].bSortable )
+				/*if ( aoColumns[i].bSortable )
 				{
 					if ( aaSort.length > 0 && aaSort[0][0] == i )
 					{
@@ -4085,7 +4085,7 @@
 				else
 				{
 					nTh.setAttribute('aria-label', sTitle);
-				}
+				}*/
 			}
 			
 			/* Tell the draw function that we have sorted the data */

@@ -2,28 +2,17 @@
 include"ili-functions/functions.php";
 autorisation('2');
 function log_read(){
-	$query="SELECT * FROM `system_log` ORDER BY `id` DESC;";
-	if(query_execute('mysqli_num_rows', $query)=='0'){
-		$now= date("d/m/y-H:i:s");
+	$query="SELECT * FROM `system_log` ORDER BY id DESC";
+	$result=query_excute_while($query);
+	while ($o=mysqli_fetch_object($result)){
 		echo'
-		<tr class="odd gradeX">
-			<td>SYSTEM</td>
-			<td class="hidden-phone">PAS DE LOGS</td>
-			<td class="center hidden-phone">'.$now.'</td>
-		</tr>
-		';
-	}
-	else{
-		$result=query_excute_while($query);
-		while ($o=mysqli_fetch_object($result)){
-			echo'
 			<tr class="odd gradeX">
+				<td>'.$o->id.'</td>
 				<td><a href="ili-users/user_profil?id='.$o->id_user.'">'.$o->id_user.'</a></td>
 				<td class="hidden-phone">'.$o->operation.'</td>
 				<td class="center hidden-phone">'.$o->date_operation.'</td>
 			</tr>
 			';
-		}
 	}
 }
 ?>
@@ -100,8 +89,9 @@ Site : http://www.ili-studios.com/
 							<table class="table table-striped table-bordered" id="sample_1">
 								<thead>
 									<tr>
+										<th width="5%">Id</th>
 										<th width="10%">Opératuer</th>
-										<th class="hidden-phone" width="75%">Opération</th>
+										<th class="hidden-phone" width="70%">Opération</th>
 										<th class="hidden-phone" width="15%">Date</th>
 									</tr>
 								</thead>

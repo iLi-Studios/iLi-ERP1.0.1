@@ -1745,7 +1745,7 @@ var App = function () {
         $('#sample_1').dataTable({
             "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
-            "oLanguage": {
+			"oLanguage": {
                 "sLengthMenu": "_MENU_ records per page",
                 "oPaginate": {
                     "sPrevious": "Prev",
