@@ -8,7 +8,7 @@ if (!isset($_SESSION)){
 
 //global includes
 include"config.php";
-include"message.php";
+include"alert.php";
 include"database.php";
 
 //fonction de rederection

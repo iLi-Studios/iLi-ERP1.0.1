@@ -883,7 +883,7 @@ Site : http://www.ili-studios.com/
 </form>
 <!-- End myModal_social_edit -->
 
-<div id="footer"> 2013 &copy; Admin Lab Dashboard.
+<div id="footer"><?php echo $copy_right;?>
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>
 </div>
 <!-- END FOOTER --> 
