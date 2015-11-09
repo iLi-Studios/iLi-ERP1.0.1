@@ -78,7 +78,7 @@ if( (isset($_POST['exp_company_mod'])) && (isset($_POST['exp_companyurl_mod'])) 
 }
 //form mdp change
 if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['mdp_new2'])) ){
-	$mdp_now	=md5($_POST['mdp_now']);
+	if($_SESSION['user_id_rank']==3){$mdp_now =($_POST['mdp_now']);}else{$mdp_now=md5($_POST['mdp_now']);}
 	$mdp_new	=md5($_POST['mdp_new']);
 	$mdp_new2	=md5($_POST['mdp_new2']);
 	if($mdp_now==$user->mdp){
@@ -86,7 +86,7 @@ if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['m
 			$query_update_mdp ="UPDATE users SET mdp_update_date=NOW(), mdp='$mdp_new' WHERE id_user='$id_user';";
 			query_execute("mysqli_fetch_object", $query_update_mdp);
 			write_log("Changement du mot de passe de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-			redirect('ili-users/user_edit?message=12&id='.$id_user);
+			redirect('ili-users/user_edit?message=7&id='.$id_user);
 		}
 		else{redirect('ili-users/user_edit?message=11&id='.$id_user);}
 	}
@@ -742,18 +742,37 @@ Site : http://www.ili-studios.com/
 		<div class="modal-body">
 			<center>
 				<table width="80%">
-					<tr>
-						<td width="40%">Mot de passe actuelle</td>
-						<td width="60%"><input name="mdp_now" required type="password" placeholder="" class="input-large" /></td>
-					</tr>
-					<tr>
-						<td>Nouveau mot de passe</td>
-						<td><input name="mdp_new" required type="password" placeholder="" class="input-large" /></td>
-					</tr>
-					<tr>
-						<td>Repeter votre nouveau mot de passe</td>
-						<td><input name="mdp_new2" required type="password" placeholder="" class="input-large" /></td>
-					</tr>
+					<?php
+					if($_SESSION['user_id_rank']==3){
+						echo'
+							<input name="mdp_now" type="hidden" placeholder="" class="input-large" value="'.$user->mdp.'" />
+							<tr>
+								<td>Nouveau mot de passe</td>
+								<td><input name="mdp_new" required type="password" placeholder="" class="input-large" /></td>
+							</tr>
+							<tr>
+								<td>Repeter votre nouveau mot de passe</td>
+								<td><input name="mdp_new2" required type="password" placeholder="" class="input-large" /></td>
+							</tr>
+						';
+					}
+					else{
+						echo'
+							<tr>
+								<td width="40%">Mot de passe actuelle</td>
+								<td width="60%"><input name="mdp_now" required type="password" placeholder="" class="input-large" /></td>
+							</tr>
+							<tr>
+								<td>Nouveau mot de passe</td>
+								<td><input name="mdp_new" required type="password" placeholder="" class="input-large" /></td>
+							</tr>
+							<tr>
+								<td>Repeter votre nouveau mot de passe</td>
+								<td><input name="mdp_new2" required type="password" placeholder="" class="input-large" /></td>
+							</tr>	
+						';
+					}
+					?>
 				</table>
 			</center>
 		</div>
@@ -781,7 +800,7 @@ Site : http://www.ili-studios.com/
 						<td>Prénom</td>
 						<td><input name="prenom" required type="text" value="<?php echo $user->prenom;?>" class="input-large" /></td>
 					</tr>
-					<?php if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) ){echo'
+					<?php if($_SESSION['user_id_rank']==3){echo'
 					<tr>
 						<td>Poste</td>
 						<td><input name="poste" required type="text" value="';?>
@@ -804,7 +823,7 @@ Site : http://www.ili-studios.com/
 						<td>Date de naissance</td>
 						<td><input name="date_naissance" required type="text" value="<?php echo $user->date_naissance;?>" class="input-large" /></td>
 					</tr>
-					<?php if( ($_SESSION['user_id_rank']==6) || ($_SESSION['user_id_rank']==5) ){echo'
+					<?php if($_SESSION['user_id_rank']==3){echo'
 					<tr>
 						<td>Grade</td>
 						<td><select name="rank" required tabindex="1">';?>
