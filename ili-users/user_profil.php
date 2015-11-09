@@ -161,7 +161,7 @@ Site : http://www.ili-studios.com/
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li> <a href="users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
-						<li> <a href="user_profil?id=<?php echo $id_user ;?>">Profil</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="user_profil?id=<?php echo $user->id_user;?>">Profil</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">
@@ -181,8 +181,9 @@ Site : http://www.ili-studios.com/
 						<div class="widget-title">
 							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profil</h4>
 							<span class="tools">
-							<?php profil_pannel($id_user);?>
-							</span> </div>
+							<?php profil_pannel($user->id_user);?>
+							</span> 
+						</div>
 						<div class="widget-body">
 							<div class="span3">
 								<div class="text-center profil-pic">
@@ -195,7 +196,7 @@ Site : http://www.ili-studios.com/
 									if($user->github){echo'<li><a href="'.$user->github.'" target="new"><i class="icon-github"></i> Github</a></li>';}
 									?>
 								</ul>
-								<?php priviléges($id_user, $user->id_rank);?>			
+								<?php priviléges($user->id_user, $user->id_rank);?>			
 							</div>
 							<div class="span6">
 								<h4><?php echo $user->nom; ?> <?php echo $user->prenom; ?><br/>
@@ -204,7 +205,7 @@ Site : http://www.ili-studios.com/
 									<tbody>
 										<tr>
 											<td class="span2">CIN :</td>
-											<td><?php echo $id_user ;?></td>
+											<td><?php echo $user->id_user;?></td>
 										</tr>
 										<tr>
 											<td class="span2">Nom :</td>
@@ -247,7 +248,7 @@ Site : http://www.ili-studios.com/
 								<h4>Compétances</h4>
 								<table class="table table-borderless">
 									<tbody>
-										<?php get_users_skills($id_user); ?>
+										<?php get_users_skills($user->id_user); ?>
 									</tbody>
 								</table>
 								<h4>Adresse</h4>
@@ -265,11 +266,11 @@ Site : http://www.ili-studios.com/
 							<div class="span3">
 								<h4>Diplômes</h4>
 								<ul class="icons push">
-									<?php get_users_diploma($id_user);?>
+									<?php get_users_diploma($user->id_user);?>
 								</ul>
 								<h4>Expérience</h4>
 								<ul class="icons push">
-									<?php get_users_expirance($id_user);?>
+									<?php get_users_expirance($user->id_user);?>
 								</ul>
 							</div>
 							<div class="space5"></div>
