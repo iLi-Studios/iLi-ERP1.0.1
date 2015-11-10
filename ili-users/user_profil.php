@@ -2,10 +2,6 @@
 include"../ili-functions/functions.php";
 autorisation('2');
 $id_user=$_GET['id'];
-function get_user_info($id){
-	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
-	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
-}
 function user_icon($rank){
 	if($rank==1){echo'icon-ban-circle';}
 	if($rank==2){echo'icon-user';}
@@ -70,7 +66,7 @@ function profil_pannel($id){
 		echo'<a href="user_edit?id='.$id.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
 	}
 	if($_SESSION['user_id_rank']==2){
-		$up=user_privileges("users", $_SESSION['user_id']);$u=$up->u;
+		$up=user_privileges("USERS", $_SESSION['user_id']);$u=$up->u;
 		if( ($u)||($_SESSION['user_id']==$id) ){
 			echo'<a href="user_edit?id='.$id.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
 		}

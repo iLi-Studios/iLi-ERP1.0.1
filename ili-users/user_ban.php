@@ -6,7 +6,9 @@ function ban($id){
 	query_execute_insert($query);
 }
 $id_user=$_GET['id'];
+$user=get_user_info($id_user);
 ban($id_user);
-write_log("Utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a> a été banni");
+notif_all($id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$id_user.'">'.$user->nom.' '.$user->prenom.', a été banni');
+write_log("Utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a> a été <strong>banni</strong>");
 redirect('ili-users/users');
 ?>

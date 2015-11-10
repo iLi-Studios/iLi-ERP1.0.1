@@ -27,7 +27,7 @@ if(isset($_POST['vu_tous'])){
 }
 function get_all_notification(){
 	$id_user=$_SESSION['user_id'];
-	$query="SELECT * FROM `system_notif` WHERE `id_user`='$id_user' AND `vu`='0' LIMIT 5";
+	$query="SELECT * FROM `system_notif` WHERE `id_user`='$id_user' AND `vu`='0' ORDER BY id DESC LIMIT 3 ";
 	$result=query_excute_while($query);
 	if(mysqli_num_rows($result)>'0'){
 		echo'<ul class="dropdown-menu extended notification">';
@@ -35,7 +35,7 @@ function get_all_notification(){
 	while ($o=mysqli_fetch_object($result)){
 		echo'
 			<li> 
-				<a href=""> '.$o->notification.' 
+				'.$o->notification.' 
 					<span class="small italic" style="margin-left:4%"><br>'?><?php diff_date($o->date_notif); echo'
 						<br>
 						<form action="" method="post" style="margin-bottom: -3%;margin-top: -10%;">

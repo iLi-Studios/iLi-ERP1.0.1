@@ -35,6 +35,7 @@ function connexion($email, $mdp){
 				$_SESSION['user_id']=$o->id_user;
 				$_SESSION['user_nom']=$o->nom;
 				$_SESSION['user_prenom']=$o->prenom; 
+				$_SESSION['user_nom_prenom']=$_SESSION['user_nom'] . $_SESSION['user_prenom'];
 				$_SESSION['user_id_rank']=$o->id_rank;
 				$_SESSION['user_rank']=$o->rank;
 				$_SESSION['user_img']=$o->img_link;

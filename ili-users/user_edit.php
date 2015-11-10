@@ -3,19 +3,16 @@ include"../ili-functions/functions.php";
 autorisation('2');
 // get user info from id
 $id_user=$_GET['id'];
-function get_user_info($id){
-	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
-	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
-}
 $user=get_user_info($id_user);
 //form skills add
 if( (isset($_POST['skills_name'])) && (isset($_POST['skills'])) ){
 	$skills_name 	= addslashes($_POST['skills_name']);
 	$skills			= addslashes($_POST['skills']);
-	$query_skill_insert = "INSERT INTO users_skills (`id`, `id_user`, `skills`, `pourcentage`) VALUES ('', '$id_user', '$skills_name', '$skills');";
+	$query_skill_insert = "INSERT INTO users_skills (`id`, `id_user`, `skills`, `pourcentage`) VALUES ('', '$user->id_user', '$skills_name', '$skills');";
 	query_execute_insert($query_skill_insert);
-	write_log("Ajout du compétence : ".$skills_name.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-	redirect('ili-users/user_edit?id='.$id_user);
+	notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">'.$user->nom.' '.$user->prenom.', ajout de compétence : '.$skills_name);
+	write_log("Ajout du compétence : ".$skills_name.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+	redirect('ili-users/user_edit?id='.$user->id_user);
 }
 //form diploma add
 if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (isset($_POST['diploma_diplome'])) && (isset($_POST['diploma_etablissement'])) ){	
@@ -23,10 +20,11 @@ if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (iss
 	$diploma_lieux	 		= addslashes($_POST['diploma_lieux']);
 	$diploma_diplome 		= addslashes($_POST['diploma_diplome']);
 	$diploma_etablissement 	= addslashes($_POST['diploma_etablissement']);
-	$query_diploma_insert	= "INSERT INTO `users_diploma` (`id`, `id_user`, `annee`, `lieux`, `diplome`, `etablissement`) VALUES ('', '$id_user', '$diploma_annee', '$diploma_lieux', '$diploma_diplome', '$diploma_etablissement');";
+	$query_diploma_insert	= "INSERT INTO `users_diploma` (`id`, `id_user`, `annee`, `lieux`, `diplome`, `etablissement`) VALUES ('', '$user->id_user', '$diploma_annee', '$diploma_lieux', '$diploma_diplome', '$diploma_etablissement');";
 	query_execute_insert($query_diploma_insert);
-	write_log("Ajout du diplôme : ".$diploma_diplome.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-	redirect('ili-users/user_edit?id='.$id_user);
+	notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">'.$user->nom.' '.$user->prenom.', ajout du diplôme : '.$diploma_diplome);
+	write_log("Ajout du diplôme : ".$diploma_diplome.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+	redirect('ili-users/user_edit?id='.$user->id_user);
 }
 //form diploma mod
 if( (isset($_POST['diploma_id_mod'])) && (isset($_POST['diploma_annee_mod'])) && (isset($_POST['diploma_lieux_mod'])) && (isset($_POST['diploma_diplome_mod'])) && (isset($_POST['diploma_etablissement_mod'])) ){	
@@ -43,19 +41,21 @@ if( (isset($_POST['diploma_id_mod'])) && (isset($_POST['diploma_annee_mod'])) &&
 									`etablissement`	= '$diploma_etablissement_mod' 
 							WHERE `users_diploma`.`id` ='$diploma_id_mod';";
 	query_execute("mysqli_fetch_object", $query_diploma_mod);
-	write_log("Modification du diplôme : ".$diploma_diplome_mod.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-	redirect('ili-users/user_edit?id='.$id_user);
+	notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">'.$user->nom.' '.$user->prenom.', modification du diplôme : '.$diploma_diplome);
+	write_log("Modification du diplôme : ".$diploma_diplome_mod.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+	redirect('ili-users/user_edit?id='.$user->id_user);
 }
-//form expirance add
+//form expirence add
 if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) && (isset($_POST['exp_duration_add'])) && (isset($_POST['exp_experance_add'])) ){	
 	$exp_company_add	 		= addslashes($_POST['exp_company_add']);
 	$exp_companyurl_add	 		= addslashes($_POST['exp_companyurl_add']);
 	$exp_duration_add 			= addslashes($_POST['exp_duration_add']);
 	$exp_experance_add 			= addslashes($_POST['exp_experance_add']);
-	$query_experance_add		= "INSERT INTO `users_expirance` (`id`, `id_user`, `company`, `company_url`, `duration`, `experience`) VALUES (NULL, '$id_user', '$exp_company_add', '$exp_companyurl_add', '$exp_duration_add', '$exp_experance_add');";
+	$query_experance_add		= "INSERT INTO `users_expirance` (`id`, `id_user`, `company`, `company_url`, `duration`, `experience`) VALUES (NULL, '$user->id_user', '$exp_company_add', '$exp_companyurl_add', '$exp_duration_add', '$exp_experance_add');";
 	query_execute_insert($query_experance_add);
-	write_log("Ajout de l\'expérience dans l\'etablissement : ".$exp_company_add.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-	redirect('ili-users/user_edit?id='.$id_user);
+	notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">'.$user->nom.' '.$user->prenom.', ajout de l\'expérence dans l\'etablissement : '.$exp_company_add);
+	write_log("Ajout de l\'expérience dans l\'etablissement : ".$exp_company_add.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+	redirect('ili-users/user_edit?id='.$user->id_user);
 }
 //form expirance mod
 if( (isset($_POST['exp_company_mod'])) && (isset($_POST['exp_companyurl_mod'])) && (isset($_POST['exp_duration_mod'])) && (isset($_POST['exp_experance_mod'])) && (isset($_POST['epx_id_mod'])) ){	
@@ -66,15 +66,16 @@ if( (isset($_POST['exp_company_mod'])) && (isset($_POST['exp_companyurl_mod'])) 
 	$epx_id_mod					= addslashes($_POST['epx_id_mod']);
 	$query_experance_mod		= " UPDATE users_expirance
 									SET 
-										id_user='$id_user',
+										id_user='$user->id_user',
 										company='$exp_company_mod',
 										company_url='$exp_companyurl_mod',
 										duration='$exp_duration_mod',
 										experience='$exp_experance_mod'
 									WHERE id='$epx_id_mod';";
 	query_execute_insert($query_experance_mod);
-	write_log("Modification de l\'expérience dans l\'etablissement : ".$exp_company_mod.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-	redirect('ili-users/user_edit?id='.$id_user);
+	notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">'.$user->nom.' '.$user->prenom.', modification de l\'expérence dans l\'etablissement : '.$exp_company_add);
+	write_log("Modification de l\'expérience dans l\'etablissement : ".$exp_company_mod.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+	redirect('ili-users/user_edit?id='.$user->id_user);
 }
 //form mdp change
 if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['mdp_new2'])) ){
@@ -83,14 +84,14 @@ if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['m
 	$mdp_new2	=md5($_POST['mdp_new2']);
 	if($mdp_now==$user->mdp){
 		if($mdp_new2==$mdp_new){
-			$query_update_mdp ="UPDATE users SET mdp_update_date=NOW(), mdp='$mdp_new' WHERE id_user='$id_user';";
+			$query_update_mdp ="UPDATE users SET mdp_update_date=NOW(), mdp='$mdp_new' WHERE id_user='$user->id_user';";
 			query_execute("mysqli_fetch_object", $query_update_mdp);
-			write_log("Changement du mot de passe de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-			redirect('ili-users/user_edit?message=7&id='.$id_user);
+			write_log("Changement du mot de passe de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+			redirect('ili-users/user_edit?message=7&id='.$user->id_user);
 		}
-		else{redirect('ili-users/user_edit?message=11&id='.$id_user);}
+		else{redirect('ili-users/user_edit?message=11&id='.$user->id_user);}
 	}
-	else{redirect('ili-users/user_edit?message=10&id='.$id_user);}
+	else{redirect('ili-users/user_edit?message=10&id='.$user->id_user);}
 }
 //form information change
 if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste'])) && (isset($_POST['email'])) && (isset($_POST['tel'])) && (isset($_POST['rank'])) && (isset($_POST['date_naissance'])) && (isset($_POST['adresse'])) ){
@@ -112,29 +113,31 @@ if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste']
 							`tel`			='$tel',
 							`date_naissance`='$date_naissance',
 							`adresse`		='$adresse'
-						WHERE `id_user`='$id_user';";
+						WHERE `id_user`='$user->id_user';";
 	query_execute("mysqli_fetch_object", $query_info_update);
-	write_log("Modification des informations de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-	redirect('ili-users/user_edit?id='.$id_user);	
+	notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">'.$user->nom.' '.$user->prenom.', modification des informations');
+	write_log("Modification des informations de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+	redirect('ili-users/user_edit?id='.$user->id_user);	
 }
 //form img_modif
 if( isset($_POST['img_url_mod']) ){
 	$img_url_mod				= addslashes($_POST['img_url_mod']);
-	$query_img_url_mod			= "UPDATE `users` SET `img_link`='$img_url_mod' WHERE `id_user`='$id_user';";
+	$query_img_url_mod			= "UPDATE `users` SET `img_link`='$img_url_mod' WHERE `id_user`='$user->id_user';";
 	query_execute("mysqli_fetch_object", $query_img_url_mod);
-	write_log("Changement de l\'image de profil de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-	redirect('ili-users/user_edit?id='.$id_user);
+	notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">'.$user->nom.' '.$user->prenom.', modification de photo de profile');
+	write_log("Changement de l\'image de profil de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+	redirect('ili-users/user_edit?id='.$user->id_user);
 }
 //form Social
 if( (isset($_POST['fb_url'])) && (isset($_POST['linkedin_url'])) && (isset($_POST['github_url'])) ){
 	$fb_url				= addslashes($_POST['fb_url']);
 	$linkedin_url		= addslashes($_POST['linkedin_url']);
 	$github_url			= addslashes($_POST['github_url']);
-	$query_socieaux_edit= "UPDATE `users` SET `fb`='$fb_url', `github`='$linkedin_url', `linkedin`='$github_url' WHERE `id_user`='$id_user';";
-	
+	$query_socieaux_edit= "UPDATE `users` SET `fb`='$fb_url', `github`='$linkedin_url', `linkedin`='$github_url' WHERE `id_user`='$user->id_user';";
+	notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">'.$user->nom.' '.$user->prenom.', modification des liens socieaux');
 	query_execute("mysqli_fetch_object", $query_socieaux_edit);
-	write_log("Modification des liens socieaux de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id_user."\">".$id_user."</a>");
-	redirect('ili-users/user_edit?id='.$id_user);
+	write_log("Modification des liens socieaux de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
+	redirect('ili-users/user_edit?id='.$user->id_user);
 }
 
 function get_users_expirance($id){
@@ -382,55 +385,63 @@ function priviléges($id){
 									<li>
 										<form action="" method="post" style="margin-bottom:-2px;">
 											<input type="checkbox" name="'.$b->id.'d1" value="1" onChange="this.form.submit()">
-											<a><p class="icon-trush"></p></a> Supprimer
+											<a><p class="icon-trash"></p></a> Supprimer
 										</form>
 									</li>
 									';}
 									if(isset($_POST[$b->id.'s0'])){
 										$query="UPDATE users_privileges SET s='0' WHERE id='$b->id';";
 										query_execute_insert($query);
+										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>VOIR</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
 										write_log("Suppression de privilége <strong>VOIR</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'s1'])){
 										$query="UPDATE users_privileges SET s='1' WHERE id='$b->id';";
 										query_execute_insert($query);
+										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
 										write_log("Ajout de privilége <strong>VOIR</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'c0'])){
 										$query="UPDATE users_privileges SET c='0' WHERE id='$b->id';";
 										query_execute_insert($query);
+										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>CREER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
 										write_log("Suppression de privilége <strong>CREER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'c1'])){
 										$query="UPDATE users_privileges SET c='1' WHERE id='$b->id';";
 										query_execute_insert($query);
+										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
 										write_log("Ajout de privilége <strong>CREER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'u0'])){
 										$query="UPDATE users_privileges SET u='0' WHERE id='$b->id';";
 										query_execute_insert($query);
+										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>MODIFIER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
 										write_log("Suppression de privilége <strong>MODIFIER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'u1'])){
 										$query="UPDATE users_privileges SET u='1' WHERE id='$b->id';";
 										query_execute_insert($query);
+										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
 										write_log("Ajout de privilége <strong>MODIFIER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'d0'])){
 										$query="UPDATE users_privileges SET d='0' WHERE id='$b->id';";
 										query_execute_insert($query);
+										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Suppression du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
 										write_log("Suppression de privilége <strong>SUPPRIMER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'d1'])){
 										$query="UPDATE users_privileges SET d='1' WHERE id='$b->id';";
 										query_execute_insert($query);
+										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
 										write_log("Ajout de privilége <strong>SUPPRIMER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
@@ -506,8 +517,8 @@ Site : http://www.ili-studios.com/
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site;?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li> <a href="users">Utilisateurs du système</a> <span class="divider">&nbsp;</span></li>
-						<li> <a href="user_profil?id=<?php echo $id_user;?>">Profil </a><span class="divider">&nbsp;</span>
-						<li> <a href="user_edit?id=<?php echo $id_user;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="user_profil?id=<?php echo $user->id_user;?>">Profil </a><span class="divider">&nbsp;</span>
+						<li> <a href="user_edit?id=<?php echo $user->id_user;?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 						<li class="pull-right search-wrap">
 							<form class="hidden-phone">
 								<div class="search-input-area">
@@ -528,7 +539,7 @@ Site : http://www.ili-studios.com/
 						<div class="widget-title">
 							<h4><i class="<?php user_icon($user->id_rank);?>"></i> Profil</h4>
 							<span class="tools">
-							<?php echo'<a href="user_profil?id='.$id_user.'" class="icon-lock tooltips" data-original-title="verrouiller"></a>';?>
+							<?php echo'<a href="user_profil?id='.$user->id_user.'" class="icon-lock tooltips" data-original-title="verrouiller"></a>';?>
 							</span> </div>
 						<div class="widget-body">
 							<div class="span3">
@@ -543,7 +554,7 @@ Site : http://www.ili-studios.com/
 									?>
 									<a href="#myModal_social_edit" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier vos lien socieaux"></a>
 								</ul>
-								<?php priviléges($id_user);?>
+								<?php priviléges($user->id_user);?>
 							</div>
 							<div class="span6">
 								<h4><?php echo $user->nom; ?> <?php echo $user->prenom; ?> <span><a href="#myModal_info_mod" data-toggle="modal" class="icon-edit tooltips" data-original-title="Modifier les informations personnelles"></a></span><br/>
@@ -552,7 +563,7 @@ Site : http://www.ili-studios.com/
 									<tbody>
 										<tr>
 											<td class="span2">CIN :</td>
-											<td><?php echo $id_user ;?></td>
+											<td><?php echo $user->id_user ;?></td>
 										</tr>
 										<tr>
 											<td class="span2">Nom :</td>
@@ -595,7 +606,7 @@ Site : http://www.ili-studios.com/
 								<h4>Compétances <span><a href="#myModal_skills_add" data-toggle="modal" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<table class="table table-borderless">
 									<tbody>
-										<?php get_users_skills($id_user); ?>
+										<?php get_users_skills($user->id_user); ?>
 									</tbody>
 								</table>
 								<h4>Adresse</h4>
@@ -613,11 +624,11 @@ Site : http://www.ili-studios.com/
 							<div class="span3">
 								<h4>Diplômes <span><a href="#myModal_diploma_add" data-toggle="modal" class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push">
-									<?php get_users_diploma($id_user);?>
+									<?php get_users_diploma($user->id_user);?>
 								</ul>
 								<h4>Expériance <span><a href="#myModal_expirance_add" data-toggle="modal"  class="icon-plus tooltips" data-original-title="Ajouter"></a></span></h4>
 								<ul class="icons push">
-									<?php get_users_expirance($id_user);?>
+									<?php get_users_expirance($user->id_user);?>
 								</ul>
 							</div>
 							<div class="space5"></div>
@@ -806,7 +817,8 @@ Site : http://www.ili-studios.com/
 						<td><input name="poste" required type="text" value="';?>
 					<?php echo $user->poste;?><?php echo'" class="input-large" /></td>
 					</tr>
-					';}else{echo'<input name="poste" type="hidden" value="'.$user->poste.'"/>';}?>
+					';}
+					else{echo'<input name="poste" type="hidden" value="'.$user->poste.'"/>';}?>
 					<tr>
 						<td>Email</td>
 						<td><input name="email" required type="email" value="<?php echo $user->email;?>" class="input-large" /></td>
@@ -823,7 +835,7 @@ Site : http://www.ili-studios.com/
 						<td>Date de naissance</td>
 						<td><input name="date_naissance" required type="text" value="<?php echo $user->date_naissance;?>" class="input-large" /></td>
 					</tr>
-					<?php if($_SESSION['user_id_rank']==3){echo'
+					<?php if($_SESSION['user_id_rank']==6){echo'
 					<tr>
 						<td>Grade</td>
 						<td><select name="rank" required tabindex="1">';?>

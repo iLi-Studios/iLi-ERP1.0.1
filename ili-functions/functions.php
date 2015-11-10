@@ -20,6 +20,10 @@ function autorisation($id){
 	else{if($_SESSION['user_id_rank']<$id){redirect('login?message=5');}
 	}
 }
+function get_user_info($id){
+	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+}
 function user_privileges($bloc, $id_user){
 	$query="SELECT * FROM `users_privileges` WHERE `id_user`='$id_user' AND `bloc`='$bloc';";
 	$o = query_execute("mysqli_fetch_object", $query);
@@ -76,5 +80,10 @@ function notif($user, $notif){
 	$date_notif = date("d-m-Y H:i:s");
 	$query="INSERT INTO `system_notif` VALUES (NULL, '$user', '$notif', '$date_notif', '0');";
 	query_execute_insert($query);
+}
+function notif_all($user_dont_notif1, $user_dont_notif2, $notif){
+	$query_users = "SELECT id_user FROM users WHERE id_user<>'$user_dont_notif1' AND id_user<>'$user_dont_notif2' ";
+	$result_users=query_excute_while($query_users);
+	while ($o=mysqli_fetch_object($result_users)){notif($o->id_user, $notif);}
 }
 ?>

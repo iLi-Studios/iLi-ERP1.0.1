@@ -13,6 +13,7 @@ function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse,
 		else{
 			query_execute_insert($query);
 			query_execute_insert($query2);
+			notif_all($cin, '', '<a href="'.$site.'ili-users/user_profil?id='.$cin.'">Nouveau utilisateur, '.$nom.' '.$prenom);
 			write_log("Création de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$cin."\">".$cin."</a>");
 			redirect('ili-users/users');
 		}
