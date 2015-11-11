@@ -2,6 +2,8 @@
 include"../ili-functions/functions.php";
 autorisation('2');
 // get user info from id
+
+//$link=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $id_user=$_GET['id'];
 $user=get_user_info($id_user);
 //form skills add
@@ -301,6 +303,8 @@ function user_icon($rank){
 	if($rank==3){echo'icon-briefcase';}
 }
 function priviléges($id){
+	global $site;
+	$user=get_user_info($id);
 	if( ($_SESSION['user_id_rank']==3)&&($_SESSION['user_id']!=$id) ){
 		echo'
 		<ul class="nav nav-tabs nav-stacked" style="margin-left:-15%;">
@@ -392,56 +396,56 @@ function priviléges($id){
 									if(isset($_POST[$b->id.'s0'])){
 										$query="UPDATE users_privileges SET s='0' WHERE id='$b->id';";
 										query_execute_insert($query);
-										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>VOIR</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
+										notif_all('', '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>VOIR</strong> sur le bloc <strong>'.$o->bloc.'</strong> de '.$user->nom.' '.$user->prenom);
 										write_log("Suppression de privilége <strong>VOIR</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'s1'])){
 										$query="UPDATE users_privileges SET s='1' WHERE id='$b->id';";
 										query_execute_insert($query);
-										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
+										notif_all('', '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>'.$o->bloc.'</strong> de '.$user->nom.' '.$user->prenom);
 										write_log("Ajout de privilége <strong>VOIR</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'c0'])){
 										$query="UPDATE users_privileges SET c='0' WHERE id='$b->id';";
 										query_execute_insert($query);
-										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>CREER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
+										notif_all('', '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>CREER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de '.$user->nom.' '.$user->prenom);
 										write_log("Suppression de privilége <strong>CREER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'c1'])){
 										$query="UPDATE users_privileges SET c='1' WHERE id='$b->id';";
 										query_execute_insert($query);
-										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
+										notif_all('', '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de '.$user->nom.' '.$user->prenom);
 										write_log("Ajout de privilége <strong>CREER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'u0'])){
 										$query="UPDATE users_privileges SET u='0' WHERE id='$b->id';";
 										query_execute_insert($query);
-										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>MODIFIER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
+										notif_all('', '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Supprission du privilége <strong>MODIFIER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de '.$user->nom.' '.$user->prenom);
 										write_log("Suppression de privilége <strong>MODIFIER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'u1'])){
 										$query="UPDATE users_privileges SET u='1' WHERE id='$b->id';";
 										query_execute_insert($query);
-										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
+										notif_all('', '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de '.$user->nom.' '.$user->prenom);
 										write_log("Ajout de privilége <strong>MODIFIER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'d0'])){
 										$query="UPDATE users_privileges SET d='0' WHERE id='$b->id';";
 										query_execute_insert($query);
-										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Suppression du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
+										notif_all('', '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Suppression du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de '.$user->nom.' '.$user->prenom);
 										write_log("Suppression de privilége <strong>SUPPRIMER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}
 									if(isset($_POST[$b->id.'d1'])){
 										$query="UPDATE users_privileges SET d='1' WHERE id='$b->id';";
 										query_execute_insert($query);
-										notif_all($user->id_user, '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de l\'utilisateur : '.$user->nom.' '.$user->prenom);
+										notif_all('', '', '<a href="'.$site.'ili-users/user_profil?id='.$user->id_user.'">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>'.$o->bloc.'</strong> de '.$user->nom.' '.$user->prenom);
 										write_log("Ajout de privilége <strong>SUPPRIMER</strong> sur le bloc <strong>".$o->bloc."</strong> pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$id."\">".$id."</a>");
 										echo'<SCRIPT LANGUAGE="JavaScript">document.location.href="user_edit?id='.$id.'"</SCRIPT>';
 									}

@@ -1,4 +1,5 @@
 <?php
+$site="http://localhost/erp/";
 // Declaration de session
 if (!isset($_SESSION)){
 	session_start();
