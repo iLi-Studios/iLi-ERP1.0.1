@@ -1,6 +1,92 @@
 <?php 
 include"../ili-functions/functions.php";
-autorisation('2');?>
+autorisation('2');
+$id_message=$_GET['id'];
+if(isset($_GET['id2'])){$id_message_rep=$_GET['id2'];}else{$id_message_rep='0';}
+
+// marquer ce message comme vu le message ou la dereniere repence sur ce message
+function vu_message($id){
+	$query="UPDATE `system_msg` SET `vu` = '1' WHERE `system_msg`.`id` = $id;";
+	query_execute_insert($query);
+}
+function vu_message_rep($id){
+	$query="UPDATE `system_msg_rep` SET `vu_rep` = '1' WHERE `id_rep` = $id;";
+	query_execute_insert($query);
+}
+if($id_message_rep!=false){vu_message_rep($id_message_rep);}
+vu_message($id_message);
+
+//lire le message principale
+function msg_info($id){
+	$query="SELECT * FROM system_msg WHERE id='$id';";
+	$result=query_excute_while($query);
+	$o=mysqli_fetch_object($result);
+	return $o;
+}
+$info_message=msg_info($id_message);
+//difinier le receveur de message
+function receever_rep($id_message, $id_message_rep){
+	if($id_message_rep=='0'){
+		$q2="SELECT user_envoie FROM system_msg WHERE id='$id_message';";
+		$o2=query_execute("mysqli_fetch_row", $q2);
+		echo $o2[0];
+	}
+	else{
+		$q1="SELECT user_envoie_rep FROM system_msg_rep WHERE id_rep='$id_message_rep' ";
+		$o1=query_execute("mysqli_fetch_row", $q1);
+		echo $o1[0];	
+	}
+}
+
+function get_messages($id){
+	global $site;
+	$q1="SELECT * FROM `system_msg` WHERE `id`='$id';";
+	$r1=query_excute_while($q1);
+	while ($o1=mysqli_fetch_object($r1)){
+		//msg_rep
+		$q2="SELECT * FROM  system_msg, system_msg_rep WHERE system_msg_rep.id_msg=system_msg.id AND system_msg.id='$id' ORDER BY id_rep DESC;";
+		$r2=query_excute_while($q2);
+		while ($o2=mysqli_fetch_object($r2)){
+			//envoi
+			$sender2=get_user_info($o2->user_envoie_rep);
+			if(isset($sender2->img_link)){$img2=$sender2->img_link;}else{$img2='';}
+			echo'
+			<div class="msg-time-chat"> <a href="#" class="message-img"><img class="avatar" src="'.$img2.'" alt=""></a>
+				<div class="message-body msg-in">
+					<div class="text">
+						<p class="attribution"><a href="'.$site.'ili-users/user_profil?id='.$sender2->id_user.'">'.$sender2->nom.' '.$sender2->prenom.'</a> ';?><?php diff_date($o2->date_msg); ?><?php echo'</p>
+						<p> '.$o2->message_rep.' </p>
+					</div>
+				</div>
+			</div>
+			';	
+		}
+		//msg
+		$sender=get_user_info($o1->user_envoie);
+		if(isset($sender->img_link)){$img=$sender->img_link;}else{$img='';}
+		echo'
+		<div class="msg-time-chat"> <a href="#" class="message-img"><img class="avatar" src="'.$img.'" alt=""></a>
+			<div class="message-body msg-in">
+				<div class="text">
+					<p class="attribution"><a href="'.$site.'ili-users/user_profil?id='.$sender->id_user.'">'.$sender->nom.' '.$sender->prenom.'</a> ';?><?php diff_date($o1->date_msg); ?><?php echo'</p>
+					<p> '.$o1->message.' </p>
+				</div>
+			</div>
+		</div>
+		';	
+	}
+}
+if( isset($_POST['msg']) && isset($_POST['usr_recp'])){
+	$msg = addslashes($_POST['msg']);
+	$date= date("d-m-Y H:i:s");
+	$user_envoie= $_SESSION['user_id'];
+	$user_reception=$_POST['usr_recp'];
+	$query = "INSERT INTO `system_msg_rep` VALUES (NULL, '$id_message', '$user_envoie', '$user_reception', '$msg', '$date', '0');";
+	echo $query;
+	query_execute_insert($query);
+	redirect("ili-messages/read?id=".$id_message."&id2=".$id_message);
+}
+?>
 <!DOCTYPE html>
 <!--
 iLi-ERP
@@ -63,18 +149,23 @@ Site : http://www.ili-studios.com/
 						<!-- BEGIN  widget-->
 						<div class="widget">
 							<div class="widget-title">
-								<h4><i class="icon-reorder"></i> Editeur de message</h4>
+								<h4><i class="icon-reorder"></i> Editeur de message </h4>
 							<span class="tools">
 							   <a href="javascript:;" class="icon-chevron-down"></a>
-							   <a href="javascript:;" class="icon-remove"></a>
 							   </span>
 							</div>
 							<div class="widget-body form">
 								<!-- BEGIN FORM-->
-								<form action="#" class="form-vertical">
+								<form action="" method="post" class="form-vertical">
 									<div class="control-group">
 										<div class="controls">
-											<textarea class="span12 ckeditor" name="editor1" rows="6"></textarea>
+											<textarea class="span12 ckeditor" name="msg" rows="6"></textarea>
+											<br>
+											<center>
+												<input type="hidden" name="usr_recp" value="<?php receever_rep($id_message, $id_message_rep); ?>"/>
+												<input type="reset" value=" Annuler" class="btn btn-info"/>
+												<input type="submit" value=" Rependre" class="btn btn-success"/>
+											</center>
 										</div>
 									</div>
 								</form>
@@ -89,56 +180,12 @@ Site : http://www.ili-studios.com/
 						<!-- BEGIN CHAT PORTLET-->
 						<div class="widget" id="">
 							<div class="widget-title">
-								<h4><i class="icon-comments-alt"></i> Message TimeLigne</h4>
-								<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
+								<h4><i class="icon-comments-alt"></i> Sujet : <?php echo $info_message->subject; ?> <?php receever_rep($id_message, $id_message_rep); ?></h4>
+								<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a></a> </span> </div>
 							<div class="widget-body">
 								<div class="timeline-messages"> 
-									<!-- Comment -->
-									<div class="msg-time-chat"> <a href="#" class="message-img"><img class="avatar" src="../img/avatar1.jpg" alt=""></a>
-										<div class="message-body msg-in">
-											<div class="text">
-												<p class="attribution"><a href="#">Mosaddek Hossain</a> at 1:55pm, 13th April 2013</p>
-												<p>Hello, How are you brother?</p>
-											</div>
-										</div>
-									</div>
-									<!-- /comment --> 
-									
-									<!-- Comment -->
-									<div class="msg-time-chat"> <a href="#" class="message-img"><img class="avatar" src="../img/avatar2.jpg" alt=""></a>
-										<div class="message-body msg-out">
-											<div class="text">
-												<p class="attribution"> <a href="#">Dulal Khan</a> at 2:01pm, 13th April 2013</p>
-												<p>I'm Fine, Thank you. What about you? How is going on?</p>
-											</div>
-										</div>
-									</div>
-									<!-- /comment --> 
-									
-									<!-- Comment -->
-									<div class="msg-time-chat"> <a href="#" class="message-img"><img class="avatar" src="../img/avatar1.jpg" alt=""></a>
-										<div class="message-body msg-in">
-											<div class="text">
-												<p class="attribution"><a href="#">Mosaddek Hossain</a> at 2:03pm, 13th April 2013</p>
-												<p>Yeah I'm fine too. Everything is going fine here.</p>
-											</div>
-										</div>
-									</div>
-									<!-- /comment --> 
-									
-									<!-- Comment -->
-									<div class="msg-time-chat"> <a href="#" class="message-img"><img class="avatar" src="../img/avatar2.jpg" alt=""></a>
-										<div class="message-body msg-out">
-											<div class="text">
-												<p class="attribution"><a href="#">Dulal Khan</a> at 2:05pm, 13th April 2013</p>
-												<p>well good to know that. anyway how much time you need to done your task?</p>
-											</div>
-										</div>
-									</div>
-									<!-- /comment --> 
+								<?php get_messages($id_message); ?>	
 								</div>
-								
-								
 							</div>
 						</div>
 						<!-- END CHAT PORTLET--> 

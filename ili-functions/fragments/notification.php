@@ -25,7 +25,7 @@ if(isset($_POST['vu_tous'])){
 	$id=$_POST['vu_tous'];
 	vu_tous_notif($id);
 }
-function get_all_notification(){
+function get_all_notification_non_vu(){
 	$id_user=$_SESSION['user_id'];
 	$query="SELECT * FROM `system_notif` WHERE `id_user`='$id_user' AND `vu`='0' ORDER BY id DESC LIMIT 3 ";
 	$result=query_excute_while($query);
@@ -66,7 +66,7 @@ function get_all_notification(){
 		<i class="icon-bell-alt"></i>
 		<?php num_notif();?>
 	</a>
-		<?php get_all_notification();?>
+		<?php get_all_notification_non_vu();?>
 </li>
 <!-- END NOTIFICATION DROPDOWN -->
 

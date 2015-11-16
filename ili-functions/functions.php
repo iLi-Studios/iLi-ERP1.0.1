@@ -77,6 +77,24 @@ function diff_date($date){
 			else
 				echo 'Le '.date('d/m/Y à H:i:s', $date);
 }
+function get_all_notification(){
+	$id_user=$_SESSION['user_id'];
+	$query="SELECT * FROM `system_notif` WHERE `id_user`='$id_user' ORDER BY id DESC";
+	$result=query_excute_while($query);
+	while ($o=mysqli_fetch_object($result)){
+		echo'
+			<li> 
+				'.$o->notification.' 
+					<span class="small italic" style="margin-left:4%"><br>'?><?php diff_date($o->date_notif); echo'
+						<br><br>
+						<form action="" method="post" style="margin-bottom: -3%;margin-top: -10%;">
+						</form>
+					</span>
+				</a>
+			</li>				
+		';
+	}
+}
 function notif($user, $notif){
 	$date_notif = date("d-m-Y H:i:s");
 	$query="INSERT INTO `system_notif` VALUES (NULL, '$user', '$notif', '$date_notif', '0');";

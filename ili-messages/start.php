@@ -17,7 +17,7 @@ if( (isset($_POST['subject'])) && (isset($_POST['user_reception'])) && (isset($_
 	$user_reception	=addslashes($_POST['user_reception']);
 	$message		=addslashes($_POST['message']);
 	$date		 	= date("d-m-Y H:i:s");
-	$query="INSERT INTO `system_msg` VALUES (NULL, '$id_user', '$user_reception', '$subject', '$message', '$date', '0', NULL);";
+	$query="INSERT INTO `system_msg` VALUES (NULL, '$id_user', '$user_reception', '$subject', '$message', '$date', '0');";
 	query_execute_insert($query);
 	redirect("index");
 }
@@ -116,8 +116,6 @@ Site : http://www.ili-studios.com/
 											<center>
 												<input type="reset" value=" Annuler" class="btn btn-info"/>
 												<input type="submit" value=" Envoyer" class="btn btn-success"/>
-                              					<!--<button class="btn btn-info"><i class="icon-ban-circle icon-white"></i> Annuler</button>
-                               					<button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i> Envoyer</button>-->
 											</center>
 										</div>
 									</div>
