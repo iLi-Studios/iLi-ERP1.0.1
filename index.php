@@ -111,13 +111,14 @@ Site : http://www.ili-studios.com/
 						<!-- BEGIN MAILBOX PORTLET-->
 						<div class="widget">
 							<div class="widget-title">
-								<h4><i class="icon-envelope"></i> Mailbox</h4>
-								<div class="tools pull-right mtop7 mail-btn"> 
-									<!--<div class="btn-group">  <a class="btn btn-small element" data-original-title="Delete" href="#" data-toggle="tooltip" data-placement="top"> <i class="icon-trash"> </i> </a> </div>--> 
-								</div>
+								<h4><i class="icon-envelope"></i> Messagerie</h4>
+								<span class="tools">
+									<a href="ili-messages/start" class="icon-plus tooltips" data-original-title="Nouveau Message"> 
+									<a href="javascript:;" class="icon-chevron-down"></a> 
+ 								</span>
 							</div>
 							<div class="widget-body">
-								<table style="width:100%" id="sample_1">
+								<table style="width:100%; text-align:left;" id="sample_1">
 									<thead>
 										<tr>
 											<th><input type="checkbox" class="group-checkable"/></th>
@@ -157,7 +158,7 @@ Site : http://www.ili-studios.com/
 						<div class="widget">
 							<div class="widget-title">
 								<h4><i class="icon-bell"></i> Notifications</h4>
-								<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
+								<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a>  </span> </div>
 							<div class="widget-body">
 								<ul class="item-list scroller padding" data-height="300" data-always-visible="1">
 									<?php get_all_notification();?>

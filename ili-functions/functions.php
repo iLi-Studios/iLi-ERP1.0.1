@@ -118,25 +118,53 @@ function etat_msg($id, $id_rep){
 	if($o){
 		if($id_rep==''){
 			if(($o->vu=='0')&&($o->user_reception==$id_user)){echo $nouv;}
-			if(($o->vu=='1')&&($o->user_reception==$id_user)){echo $lu;} 	
+			//if(($o->vu=='1')&&($o->user_reception==$id_user)){echo $lu;} 	
 		}
 		else{
 			if(($o->vu_rep=='0')&&($o->user_reception_rep=$id_user)){echo $nouv;}
-			if(($o->vu_rep=='1')&&($o->user_reception_rep=$id_user)){echo $lu;}
+			//if(($o->vu_rep=='1')&&($o->user_reception_rep=$id_user)){echo $lu;}
 		}
-	}
-	else{
-		$o2=query_execute("mysqli_fetch_object", $q2);
-		if($o2){echo $rep;}
 	}
 }
 function get_all_msg(){
 	$id_user=$_SESSION['user_id'];
-	$q1="SELECT * FROM system_msg
+	$q="SELECT * FROM system_msg
 			WHERE
 			(user_envoie='$id_user' OR user_reception='$id_user')
 			ORDER BY id DESC;";
-	$q2="SELECT * FROM system_msg, system_msg_rep
+	$r=query_excute_while($q);
+	while ($o=mysqli_fetch_object($r)){
+		$info_user=get_user_info($o->user_envoie);
+		$id=$o->id;
+		$q1="SELECT * FROM system_msg, system_msg_rep
+			WHERE
+			system_msg_rep.id_msg=system_msg.id
+			AND
+			system_msg.id='$id'
+			AND
+			id_rep=(SELECT MAX(id_rep) FROM system_msg_rep)
+			;";
+			$o1=query_execute("mysqli_num_rows", $q1);
+			if($o1>='1'){$rx=query_excute_while($q1);$ox=mysqli_fetch_object($rx);}
+			if($o1>='1'){$id_rep=$ox->id_rep;}else{$id_rep='';}
+			echo'
+			<tr>
+				<th style="width:4%;"><input type="checkbox"></th>
+				<th style="width:20%"> <a href="ili-users/user_profil?id='.$o->user_envoie.'">'.$info_user->nom.' '.$info_user->prenom.'</a> </th>
+				<th style="width:52%"><strong> <a href="ili-messages/read?id='.$id.'&id2='.$id_rep.'">'.$o->subject.'</a> </strong></th>
+				<th style="width:12%">'?><?php if($o1>='1'){etat_msg($ox->id, $id_rep);}		else{etat_msg($o->id, '');}?><?php echo' </th>
+				<th style="width:12%"> ';?><?php if($o1>='1'){diff_date($ox->date_msg_rep);}else{diff_date($o->date_msg);}?><?php echo' </th>
+			</tr>
+			';
+	}		
+}
+function get_all_msg1(){
+	$id_user=$_SESSION['user_id'];
+	$q="SELECT * FROM system_msg
+			WHERE
+			(user_envoie='$id_user' OR user_reception='$id_user')
+			ORDER BY id DESC;";
+	$q1="SELECT * FROM system_msg, system_msg_rep
 			WHERE
 			(system_msg.user_envoie='$id_user' OR system_msg.user_reception='$id_user')
 			AND 
@@ -147,12 +175,12 @@ function get_all_msg(){
 			id_rep=(SELECT MAX(id_rep) FROM system_msg_rep)
 			ORDER BY id_rep DESC;";
 	
-	$o1=query_execute("mysqli_num_rows", $q2);
-	if($o1=='1'){$q=$q2;}else{$q=$q1;$id_rep='';}
+	$o1=query_execute("mysqli_num_rows", $q1);
+	if($o1>='1'){$q=$q1;}else{$id_rep='';}
 	$r=query_excute_while($q);
 	while ($o=mysqli_fetch_object($r)){
 		$info_user=get_user_info($o->user_envoie);
-		if($q==$q2){$id_rep=$o->id_rep;}
+		if($q==$q1){$id_rep=$o->id_rep;}
 			echo'
 			<tr>
 				<th style="width:1%;"><input type="checkbox"></th>

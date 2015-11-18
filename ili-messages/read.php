@@ -14,8 +14,6 @@ function vu_message_rep($id){
 }
 if($id_message_rep!=false){vu_message_rep($id_message_rep);}
 vu_message($id_message);
-
-//lire le message principale
 function msg_info($id){
 	$query="SELECT * FROM system_msg WHERE id='$id';";
 	$result=query_excute_while($query);
@@ -23,7 +21,6 @@ function msg_info($id){
 	return $o;
 }
 $info_message=msg_info($id_message);
-//difinier le receveur de message
 function receever_rep($id_message, $id_message_rep){
 	$id_user=$_SESSION['user_id'];
 	$q="SELECT user_envoie, user_reception FROM system_msg WHERE id='$id_message';";
@@ -32,7 +29,6 @@ function receever_rep($id_message, $id_message_rep){
 	$o=query_execute("mysqli_fetch_row", $q);
 	if($o[0]==$id_user){echo $o[1];}else{echo $o[0];}
 }
-
 function get_messages($id){
 	global $site;
 	$q1="SELECT * FROM `system_msg` WHERE `id`='$id';";

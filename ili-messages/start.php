@@ -17,7 +17,7 @@ if( (isset($_POST['subject'])) && (isset($_POST['user_reception'])) && (isset($_
 	$user_reception	=addslashes($_POST['user_reception']);
 	$message		=addslashes($_POST['message']);
 	$date		 	= date("d-m-Y H:i:s");
-	$query="INSERT INTO `system_msg` VALUES (NULL, '$id_user', '$user_reception', '$subject', '$message', '$date', '0');";
+	$query="INSERT INTO `system_msg` VALUES (NULL, '$id_user', '$user_reception', '$subject', '$message', '$date', '0', NULL);";
 	query_execute_insert($query);
 	redirect("index");
 }
