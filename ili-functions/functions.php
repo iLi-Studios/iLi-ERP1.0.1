@@ -79,7 +79,7 @@ function diff_date($date){
 }
 function get_all_notification(){
 	$id_user=$_SESSION['user_id'];
-	$query="SELECT * FROM `system_notif` WHERE `id_user`='$id_user' ORDER BY id DESC";
+	$query="SELECT * FROM `system_notif` WHERE `id_user`='$id_user' ORDER BY id DESC LIMIT 30";
 	$result=query_excute_while($query);
 	while ($o=mysqli_fetch_object($result)){
 		echo'
@@ -104,5 +104,64 @@ function notif_all($user_dont_notif1, $user_dont_notif2, $notif){
 	$query_users = "SELECT id_user FROM users WHERE id_user<>'$user_dont_notif1' AND id_user<>'$user_dont_notif2' ";
 	$result_users=query_excute_while($query_users);
 	while ($o=mysqli_fetch_object($result_users)){notif($o->id_user, $notif);}
+}
+function etat_msg($id, $id_rep){
+	$nouv	 	= '<span class="label label label-success">Nouveau</span>';
+	$lu			= '<span class="label label label-info">Lu</span>';
+	$rep		= '<span class="label label label-warning">Répondu</span>';
+	$id_user=$_SESSION['user_id'];
+	$q="SELECT * FROM system_msg WHERE id='$id' AND user_reception='$id_user';";
+	$q1="SELECT * FROM system_msg, system_msg_rep WHERE id='$id' AND id_rep='$id_rep' AND user_reception_rep='$id_user';";
+	$q2="SELECT * FROM system_msg, system_msg_rep WHERE id='$id' AND id_rep='$id_rep' AND user_envoie_rep='$id_user';";
+	if($id_rep!=''){$q=$q1;}
+	$o=query_execute("mysqli_fetch_object", $q);
+	if($o){
+		if($id_rep==''){
+			if(($o->vu=='0')&&($o->user_reception==$id_user)){echo $nouv;}
+			if(($o->vu=='1')&&($o->user_reception==$id_user)){echo $lu;} 	
+		}
+		else{
+			if(($o->vu_rep=='0')&&($o->user_reception_rep=$id_user)){echo $nouv;}
+			if(($o->vu_rep=='1')&&($o->user_reception_rep=$id_user)){echo $lu;}
+		}
+	}
+	else{
+		$o2=query_execute("mysqli_fetch_object", $q2);
+		if($o2){echo $rep;}
+	}
+}
+function get_all_msg(){
+	$id_user=$_SESSION['user_id'];
+	$q1="SELECT * FROM system_msg
+			WHERE
+			(user_envoie='$id_user' OR user_reception='$id_user')
+			ORDER BY id DESC;";
+	$q2="SELECT * FROM system_msg, system_msg_rep
+			WHERE
+			(system_msg.user_envoie='$id_user' OR system_msg.user_reception='$id_user')
+			AND 
+			system_msg_rep.id_msg=system_msg.id
+			AND
+			(system_msg_rep.user_reception_rep='$id_user' OR system_msg_rep.user_envoie_rep)
+			AND
+			id_rep=(SELECT MAX(id_rep) FROM system_msg_rep)
+			ORDER BY id_rep DESC;";
+	
+	$o1=query_execute("mysqli_num_rows", $q2);
+	if($o1=='1'){$q=$q2;}else{$q=$q1;$id_rep='';}
+	$r=query_excute_while($q);
+	while ($o=mysqli_fetch_object($r)){
+		$info_user=get_user_info($o->user_envoie);
+		if($q==$q2){$id_rep=$o->id_rep;}
+			echo'
+			<tr>
+				<th style="width:1%;"><input type="checkbox"></th>
+				<th style="width:20%"> <a href="ili-users/user_profil?id='.$o->user_envoie.'">'.$info_user->nom.' '.$info_user->prenom.'</a> </td>
+				<th class="hidden-phone" style="width:55%"><strong> <a href="ili-messages/read?id='.$o->id.'&id2='.$id_rep.'">'.$o->subject.'</a> </strong></td>
+				<th class="right-align-text hidden-phone" style="width:12%">';?><?php etat_msg($o->id, $id_rep);?><?php echo' </td>
+				<th class="right-align-text hidden-phone" style="width:12%"> ';?><?php diff_date($o->date_msg);?><?php echo'</td>
+			</tr>
+			';
+	}
 }
 ?>

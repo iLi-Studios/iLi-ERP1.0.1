@@ -101,7 +101,7 @@ if( isset($_POST['nouveau_message']) ){
 			</a>
 		</li><!-- nouveau message-->
 		<?php get_all_message(); ?>
-		<li> <a href="#">Voire tous les messages</a> </li>
+		<li> <a href="<?php echo $site.'index';?>">Voire tous les messages</a> </li>
 	</ul>
 </li>
 

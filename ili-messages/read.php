@@ -2,8 +2,7 @@
 include"../ili-functions/functions.php";
 autorisation('2');
 $id_message=$_GET['id'];
-if(isset($_GET['id2'])){$id_message_rep=$_GET['id2'];}else{$id_message_rep='0';}
-
+if(isset($_GET['id2'])){$id_message_rep=$_GET['id2'];}else{$id_message_rep='';}
 // marquer ce message comme vu le message ou la dereniere repence sur ce message
 function vu_message($id){
 	$query="UPDATE `system_msg` SET `vu` = '1' WHERE `system_msg`.`id` = $id;";
@@ -26,16 +25,12 @@ function msg_info($id){
 $info_message=msg_info($id_message);
 //difinier le receveur de message
 function receever_rep($id_message, $id_message_rep){
-	if($id_message_rep=='0'){
-		$q2="SELECT user_envoie FROM system_msg WHERE id='$id_message';";
-		$o2=query_execute("mysqli_fetch_row", $q2);
-		echo $o2[0];
-	}
-	else{
-		$q1="SELECT user_envoie_rep FROM system_msg_rep WHERE id_rep='$id_message_rep' ";
-		$o1=query_execute("mysqli_fetch_row", $q1);
-		echo $o1[0];	
-	}
+	$id_user=$_SESSION['user_id'];
+	$q="SELECT user_envoie, user_reception FROM system_msg WHERE id='$id_message';";
+	$q2="SELECT user_envoie_rep, user_reception_rep FROM system_msg_rep WHERE id_rep='$id_message_rep';";
+	if($id_message_rep!=''){$q=$q2;}
+	$o=query_execute("mysqli_fetch_row", $q);
+	if($o[0]==$id_user){echo $o[1];}else{echo $o[0];}
 }
 
 function get_messages($id){
@@ -84,7 +79,7 @@ if( isset($_POST['msg']) && isset($_POST['usr_recp'])){
 	$query = "INSERT INTO `system_msg_rep` VALUES (NULL, '$id_message', '$user_envoie', '$user_reception', '$msg', '$date', '0');";
 	echo $query;
 	query_execute_insert($query);
-	redirect("ili-messages/read?id=".$id_message."&id2=".$id_message);
+	redirect();
 }
 ?>
 <!DOCTYPE html>
@@ -180,7 +175,7 @@ Site : http://www.ili-studios.com/
 						<!-- BEGIN CHAT PORTLET-->
 						<div class="widget" id="">
 							<div class="widget-title">
-								<h4><i class="icon-comments-alt"></i> Sujet : <?php echo $info_message->subject; ?> <?php receever_rep($id_message, $id_message_rep); ?></h4>
+								<h4><i class="icon-comments-alt"></i> Sujet : <?php echo $info_message->subject; ?></h4>
 								<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a></a> </span> </div>
 							<div class="widget-body">
 								<div class="timeline-messages"> 
