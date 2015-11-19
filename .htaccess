@@ -1,0 +1,42 @@
+Options -Indexes
+RewriteEngine On
+Options +FollowSymlinks 
+#<FilesMatch "\.(php)$">
+#	
+#	order allow,deny
+#	deny from all
+#	satisfy all
+#</FilesMatch>
+<Files index.php>
+  allow from all
+</Files>
+
+#-------------------------------------------------------------------------------|
+#Disallow Script Execution														|
+#-------------------------------------------------------------------------------|
+#Options -ExecCGI																
+#AddHandler cgi-script .php .pl .py .jsp .asp .htm .shtml .sh .cgi				
+
+#-------------------------------------------------------------------------------|
+#Change Charset and Language headers											|
+#-------------------------------------------------------------------------------|
+#AddDefaultCharset UTF-8
+#DefaultLanguage en-US			
+
+#-------------------------------------------------------------------------------|
+#Set Timezone of the Server (GMT)												|
+#-------------------------------------------------------------------------------|
+#SetEnv TZ America/Indianapolis
+
+#-------------------------------------------------------------------------------|
+#Prevent Directory Listing														|
+#-------------------------------------------------------------------------------|
+#Options -Indexes
+
+#-------------------------------------------------------------------------------|
+#Redirect browser to https (ssl)												|
+#-------------------------------------------------------------------------------|
+#RewriteEngine On
+#RewriteCond %{HTTPS} !on
+#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+

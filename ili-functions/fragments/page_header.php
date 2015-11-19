@@ -14,7 +14,7 @@
 				<!-- BEGIN NOTIFICATION -->
 				<ul class="nav top-menu">
 					<!-- BEGIN SETTINGS -->
-					<li class="dropdown"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Settings"> <i class="icon-cog"></i> </a> </li>
+					<!--<li class="dropdown"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Settings"> <i class="icon-cog"></i> </a> </li>-->
 					<!-- END SETTINGS --> 
 					<?php include"message.php";?>
 					<?php include"notification.php";?>
@@ -33,8 +33,8 @@
 					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php if( $_SESSION['user_img']!=''){echo'<img src="'.$_SESSION['user_img'].'" width="29px" height="29px">';}?> <span class="username"><?php echo $_SESSION['user_nom'].' '.$_SESSION['user_prenom'] ; ?></span> <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo $site; ?>ili-users/user_profil?id=<?php echo $_SESSION['user_id'];?>"><i class="icon-user"></i> Mon Profil</a></li>
-							<li><a href="#"><i class="icon-tasks"></i> Mes Taches</a></li>
-							<li><a href="#"><i class="icon-calendar"></i> Calendrier</a></li>
+							<!--<li><a href="#"><i class="icon-tasks"></i> Mes Taches</a></li>
+							<li><a href="#"><i class="icon-calendar"></i> Calendrier</a></li>-->
 							<li class="divider"></li>
 							<li><a href="<?php echo $site; ?>ili-functions/logout"><i class="icon-key"></i> Déconexion</a></li>
 						</ul>

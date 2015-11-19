@@ -14,7 +14,7 @@
 			<!-- BEGIN SIDEBAR MENU -->
 			<ul class="sidebar-menu">
 				<li class="has-sub active">
-					<a href="javascript:;" class="">
+					<a href="<?php echo $site;?>" class="">
 					    <span class="icon-box"> <i class="icon-dashboard"></i></span> Dashboard
                     </a>
 				</li>
