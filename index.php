@@ -64,43 +64,44 @@ Site : http://www.ili-studios.com/
 			</div>
 			<!-- END PAGE HEADER--> 
 			<!-- BEGIN PAGE CONTENT-->
-			<div id="page" class="dashboard"> 
+			<div id="page" class="dashboard">
+				<?php get_message('message'); ?> 
 				<!-- BEGIN OVERVIEW STATISTIC BARS-->
 				<div class="row-fluid circle-state-overview">
 					<div class="span2 responsive clearfix" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">
 							<div class="stats-circle turquoise-color"> <i class="icon-user"></i> </div>
-							<p> <strong>+30</strong> New Users </p>
+							<p> <strong>#ND</strong> Clients </p>
 						</div>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">
 							<div class="stats-circle red-color"> <i class="icon-tags"></i> </div>
-							<p> <strong>+970</strong> Sales </p>
+							<p> <strong>#ND</strong> Ventes </p>
 						</div>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">
 							<div class="stats-circle green-color"> <i class="icon-shopping-cart"></i> </div>
-							<p> <strong>+320</strong> New Order </p>
+							<p> <strong>#ND</strong> Commande </p>
 						</div>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">
 							<div class="stats-circle gray-color"> <i class="icon-comments-alt"></i> </div>
-							<p> <strong>+530</strong> Comments </p>
+							<p> <strong>#ND</strong> Message </p>
 						</div>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">
 							<div class="stats-circle purple-color"> <i class="icon-eye-open"></i> </div>
-							<p> <strong>+430</strong> Unique Visitor </p>
+							<p> <strong>#ND</strong> Visiteur </p>
 						</div>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">
 							<div class="stats-circle blue-color"> <i class="icon-bar-chart"></i> </div>
-							<p> <strong>+230</strong> Updates </p>
+							<p> <strong>#ND</strong> Logs Système </p>
 						</div>
 					</div>
 				</div>

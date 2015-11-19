@@ -8,6 +8,7 @@ function user_icon($rank){
 	if($rank==3){echo'icon-briefcase';}
 }
 $user=get_user_info($id_user);
+if($user==''){redirect('index?message=14');}
 function get_users_skills($id){
 	$query="SELECT * FROM users_skills WHERE id_user='$id' ORDER BY id DESC;";
 	if(query_execute('mysqli_num_rows', $query)=='0'){echo"<strong>PAS DE COMPETANCE!</strong>";}

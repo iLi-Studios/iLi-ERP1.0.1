@@ -6,6 +6,7 @@ autorisation('2');
 //$link=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $id_user=$_GET['id'];
 $user=get_user_info($id_user);
+if($user==''){redirect('index?message=14');}
 //form skills add
 if( (isset($_POST['skills_name'])) && (isset($_POST['skills'])) ){
 	$skills_name 	= addslashes($_POST['skills_name']);

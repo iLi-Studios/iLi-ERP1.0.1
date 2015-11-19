@@ -56,6 +56,9 @@ function message($code){
 		break;
 		case "13";
 		alert_notif("alert-error", "Combinaison incorrect!<br> Vous avez essayé plus de 3 fois, <br>La connexion ne sera possible qu'après 30 min");
+		break;
+		case "14";
+		alert_notif("alert-error", "Utilisateur non disponible ! ");
 		}
 	}
 ?>
