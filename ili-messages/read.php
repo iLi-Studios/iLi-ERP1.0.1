@@ -2,7 +2,25 @@
 include"../ili-functions/functions.php";
 autorisation('2');
 $id_message=$_GET['id'];
-if(isset($_GET['id2'])){$id_message_rep=$_GET['id2'];}else{$id_message_rep='';}
+function msg_info($id){
+	$query="SELECT * FROM system_msg WHERE id='$id';";
+	$result=query_excute_while($query);
+	$o=mysqli_fetch_object($result);
+	return $o;
+}
+$info_message=msg_info($id_message);
+function msg_rep_info($id){
+	$query="SELECT * FROM system_msg_rep WHERE id_rep='$id';";
+	$result=query_excute_while($query);
+	$o=mysqli_fetch_object($result);
+	return $o;
+}
+if($info_message==''){redirect('index?message=15');}
+if(isset($_GET['id2'])){
+	$id_message_rep=$_GET['id2'];
+	$msg_rep_info=msg_rep_info($id_message_rep);
+	if($msg_rep_info==''){redirect('index?message=15');}
+}else{$id_message_rep='';}
 function vu_message($id){
 	$query="UPDATE `system_msg` SET `vu` = '1' WHERE `system_msg`.`id` = $id;";
 	query_execute_insert($query);
@@ -13,13 +31,6 @@ function vu_message_rep($id){
 }
 if($id_message_rep!=false){vu_message_rep($id_message_rep);}
 vu_message($id_message);
-function msg_info($id){
-	$query="SELECT * FROM system_msg WHERE id='$id';";
-	$result=query_excute_while($query);
-	$o=mysqli_fetch_object($result);
-	return $o;
-}
-$info_message=msg_info($id_message);
 function receever_rep($id_message, $id_message_rep){
 	$id_user=$_SESSION['user_id'];
 	$q="SELECT user_envoie, user_reception FROM system_msg WHERE id='$id_message';";
