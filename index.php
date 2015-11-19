@@ -105,7 +105,6 @@ Site : http://www.ili-studios.com/
 					</div>
 				</div>
 				<!-- END OVERVIEW STATISTIC BARS-->
-				
 				<div class="row-fluid">
 					<div class="span12"> 
 						<!-- BEGIN MAILBOX PORTLET-->
@@ -113,7 +112,7 @@ Site : http://www.ili-studios.com/
 							<div class="widget-title">
 								<h4><i class="icon-envelope"></i> Messagerie</h4>
 								<span class="tools">
-									<a href="ili-messages/start" class="icon-plus tooltips" data-original-title="Nouveau Message"> 
+									<a href="ili-messages/start" class="icon-plus tooltips" data-original-title="Nouveau Message"> </a>
 									<a href="javascript:;" class="icon-chevron-down"></a> 
  								</span>
 							</div>
@@ -128,9 +127,7 @@ Site : http://www.ili-studios.com/
 											<th> Date </th>
 										</tr>
 									</thead>
-									<tbody>
-										<?php get_all_msg(); ?>
-									</tbody>
+									<tbody><?php get_all_msg(); ?></tbody>
 								</table>
 							</div>
 						</div>
@@ -170,7 +167,6 @@ Site : http://www.ili-studios.com/
 				</div>
 				<div class="row-fluid">
 					<div class="span12"> 
-						<!-- BEGIN SERVER LOAD PORTLET-->
 						<div class="widget">
 							<div class="widget-title">
 								<h4><i class="icon-umbrella"></i> Live Chart</h4>
@@ -185,27 +181,10 @@ Site : http://www.ili-studios.com/
 											<button class="btn btn-mini">Database</button>
 											<button class="btn btn-mini">Static</button>
 										</div>
-										<div class="btn-group pull-right" data-toggle="buttons-radio">
-											<button class="btn btn-mini active">Asia</button>
-											<button class="btn btn-mini"> <span class="visible-phone">Eur</span> <span class="hidden-phone">Europe</span> </button>
-											<button class="btn btn-mini">USA</button>
-										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- END SERVER LOAD PORTLET--> 
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span12"> 
-						<!-- BEGIN EXAMPLE TABLE widget-->
-						<div class="widget">
-							<div class="widget-title">
-								<h4><i class="icon-reorder"></i>Managed Table (filterable)</h4>
-								<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
-						</div>
-						<!-- END EXAMPLE TABLE widget--> 
 					</div>
 				</div>
 				<div class="row-fluid">

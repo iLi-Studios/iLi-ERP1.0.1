@@ -3,7 +3,6 @@ include"../ili-functions/functions.php";
 autorisation('2');
 $id_message=$_GET['id'];
 if(isset($_GET['id2'])){$id_message_rep=$_GET['id2'];}else{$id_message_rep='';}
-// marquer ce message comme vu le message ou la dereniere repence sur ce message
 function vu_message($id){
 	$query="UPDATE `system_msg` SET `vu` = '1' WHERE `system_msg`.`id` = $id;";
 	query_execute_insert($query);
@@ -77,6 +76,16 @@ if( isset($_POST['msg']) && isset($_POST['usr_recp'])){
 	query_execute_insert($query);
 	redirect();
 }
+function verrouillage_msg($id_msg){
+	$id_user=$_SESSION['user_id'];
+	$query="UPDATE system_msg SET fermer_par='$id_user' WHERE id='$id_msg';";
+	query_execute_insert($query);
+	redirect();
+}
+if( isset($_POST['v_id_msg']) ){
+	$v_id_msg=$_POST['v_id_msg'];
+	verrouillage_msg($v_id_msg);
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -123,11 +132,11 @@ Site : http://www.ili-studios.com/
 			<div class="row-fluid">
 				<div class="span12"> 
 					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-					<h3 class="page-title"> Conversations <small>Interactive  conversations</small> </h3>
+					<h3 class="page-title"> Messagerie </h3>
 					<ul class="breadcrumb">
 						<li> <a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li><a href="#">Components</a><span class="divider">&nbsp;</span></li>
-						<li><a href="#">Conversations</a><span class="divider-last">&nbsp;</span></li>
+						<li><a href="../">Dashboard</a><span class="divider">&nbsp;</span></li>
+						<li><a href="#">Messagerie</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 					<!-- END PAGE TITLE & BREADCRUMB--> 
 				</div>
@@ -135,6 +144,8 @@ Site : http://www.ili-studios.com/
 			<!-- END PAGE HEADER--> 
 			<!-- BEGIN PAGE CONTENT-->
 			<div id="page">
+			<?php if($info_message->fermer_par==''){
+				echo'
 				<div class="row-fluid">
 					<div class="span12">
 						<!-- BEGIN  widget-->
@@ -153,19 +164,30 @@ Site : http://www.ili-studios.com/
 											<textarea class="span12 ckeditor" name="msg" rows="6"></textarea>
 											<br>
 											<center>
-												<input type="hidden" name="usr_recp" value="<?php receever_rep($id_message, $id_message_rep); ?>"/>
+												<input type="hidden" name="usr_recp" value="'; receever_rep($id_message, $id_message_rep); echo'"/>
 												<input type="reset" value=" Annuler" class="btn btn-info"/>
 												<input type="submit" value=" Rependre" class="btn btn-success"/>
+												</form>
+												<br><br>';
+												if( ($_SESSION['user_id_rank']==3)||($info_message->user_envoie==$id_user) ){
+													echo'
+														<form action="" method="post">
+															<input type="hidden" name="v_id_msg" value="'.$id_message.'">
+															<input type="submit" value=" Verrouiller" class="btn btn-warning"/>
+														</form>
+													';
+												}
+												echo'
 											</center>
 										</div>
 									</div>
-								</form>
 								<!-- END FORM-->
 							</div>
 						</div>
 						<!-- END EXTRAS widget-->
 					</div>
-				</div>
+				</div>';}
+				?>
 				<div class="row-fluid">
 					<div class="span12"> 
 						<!-- BEGIN CHAT PORTLET-->
@@ -175,7 +197,13 @@ Site : http://www.ili-studios.com/
 								<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a></a> </span> </div>
 							<div class="widget-body">
 								<div class="timeline-messages"> 
-								<?php get_messages($id_message); ?>	
+									<?php 
+										if($info_message->fermer_par!=''){
+											$info_user=get_user_info($info_message->fermer_par);
+											echo'<center><h4>Message fermer par : '.$info_user->nom.' '.$info_user->prenom.'</h4></center>';
+										}
+										get_messages($id_message); 
+									?>	
 								</div>
 							</div>
 						</div>
