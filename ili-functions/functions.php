@@ -147,9 +147,9 @@ function get_all_msg(){
 			<tr>
 				<th style="width:4%;"><input type="checkbox"></th>
 				<th style="width:20%"> <a href="ili-users/user_profil?id='.$o->user_envoie.'">'.$info_user->nom.' '.$info_user->prenom.'</a> </th>
-				<th style="width:52%"><strong> <a href="ili-messages/read?id='.$id.'&id2='.$id_rep.'">'.$o->subject.'</a> </strong></th>
+				<th style="width:46%"><strong> <a href="ili-messages/read?id='.$id.'&id2='.$id_rep.'">'.$o->subject.'</a> </strong></th>
 				<th style="width:12%">'?><?php if($o1>='1'){etat_msg($ox->id, $id_rep);}		else{etat_msg($o->id, '');} etat_msg2($o->id); echo' </th>
-				<th style="width:12%"> ';?><?php if($o1>='1'){diff_date($ox->date_msg_rep);}else{diff_date($o->date_msg);} echo' </th>
+				<th style="width:18%"> ';?><?php if($o1>='1'){diff_date($ox->date_msg_rep);}else{diff_date($o->date_msg);} echo' </th>
 			</tr>
 			';
 	}		

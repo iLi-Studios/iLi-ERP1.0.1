@@ -18,8 +18,8 @@ function msg_rep_info($id){
 if($info_message==''){redirect('index?message=15');}
 if(isset($_GET['id2'])){
 	$id_message_rep=$_GET['id2'];
-	$msg_rep_info=msg_rep_info($id_message_rep);
-	if($msg_rep_info==''){redirect('index?message=15');}
+	//$msg_rep_info=msg_rep_info($id_message_rep);
+	//if($msg_rep_info==''){redirect('index?message=15');}
 }else{$id_message_rep='';}
 function vu_message($id){
 	$query="UPDATE `system_msg` SET `vu` = '1' WHERE `system_msg`.`id` = $id;";

@@ -502,6 +502,7 @@ var App = function () {
                 el.slideDown(200);
             }
         });
+		
     }
 
     var handleDashboardCharts = function () {
