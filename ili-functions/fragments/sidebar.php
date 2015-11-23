@@ -15,7 +15,7 @@
 	<!-- BEGIN SIDEBAR MENU -->
 	<ul class="sidebar-menu">
 		<li class="has-sub active"> <a href="<?php echo $site;?>" class=""> <span class="icon-box"> <i class="icon-dashboard"></i></span> Dashboard </a> </li>
-		<li><a class="" href="<?php echo $site;?>ili-modules/client/add"><span class="icon-box"><i class="icon-user"></i></span> Clients</a></li>
+		<li><a class="" href="<?php echo $site;?>ili-modules/client/liste"><span class="icon-box"><i class="icon-user"></i></span> Clients</a></li>
 		<li><a class="" href="<?php echo $site;?>ili-functions/logout"><span class="icon-box"><i class="icon-signout"></i></span> Déconexion</a></li>
 	</ul>
 	<!-- END SIDEBAR MENU --> 

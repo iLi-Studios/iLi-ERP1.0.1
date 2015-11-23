@@ -1,6 +1,23 @@
 <?php 
 include"../../ili-functions/functions.php";
 autorisation('2');
+function get_client_list(){
+	$q="SELECT * FROM client";
+	$r=query_excute_while($q);
+	while ($o=mysqli_fetch_object($r)){
+		echo'
+		<tr class="odd gradeX">
+			<td><input type="checkbox" class="checkboxes" value="1" /></td>
+			<td>'.$o->id_clt.'</td>
+			<td class="hidden-phone">'.$o->nom_clt.' '.$o->prenom_clt.'</td>
+			<td class="hidden-phone"><a href="mailto:'.$o->email_clt.'">'.$o->email_clt.'</a></td>
+			<td class="hidden-phone">'.$o->fix_clt.'</td>
+			<td class="hidden-phone">'.$o->portable_clt.'</td>
+			<td class="hidden-phone">'.$o->created_date.'</td>
+		</tr>
+		';
+	}
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -32,23 +49,6 @@ Site : http://www.ili-studios.com/
 <link href="../../ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="../../ili-style/assets/uniform/css/uniform.default.css" />
 </head>
-<script type="text/javascript">
-window.onload = function(){
-    document.getElementById('cin_').onkeyup = function(){
-        document.getElementById('cin').value = document.getElementById('cin_').value;   
-    }
-}; 
-</script>
-<script>
-var loadFile = function(event) {
-	var reader = new FileReader();
-	reader.onload = function(){
-		var output = document.getElementById('output');
-		output.src = reader.result;
-	};
-	reader.readAsDataURL(event.target.files[0]);
-};
-</script>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="fixed-top">
@@ -67,104 +67,45 @@ var loadFile = function(event) {
 			<!-- BEGIN PAGE HEADER-->
 			<div class="row-fluid">
 				<div class="span12">
-					<h3 class="page-title"> Client <small> Liste</small> </h3>
+					<h3 class="page-title"> Client <small> Forme ajout</small> </h3>
 					<ul class="breadcrumb">
-						<li> <a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li> <a href="#">Client</a> <span class="divider_last">&nbsp;</span> </li>
+						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+						<li><a href="liste">Clients</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>
 			<!-- END PAGE HEADER--> 
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row-fluid">
-				<div class="widget">
-						<div class="widget-title">
-							<h4><i class="icon-reorder"></i> Informations globales</h4>
-							<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
-						<div class="widget-body form">
-							<form action="" class="form-horizontal" method="post">
-								<div class="control-group">
-									<label class="control-label">Nature Client*</label>
-									<div class="controls">
-										<label class="radio">
-											<input type="radio" name="PARTICULIER" checked onChange="this.form.submit()"/>PARTICULIER
-										</label>
-										<label class="radio">
-											<input type="radio" name="ENTREPRISE" onChange="this.form.submit()"/>ENTREPRISE
-										</label>
-									</div>
-								</div>
-							</form><br>
-							<form action="#" class="form-horizontal" method="post">
-								<div class="control-group">
-									<label class="control-label">CIN*</label>
-									<div class="controls">
-										<input class="span9" type="text" name="cin" data-mask="99999999" required/>
-										<span class="help-inline"> Champ obligatoire</span>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Nom*</label>
-									<div class="controls">
-										<input type="text" name="nom" class="span9" required />
-										<span class="help-inline"> Champ obligatoire</span>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Prénom*</label>
-									<div class="controls">
-										<input type="text" name="prenom" class="span9" required />
-										<span class="help-inline"> Champ obligatoire</span>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Date de naissance</label>
-									<div class="controls">
-										<input class="span9" type="text" name="naissance" data-mask="99/99/9999"/>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Adresse*</label>
-									<div class="controls">
-										<textarea name="adresse" class="span9 " rows="3" required ></textarea>
-										<span class="help-inline"> Champ obligatoire</span>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Tel FIX</label>
-									<div class="controls">
-										<input class="span9" type="text" name="fix" data-mask="99.999.999"/>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Tel Fax</label>
-									<div class="controls">
-										<input class="span9" type="text" name="fax" data-mask="99.999.999"/>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Tel Portable</label>
-									<div class="controls">
-										<input class="span9" type="text" name="portable" data-mask="99.999.999"/>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Email</label>
-									<div class="controls">
-										<div class="input-icon left">
-											<i class="icon-envelope"></i>
-											<input class="span9" type="email" placeholder="Email Address" name="email" id="email" />    
-										</div>
-									</div>
-								</div>
-								<br>
-								<center>
-									<button type="reset" class="btn btn-info"><i class="icon-ban-circle icon-white"></i> Cancel</button>
-									<button type="submit" class="btn btn-warning"><i class="icon-plus icon-white"></i> Create</button>
-								</center>
-							</form>
-						</div>
-					</div>
+				<div class="span12">
+                    <!-- BEGIN EXAMPLE TABLE widget-->
+                    <div class="widget">
+                        <div class="widget-title">
+                            <h4><i class="icon-reorder"></i>Liste des clients</h4>
+                            <span class="tools">
+                                <a href="javascript:;" class="icon-chevron-down"></a>
+                                <a href="javascript:;" class="icon-remove"></a>
+                            </span>
+                        </div>
+                        <div class="widget-body">
+                            <table class="table table-striped table-bordered" id="sample_1">
+                            <thead>
+                                <tr>
+                                    <th width="1%"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+                                    <th width="15%">Code</th>
+                                    <th class="hidden-phone" width="30%">Client</th>
+                                    <th class="hidden-phone" width="24%">Email</th>
+                                    <th class="hidden-phone" width="10%">Tel. PRO</th>
+									<th class="hidden-phone" width="10%">Tel. PESRO</th>
+                                    <th class="hidden-phone" width="10%">Création</th>
+                                </tr>
+                            </thead>
+                            <tbody><?php get_client_list(); ?></tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <!-- END EXAMPLE TABLE widget-->
+                </div>
 			</div>
 			<!-- END PAGE CONTENT--> 
 		</div>
@@ -214,6 +155,8 @@ var loadFile = function(event) {
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script> 
+<script type="text/javascript" src="../../ili-style/assets/data-tables/jquery.dataTables.js"></script> 
+<script type="text/javascript" src="../../ili-style/assets/data-tables/DT_bootstrap.js"></script>
 <script src="../../ili-style/assets/fancybox/source/jquery.fancybox.pack.js"></script> 
 <script>
       jQuery(document).ready(function() {       
