@@ -7,10 +7,11 @@ function log_read(){
 	while ($o=mysqli_fetch_object($result)){
 		echo'
 			<tr class="odd gradeX">
-				<td>'.$o->id.'</td>
-				<td><a href="ili-users/user_profil?id='.$o->id_user.'">'.$o->id_user.'</a></td>
-				<td class="hidden-phone">'.$o->operation.'</td>
-				<td class="center hidden-phone">'.$o->date_operation.'</td>
+				<th><input type="checkbox" class="group-checkable"/></th>
+				<th>'.$o->id.'</th>
+				<th><a href="ili-users/user_profil?id='.$o->id_user.'">'.$o->id_user.'</a></th>
+				<th class="hidden-phone">'.$o->operation.'</th>
+				<th class="center hidden-phone">'.$o->date_operation.'</th>
 			</tr>
 			';
 	}
@@ -89,7 +90,8 @@ Site : http://www.ili-studios.com/
 							<table class="table table-striped table-bordered" id="sample_1">
 								<thead>
 									<tr>
-										<th width="5%">Id</th>
+										<th width="2%"></th>
+										<th width="3%">Id</th>
 										<th width="10%">Opératuer</th>
 										<th class="hidden-phone" width="70%">Opération</th>
 										<th class="hidden-phone" width="15%">Date</th>
