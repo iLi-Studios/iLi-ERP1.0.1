@@ -62,6 +62,9 @@ function message($code){
 		break;
 		case "15";
 		alert_notif("alert-error", "ERREUR : Message non disponible ! ");
+		break;
+		case "16";
+		alert_notif("alert-error", "ERREUR : Un utilistateur avec le même identificateur unique exsite déjà dans la base de données ! ");
 		}
 	}
 ?>

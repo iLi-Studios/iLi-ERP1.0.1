@@ -1,16 +1,15 @@
 <?php 
 include"../../ili-functions/functions.php";
 autorisation('2');
-if(isset($_POST['ENTREPRISE'])){redirect('ili-modules/client/add_pro');}
-
-function client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $portable, $email){
+if(isset($_POST['PARTICULIER'])){redirect('ili-modules/client/add');}
+function client_add($rs, $mf, $adresse, $fix, $fax, $email, $rc, $activ, $nom, $prenom, $poste, $email_con, $tel1, $tel2){
 	$id_user=$_SESSION['user_id'];
-	$q_test="SELECT * FROM client WHERE id_clt='$cin';";
+	$q_test="SELECT * FROM client WHERE id_clt='$mf'";
 	$o_test=query_execute("mysqli_fetch_row", $q_test);
 	if($o_test==0){
 		$q="INSERT INTO client VALUES 
-		('$cin', '$nom', '$prenom', '$naissance', '$adresse', '$fix', '$fax', '$portable', '$email',
-		 '', '', '', '', '', '', '', '', '8088718', NOW())";
+		('$mf', '$rs', '', '', '$adresse', '$fix', '$fax', '', '$email', 
+		'$rc', '$activ', '$nom', '$prenom', '$poste', '$email_con', '$tel1', '$tel2', '$id_user', NOW());";
 		query_execute_insert($q);
 		//notif_all($cin, '', '<a href="'.$site.'ili-users/user_profil?id='.$cin.'">Nouveau utilisateur, '.$nom.' '.$prenom);
 		//write_log("Création de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$cin."\">".$cin."</a>");
@@ -18,23 +17,23 @@ function client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $port
 	}
 	else{redirect('index?message=16');}
 }
-if( (isset($_POST['cin'])) && (isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['adresse'])) ){
-	$cin		= addslashes($_POST['cin']);
-	$nom		= addslashes($_POST['nom']);
-	$prenom		= addslashes($_POST['prenom']);
-	if(isset($_POST['naissance'])){$naissance=addslashes($_POST['naissance']);}else{$naissance='';}
-	$adresse	= addslashes($_POST['adresse']);	
-	if(isset($_POST['fix'])){$fix=addslashes($_POST['fix']);}else{$fix='';}
-	if(isset($_POST['fax'])){$fax=addslashes($_POST['fax']);}else{$fax='';}
-	if(isset($_POST['portable'])){$portable=addslashes($_POST['portable']);}else{$portable='';}
-	if(isset($_POST['email'])){$email=addslashes($_POST['email']);}else{$email='';}
-	client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $portable, $email);
+if( (isset($_POST['rs'])) && (isset($_POST['mf'])) && (isset($_POST['rc'])) && (isset($_POST['adresse'])) ){
+										$rs			=addslashes($_POST['rs']);
+										$mf			=addslashes($_POST['mf']);
+	if(isset($_POST['rc']))				{$rc		=addslashes($_POST['rc']);}else{$rc='';}
+										$activ		=addslashes($_POST['activ']);
+	if(isset($_POST['fix']))			{$fix		=addslashes($_POST['fix']);}else{$fix='';}
+	if(isset($_POST['fax']))			{$fax		=addslashes($_POST['fax']);}else{$fax='';}
+	if(isset($_POST['email']))			{$email		=addslashes($_POST['email']);}else{$email='';}
+										$adresse	=addslashes($_POST['adresse']);	
+	if(isset($_POST['nom']))			{$nom		=addslashes($_POST['nom']);}else{$nom='';}
+	if(isset($_POST['prenom']))			{$prenom	=addslashes($_POST['prenom']);}else{$prenom='';}
+	if(isset($_POST['poste']))			{$poste		=addslashes($_POST['poste']);}else{$poste='';}
+	if(isset($_POST['email_con']))		{$email_con	=addslashes($_POST['email_con']);}else{$email_con='';}
+	if(isset($_POST['tel1']))			{$tel1		=addslashes($_POST['tel1']);}else{$tel1='';}
+	if(isset($_POST['tel2']))			{$tel2		=addslashes($_POST['tel2']);}else{$tel2='';}
+	client_add($rs, $mf, $adresse, $fix, $fax, $email, $rc, $activ, $nom, $prenom, $poste, $email_con, $tel1, $tel2);
 }
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <!--
@@ -66,23 +65,6 @@ Site : http://www.ili-studios.com/
 <link href="../../ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="../../ili-style/assets/uniform/css/uniform.default.css" />
 </head>
-<script type="text/javascript">
-window.onload = function(){
-    document.getElementById('cin_').onkeyup = function(){
-        document.getElementById('cin').value = document.getElementById('cin_').value;   
-    }
-}; 
-</script>
-<script>
-var loadFile = function(event) {
-	var reader = new FileReader();
-	reader.onload = function(){
-		var output = document.getElementById('output');
-		output.src = reader.result;
-	};
-	reader.readAsDataURL(event.target.files[0]);
-};
-</script>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="fixed-top">
@@ -114,7 +96,7 @@ var loadFile = function(event) {
 			<div class="row-fluid">
 				<div class="widget">
 						<div class="widget-title">
-							<h4><i class="icon-reorder"></i> Informations globales</h4>
+							<h4><i class="icon-reorder"></i> Informations globales </h4>
 							<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
 						<div class="widget-body form">
 							<form action="" class="form-horizontal" method="post">
@@ -122,46 +104,40 @@ var loadFile = function(event) {
 									<label class="control-label">Nature Client*</label>
 									<div class="controls">
 										<label class="radio">
-											<input type="radio" name="PARTICULIER" checked onChange="this.form.submit()"/>PARTICULIER
+											<input type="radio" name="PARTICULIER" onChange="this.form.submit()"/>PARTICULIER
 										</label>
 										<label class="radio">
-											<input type="radio" name="ENTREPRISE" onChange="this.form.submit()"/>ENTREPRISE
+											<input type="radio" name="ENTREPRISE" checked onChange="this.form.submit()"/>ENTREPRISE
 										</label>
 									</div>
 								</div>
 							</form><br>
-							<form action="#" class="form-horizontal" method="post">
+							<form action="" class="form-horizontal" method="post">
 								<div class="control-group">
-									<label class="control-label">CIN*</label>
+									<label class="control-label">Raison Sociale*</label>
 									<div class="controls">
-										<input class="span9" type="text" name="cin" data-mask="99999999" required/>
+										<input type="text" name="rs" class="span9" required />
 										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">Nom*</label>
+									<label class="control-label">Matricule Fiscale (MF)*</label>
 									<div class="controls">
-										<input type="text" name="nom" class="span9" required />
+										<input class="span9" type="text" name="mf" data-mask="9999999 a/a/a 999" required/>
 										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">Prénom*</label>
+									<label class="control-label">Registre du Commerce (RC)</label>
 									<div class="controls">
-										<input type="text" name="prenom" class="span9" required />
-										<span class="help-inline"> Champ obligatoire</span>
+										<input class="span9" type="text" name="rc" data-mask="999 a a 9999999/a" />
+										<span class="help-inline"></span>
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">Date de naissance</label>
+									<label class="control-label">Activité*</label>
 									<div class="controls">
-										<input class="span9" type="text" name="naissance" data-mask="99/99/9999"/>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Adresse*</label>
-									<div class="controls">
-										<textarea name="adresse" class="span9 " rows="3" required ></textarea>
+										<textarea name="activ" class="span9 " rows="3" required ></textarea>
 										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
@@ -178,9 +154,38 @@ var loadFile = function(event) {
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">Tel Portable</label>
+									<label class="control-label">Email</label>
 									<div class="controls">
-										<input class="span9" type="text" name="portable" data-mask="99.999.999"/>
+										<div class="input-icon left">
+											<i class="icon-envelope"></i>
+											<input class="span9" type="email" placeholder="Email Address" name="email" />    
+										</div>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Adresse*</label>
+									<div class="controls">
+										<textarea name="adresse" class="span9 " rows="3" required ></textarea>
+										<span class="help-inline"> Champ obligatoire</span>
+									</div>
+								</div>
+								<h3>Contact dans l'etablissement</h3>
+								<div class="control-group">
+									<label class="control-label">Nom*</label>
+									<div class="controls">
+										<input type="text" name="nom" class="span9"/>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Prénom*</label>
+									<div class="controls">
+										<input type="text" name="prenom" class="span9" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Poste</label>
+									<div class="controls">
+										<input type="text" name="poste" class="span9" />
 									</div>
 								</div>
 								<div class="control-group">
@@ -188,10 +193,23 @@ var loadFile = function(event) {
 									<div class="controls">
 										<div class="input-icon left">
 											<i class="icon-envelope"></i>
-											<input class="span9" type="email" placeholder="Email Address" name="email" id="email" />    
+											<input class="span9" type="email_con" placeholder="Email Address" name="email_con" />    
 										</div>
 									</div>
 								</div>
+								<div class="control-group">
+									<label class="control-label">Tel 1</label>
+									<div class="controls">
+										<input class="span9" type="text" name="Tel1" data-mask="99.999.999"/>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Tel 2</label>
+									<div class="controls">
+										<input class="span9" type="text" name="tel2" data-mask="99.999.999"/>
+									</div>
+								</div>
+
 								<br>
 								<center>
 									<button type="reset" class="btn btn-info"><i class="icon-ban-circle icon-white"></i> Cancel</button>

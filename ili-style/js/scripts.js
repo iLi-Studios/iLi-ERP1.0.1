@@ -2009,7 +2009,7 @@ var App = function () {
             'nextSelector': '.button-next',
             'previousSelector': '.button-previous',
             onTabClick: function (tab, navigation, index) {
-                alert('on tab click disabled');
+              //  alert('on tab click disabled');
                 return false;
             },
             onNext: function (tab, navigation, index) {
@@ -2064,7 +2064,6 @@ var App = function () {
                     $('#form_wizard_1').find('.button-next').show();
                     $('#form_wizard_1').find('.button-submit').hide();
                 }
-
                 App.scrollTo($('.page-title'));
             },
             onTabShow: function (tab, navigation, index) {
@@ -2077,10 +2076,10 @@ var App = function () {
             }
         });
 
-        $('#form_wizard_1').find('.button-previous').hide();
-        $('#form_wizard_1 .button-submit').click(function () {
-            alert('Finished!');
-        }).hide();
+//        $('#form_wizard_1').find('.button-previous').hide();
+//        $('#form_wizard_1 .button-submit').click(function () {
+//            alert('Finished!');
+//        }).hide();
     }
 
     var handleTagsInput = function () {

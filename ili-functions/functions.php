@@ -6,7 +6,6 @@ if (!isset($_SESSION)){
 	//duré de vie de la session 30min
 	ini_set("session.lifetime",1800);
 }
-
 //global includes
 include"config.php";
 include"alert.php";

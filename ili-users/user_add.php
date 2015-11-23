@@ -123,7 +123,7 @@ Site : http://www.ili-studios.com/
 								<div class="control-group">
 									<label class="control-label">N° CIN</label>
 									<div class="controls">
-										<input type="text" required name="cin" class="span6  popovers" data-trigger="hover" data-content="Numéro de Carte Identité Nationnale" data-original-title="8 Chiffres" />
+										<input type="text" required name="cin" class="span6  popovers" data-trigger="hover" data-content="Numéro de Carte Identité Nationnale" data-mask="99999999"/>
 										<span class="help-inline"> Champ obligatoire</span> </div>
 								</div>
 								<!--N° CIN*-->
@@ -144,10 +144,8 @@ Site : http://www.ili-studios.com/
 								<div class="control-group">
 									<label class="control-label">Date de naissance</label>
 									<div class="controls">
-										<div class="input-append date date-picker span6" data-date="12-02-2012" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-											<input class="m-ctrl-medium date-picker span6 popovers" name="date_naissance" size="16" type="text" required />
-											<span class="add-on"><i class="icon-calendar"></i></span> </div>
-										<span class="help-inline"> Champ obligatoire</span> </div>
+										<input type="text" required name="date_naissance" class="span6  popovers" data-mask="99/99/9999" data-content="jj/mm/aaaa" />
+										<span class="help-inline">Champ obligatoire</span> </div>
 								</div>
 								<!--Date de naissance-->
 								<div class="control-group">
@@ -160,7 +158,7 @@ Site : http://www.ili-studios.com/
 								<div class="control-group">
 									<label class="control-label">Tel</label>
 									<div class="controls">
-										<input type="text" required name="tel" class="span6  popovers" />
+										<input type="text" required name="tel" class="span6  popovers" data-mask="99.999.999"/>
 										<span class="help-inline"> Champ obligatoire</span> </div>
 								</div>
 								<!--Tel*-->
