@@ -153,4 +153,9 @@ function get_all_msg(){
 			';
 	}		
 }
+function nbr_client(){
+	$q="SELECT * FROM client";
+	$o=query_execute("mysqli_num_rows", $q);
+	echo $o;
+}
 ?>

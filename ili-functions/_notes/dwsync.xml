@@ -6,4 +6,11 @@
 <file name="functions.php" server="www.ili-studios.com//domains/erp.ili-studios.com/public_html/" local="130917072480834022" remote="130919013600000000" Dst="0" />
 <file name="ili_erp.sql" server="www.ili-studios.com//domains/erp.ili-studios.com/public_html/" local="130912865447035722" remote="130919013600000000" Dst="0" />
 <file name="logout.php" server="www.ili-studios.com//domains/erp.ili-studios.com/public_html/" local="130912373878624821" remote="130919013600000000" Dst="0" />
+<file name="alert.php" server="www.hebergili.com//public_html/" local="130927379660741681" remote="130927725000000000" Dst="0" />
+<file name="config.php" server="www.hebergili.com//public_html/" local="130927915625910779" remote="130928455200000000" Dst="0" />
+<file name="database.php" server="www.hebergili.com//public_html/" local="130909279794258098" remote="130927725000000000" Dst="0" />
+<file name="functions.php" server="www.hebergili.com//public_html/" local="130927049844640057" remote="130927725000000000" Dst="0" />
+<file name="ili_erp.sql" server="www.hebergili.com//public_html/" local="130927754232079213" remote="130927725000000000" Dst="0" />
+<file name="index.html" server="www.hebergili.com//public_html/" local="130924235522502119" remote="130927725000000000" Dst="0" />
+<file name="logout.php" server="www.hebergili.com//public_html/" local="130912373878624821" remote="130927725000000000" Dst="0" />
 </dwsync>

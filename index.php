@@ -69,10 +69,12 @@ Site : http://www.ili-studios.com/
 				<!-- BEGIN OVERVIEW STATISTIC BARS-->
 				<div class="row-fluid circle-state-overview">
 					<div class="span2 responsive clearfix" data-tablet="span3" data-desktop="span2">
-						<div class="circle-wrap">
-							<div class="stats-circle turquoise-color"> <i class="icon-user"></i> </div>
-							<p> <strong>#ND</strong> Clients </p>
-						</div>
+						<a href="ili-modules/client/liste">
+							<div class="circle-wrap">
+								<div class="stats-circle turquoise-color"> <i class="icon-user"></i> </div>
+								<p> <strong><?php nbr_client(); ?></strong> Clients </p>
+							</div>
+						</a>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">

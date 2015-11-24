@@ -1,10 +1,27 @@
 <?php 
+$sytem_title="iLi-ERP V1.0.1";
+$copy_right ='2016 &copy; '.$sytem_title.'  By <a href="http://www.ili-studios.com/" target="new" style="none"> <strong>iLi-Studios</strong> </a>';
+
+//locale
 define('MYSQL_SERVEUR', 'localhost');
 define('MYSQL_UTILISATEUR', 'root');
 define('MYSQL_MOTDEPASSE', '');
 define('MYSQL_BASE', 'ili_erp');
 $site="http://localhost/erp/";
-$sytem_title="iLi-ERP V1.0.1";
-$copy_right ='2016 &copy; '.$sytem_title.'  By <a href="http://www.ili-studios.com/" target="new" style="none"> <strong>iLi-Studios</strong> </a>';
+//serveur
+//define('MYSQL_SERVEUR', 'localhost');
+//define('MYSQL_UTILISATEUR', 'erp');
+//define('MYSQL_MOTDEPASSE', 'Azditopsar!');
+//define('MYSQL_BASE', 'erp');
+//$site="http://erp.ili-studios.com/";
+
+
+
+
+
+
+
+
+
 
 ?>
