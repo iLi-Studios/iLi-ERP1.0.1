@@ -8,11 +8,11 @@ function get_client_list(){
 		echo'
 		<tr class="odd gradeX">
 			<td><input type="checkbox" class="checkboxes" value="1" /></td>
-			<td>'.$o->id_clt.'</td>
-			<td class="hidden-phone">'.$o->nom_clt.' '.$o->prenom_clt.'</td>
+			<td><a href="client?id='.$o->id_clt.'">'.$o->id_clt.'</a></td>
+			<td class="hidden-phone"><a href="client?id='.$o->id_clt.'">'.$o->nom_clt.' '.$o->prenom_clt.'</a></td>
 			<td class="hidden-phone"><a href="mailto:'.$o->email_clt.'">'.$o->email_clt.'</a></td>
 			<td class="hidden-phone">'.$o->fix_clt.'</td>
-			<td class="hidden-phone">'.$o->portable_clt.'</td>
+			<td class="hidden-phone">'.$o->portable_clt.$o->tel_con_clt.'</td>
 			<td class="hidden-phone">'.$o->created_date.'</td>
 		</tr>
 		';
@@ -83,25 +83,24 @@ Site : http://www.ili-studios.com/
                         <div class="widget-title">
                             <h4><i class="icon-reorder"></i>Liste des clients</h4>
                             <span class="tools">
-                                <a href="javascript:;" class="icon-chevron-down"></a>
-                                <a href="javascript:;" class="icon-remove"></a>
+								<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
                             </span>
                         </div>
                         <div class="widget-body">
                             <table class="table table-striped table-bordered" id="sample_1">
-                            <thead>
-                                <tr>
-                                    <th width="1%"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
-                                    <th width="15%">Code</th>
-                                    <th class="hidden-phone" width="30%">Client</th>
-                                    <th class="hidden-phone" width="24%">Email</th>
-                                    <th class="hidden-phone" width="10%">Tel. PRO</th>
-									<th class="hidden-phone" width="10%">Tel. PESRO</th>
-                                    <th class="hidden-phone" width="10%">Création</th>
-                                </tr>
-                            </thead>
-                            <tbody><?php get_client_list(); ?></tbody>
-                        </table>
+								<thead>
+									<tr>
+										<th width="1%"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+										<th width="15%">Code</th>
+										<th class="hidden-phone" width="30%">Client</th>
+										<th class="hidden-phone" width="24%">Email</th>
+										<th class="hidden-phone" width="10%">Tel. PRO</th>
+										<th class="hidden-phone" width="10%">Tel. PESRO</th>
+										<th class="hidden-phone" width="10%">Création</th>
+									</tr>
+								</thead>
+								<tbody><?php get_client_list(); ?></tbody>
+                        	</table>
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE widget-->

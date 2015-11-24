@@ -13,7 +13,7 @@ function client_add($rs, $mf, $adresse, $fix, $fax, $email, $rc, $activ, $nom, $
 		query_execute_insert($q);
 		//notif_all($cin, '', '<a href="'.$site.'ili-users/user_profil?id='.$cin.'">Nouveau utilisateur, '.$nom.' '.$prenom);
 		//write_log("Création de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$cin."\">".$cin."</a>");
-		redirect('');
+		redirect('ili-modules/client/liste');
 	}
 	else{redirect('index?message=16');}
 }
@@ -97,7 +97,7 @@ Site : http://www.ili-studios.com/
 				<div class="widget">
 						<div class="widget-title">
 							<h4><i class="icon-reorder"></i> Informations globales </h4>
-							<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
+							<!--<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> --></div>
 						<div class="widget-body form">
 							<form action="" class="form-horizontal" method="post">
 								<div class="control-group">
@@ -200,7 +200,7 @@ Site : http://www.ili-studios.com/
 								<div class="control-group">
 									<label class="control-label">Tel 1</label>
 									<div class="controls">
-										<input class="span9" type="text" name="Tel1" data-mask="99.999.999"/>
+										<input class="span9" type="text" name="tel1" data-mask="99.999.999"/>
 									</div>
 								</div>
 								<div class="control-group">

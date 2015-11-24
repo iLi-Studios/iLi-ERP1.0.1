@@ -158,4 +158,8 @@ function nbr_client(){
 	$o=query_execute("mysqli_num_rows", $q);
 	echo $o;
 }
+function get_client_info($id){
+	$query="SELECT * FROM client WHERE id_clt='$id';";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+}
 ?>

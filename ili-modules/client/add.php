@@ -1,6 +1,34 @@
 <?php 
 include"../../ili-functions/functions.php";
 autorisation('2');
+if(isset($_POST['ENTREPRISE'])){redirect('ili-modules/client/add_pro');}
+function client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $portable, $email){
+	$id_user=$_SESSION['user_id'];
+	$q_test="SELECT * FROM client WHERE id_clt='$cin'";
+	$o_test=query_execute("mysqli_fetch_row", $q_test);
+	if($o_test==0){
+		$q="INSERT INTO client VALUES 
+		('$cin', '$nom', '$prenom', '$naissance', '$adresse', '$fix', '$fax', '$portable', '$email', 
+		'', '', '', '', '', '', '', '', '$id_user', NOW());";
+		query_execute_insert($q);
+		//notif_all($cin, '', '<a href="'.$site.'ili-users/user_profil?id='.$cin.'">Nouveau utilisateur, '.$nom.' '.$prenom);
+		//write_log("Création de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$cin."\">".$cin."</a>");
+		redirect('ili-modules/client/liste');
+	}
+	else{redirect('index?message=16');}
+}
+if( (isset($_POST['cin'])) && (isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['adresse'])) ){
+										$cin			=addslashes($_POST['cin']);
+										$nom			=addslashes($_POST['nom']);
+										$prenom			=addslashes($_POST['prenom']);
+	if(isset($_POST['naissance']))		{$naissance		=addslashes($_POST['naissance']);}else{$naissance='';}
+										$adresse		=addslashes($_POST['adresse']);
+	if(isset($_POST['fix']))			{$fix			=addslashes($_POST['fix']);}else{$fix='';}
+	if(isset($_POST['fax']))			{$fax			=addslashes($_POST['fax']);}else{$fax='';}
+	if(isset($_POST['portable']))		{$portable		=addslashes($_POST['portable']);}else{$portable='';}
+	if(isset($_POST['email']))			{$email			=addslashes($_POST['email']);}else{$email='';}
+	client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $portable, $email);
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -67,10 +95,11 @@ var loadFile = function(event) {
 			<!-- BEGIN PAGE HEADER-->
 			<div class="row-fluid">
 				<div class="span12">
-					<h3 class="page-title"> Client <small> Liste</small> </h3>
+					<h3 class="page-title"> Client <small> Forme ajout</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li> <a href="#">Client</a> <span class="divider_last">&nbsp;</span> </li>
+						<li> <a href="#">Client</a> <span class="divider">&nbsp;</span> </li>
+						<li><a href="add">Ajout</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>
@@ -80,7 +109,7 @@ var loadFile = function(event) {
 				<div class="widget">
 						<div class="widget-title">
 							<h4><i class="icon-reorder"></i> Informations globales</h4>
-							<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span> </div>
+							<!--<span class="tools"> <a href="javascript:;" class="icon-chevron-down"></a> <a href="javascript:;" class="icon-remove"></a> </span>--> </div>
 						<div class="widget-body form">
 							<form action="" class="form-horizontal" method="post">
 								<div class="control-group">
