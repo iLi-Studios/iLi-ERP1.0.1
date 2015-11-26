@@ -33,21 +33,20 @@ Site : http://www.ili-studios.com/
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-<meta charset="utf-8" />
-<title><?php echo $sytem_title;?></title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<meta content="" name="description" />
-<meta content="" name="author" />
-<link href="../../ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="../../ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<link href="../../ili-style/assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
-<link href="../../ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link href="../../ili-style/css/style.css" rel="stylesheet" />
-<link href="../../ili-style/css/style_responsive.css" rel="stylesheet" />
-<link href="../../ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
-<link rel="stylesheet" type="text/css" href="../../ili-style/assets/chosen-bootstrap/chosen/chosen.css" />
-<link href="../../ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="../../ili-style/assets/uniform/css/uniform.default.css" />
+	<meta charset="utf-8" />
+	<title><?php echo $sytem_title;?></title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="iLi-ERP" name="description" />
+	<meta content="SAKLY AYOUB" name="author" />
+	<link href="../../ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link href="../../ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	<link href="../../ili-style/css/style.css" rel="stylesheet" />
+	<link href="../../ili-style/css/style_responsive.css" rel="stylesheet" />
+	<link href="../../ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
+	<link rel="stylesheet" type="text/css" href="../../ili-style/assets/chosen-bootstrap/chosen/chosen.css" />
+	<link href="../../ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../../ili-style/assets/uniform/css/uniform.default.css" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -120,17 +119,7 @@ Site : http://www.ili-studios.com/
 <!-- END FOOTER --> 
 <!-- BEGIN JAVASCRIPTS --> 
 <!-- Load javascripts at bottom, this will reduce page load time --> 
-<script src="../../ili-style/js/jquery-1.8.3.min.js"></script> 
-<script src="../../ili-style/assets/bootstrap/js/bootstrap.min.js"></script> 
-<script src="../../ili-style/assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script> 
-<script src="../../ili-style/js/jquery.blockui.js"></script> 
-<!-- ie8 fixes --> 
-<!--[if lt IE 9]>
-   <script src="js/excanvas.js"></script>
-   <script src="js/respond.js"></script>
-   <![endif]--> 
-<script type="text/javascript" src="../../ili-style/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/uniform/jquery.uniform.min.js"></script> 
+<script src="../../ili-style/js/jquery-1.8.3.min.js"></script>  
 <script src="../../ili-style/js/scripts.js"></script> 
 <script src="../../ili-style/assets/bootstrap/js/bootstrap.min.js"></script> 
 <script src="../../ili-style/js/jquery.blockui.js"></script> 
@@ -144,11 +133,9 @@ Site : http://www.ili-studios.com/
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/jquery-tags-input/jquery.tagsinput.min.js"></script>  
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/data-tables/jquery.dataTables.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/data-tables/DT_bootstrap.js"></script>
-<script src="../../ili-style/assets/fancybox/source/jquery.fancybox.pack.js"></script> 
 <script>
       jQuery(document).ready(function() {       
          // initiate layout and plugins

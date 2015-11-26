@@ -182,19 +182,11 @@ Site : http://www.ili-studios.com/
 <!-- Load javascripts at bottom, this will reduce page load time --> 
 <script src="../../ili-style/js/jquery-1.8.3.min.js"></script> 
 <script src="../../ili-style/assets/bootstrap/js/bootstrap.min.js"></script> 
-<script src="../../ili-style/assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script> 
-<script src="../../ili-style/js/jquery.blockui.js"></script> 
-<!-- ie8 fixes --> 
-<!--[if lt IE 9]>
-   <script src="js/excanvas.js"></script>
-   <script src="js/respond.js"></script>
-   <![endif]--> 
+
 <script type="text/javascript" src="../../ili-style/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/uniform/jquery.uniform.min.js"></script> 
 <script src="../../ili-style/js/scripts.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/ckeditor/ckeditor.js"></script> 
-<script src="../../ili-style/assets/bootstrap/js/bootstrap.min.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap/js/bootstrap-fileupload.js"></script> 
 <script src="../../ili-style/js/jquery.blockui.js"></script> 
 <!-- ie8 fixes --> 
 <!--[if lt IE 9]>
@@ -214,8 +206,6 @@ Site : http://www.ili-studios.com/
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script> 
 <script type="text/javascript" src="../../ili-style/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/data-tables/jquery.dataTables.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/data-tables/DT_bootstrap.js"></script>
 <script src="../../ili-style/assets/fancybox/source/jquery.fancybox.pack.js"></script> 
 <script>
       jQuery(document).ready(function() {       

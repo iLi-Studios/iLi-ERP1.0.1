@@ -18,19 +18,19 @@ Site : http://www.ili-studios.com/
 <head>
 <meta charset="utf-8" />
 <title><?php echo $sytem_title;?></title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<meta content="" name="description" />
-<meta content="" name="author" />
-<link href="ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<link href="ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link href="ili-style/css/style.css" rel="stylesheet" />
-<link href="ili-style/css/style_responsive.css" rel="stylesheet" />
-<link href="ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
-<link href="ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="ili-style/assets/uniform/css/uniform.default.css" />
-<link href="ili-style/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-<link href="ili-style/assets/jqvmap/jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="iLi-ERP" name="description" />
+	<meta content="SAKLY AYOUB" name="author" />
+	<link href="ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link href="ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	<link href="ili-style/css/style.css" rel="stylesheet" />
+	<link href="ili-style/css/style_responsive.css" rel="stylesheet" />
+	<link href="ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
+	<link href="ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="ili-style/assets/uniform/css/uniform.default.css" />
+	<link href="ili-style/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+	<link href="ili-style/assets/jqvmap/jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
