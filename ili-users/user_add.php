@@ -123,7 +123,7 @@ Site : http://www.ili-studios.com/
 								<div class="control-group">
 									<label class="control-label">N° CIN</label>
 									<div class="controls">
-										<input type="text" required name="cin" class="span6  popovers" data-trigger="hover" data-content="Numéro de Carte Identité Nationnale" data-mask="99999999"/>
+										<input type="text" required name="cin" class="span6  popovers" data-trigger="hover" data-content="Numéro de Carte Identité Nationnale 8 chiffres" data-mask="99999999"/>
 										<span class="help-inline"> Champ obligatoire</span> </div>
 								</div>
 								<!--N° CIN*-->

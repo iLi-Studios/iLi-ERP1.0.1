@@ -131,34 +131,32 @@ var loadFile = function(event) {
 									<label class="control-label">CIN*</label>
 									<div class="controls">
 										<input class="span9" type="text" name="cin" data-mask="99999999" required/>
-										<span class="help-inline"> Champ obligatoire</span>
+										<span class="help-inline"> Exp. 12345678</span>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Nom*</label>
 									<div class="controls">
 										<input type="text" name="nom" class="span9" required />
-										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Prénom*</label>
 									<div class="controls">
 										<input type="text" name="prenom" class="span9" required />
-										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Date de naissance</label>
 									<div class="controls">
-										<input class="span9" type="text" name="naissance" data-mask="99/99/9999"/>
+										<input class="span9" type="text" name="naissance" data-mask="99-99-9999"/>
+										<span class="help-inline"> Exp. 31/12/1995</span>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Adresse*</label>
 									<div class="controls">
 										<textarea name="adresse" class="span9 " rows="3" required ></textarea>
-										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
 								<div class="control-group">
@@ -190,8 +188,8 @@ var loadFile = function(event) {
 								</div>
 								<br>
 								<center>
-									<button type="reset" class="btn btn-info"><i class="icon-ban-circle icon-white"></i> Cancel</button>
-									<button type="submit" class="btn btn-warning"><i class="icon-plus icon-white"></i> Create</button>
+									<button type="reset" class="btn btn-info"><i class="icon-ban-circle icon-white"></i> Annuler</button>
+									<button type="submit" class="btn btn-warning"><i class="icon-plus icon-white"></i> Créer</button>
 								</center>
 							</form>
 						</div>

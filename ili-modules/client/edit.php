@@ -162,7 +162,7 @@ Site : http://www.ili-studios.com/
 											echo'
 										<tr>
 											<td class="span4">Registre du commerce :</td>
-											<td><input name="rc" value="'.$clt->rc.'" data-mask="999 a a 9999999/a" id="rc"/></td>
+											<td><input name="rc" value="'.$clt->rc.'" data-mask="999aa9999999/a" id="rc"/></td>
 										</tr>
 											';
 										}

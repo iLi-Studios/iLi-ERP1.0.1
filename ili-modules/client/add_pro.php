@@ -119,28 +119,26 @@ Site : http://www.ili-studios.com/
 									<label class="control-label">Raison Sociale*</label>
 									<div class="controls">
 										<input type="text" name="rs" class="span9" required />
-										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Matricule Fiscale (MF)*</label>
 									<div class="controls">
-										<input class="span9" type="text" name="mf" data-mask="9999999 a/a/a 999" required/>
-										<span class="help-inline"> Champ obligatoire</span>
+										<input class="span9" type="text" name="mf" data-mask="9999999a/a/a999" required/>
+										<span class="help-inline"> Exp. 9999999R/A/C999</span>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Registre du Commerce (RC)</label>
 									<div class="controls">
-										<input class="span9" type="text" name="rc" data-mask="999 a a 9999999/a" />
-										<span class="help-inline"></span>
+										<input class="span9" type="text" name="rc" data-mask="999aa9999999/a"/>
+										<span class="help-inline"> Exp. 999BE9999999/J</span>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Activité*</label>
 									<div class="controls">
 										<textarea name="activ" class="span9 " rows="3" required ></textarea>
-										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
 								<div class="control-group">
@@ -168,10 +166,9 @@ Site : http://www.ili-studios.com/
 									<label class="control-label">Adresse*</label>
 									<div class="controls">
 										<textarea name="adresse" class="span9 " rows="3" required ></textarea>
-										<span class="help-inline"> Champ obligatoire</span>
 									</div>
 								</div>
-								<h3>Contact dans l'etablissement</h3>
+								<h3>Contact dans l'établissement</h3>
 								<div class="control-group">
 									<label class="control-label">Nom*</label>
 									<div class="controls">
@@ -214,8 +211,8 @@ Site : http://www.ili-studios.com/
 
 								<br>
 								<center>
-									<button type="reset" class="btn btn-info"><i class="icon-ban-circle icon-white"></i> Cancel</button>
-									<button type="submit" class="btn btn-warning"><i class="icon-plus icon-white"></i> Create</button>
+									<button type="reset" class="btn btn-info"><i class="icon-ban-circle icon-white"></i> Annuler</button>
+									<button type="submit" class="btn btn-warning"><i class="icon-plus icon-white"></i> Créer</button>
 								</center>
 							</form>
 						</div>
