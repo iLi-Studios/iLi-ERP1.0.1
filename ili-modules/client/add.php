@@ -4,6 +4,8 @@ autorisation('2');
 if(isset($_POST['ENTREPRISE'])){redirect('ili-modules/client/add_pro');}
 function client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $portable, $email){
 	$id_user=$_SESSION['user_id'];
+	$user_nom=$_SESSION['user_nom'];
+	$user_prenom=$_SESSION['user_prenom'];
 	$q_test="SELECT * FROM client WHERE id_clt='$cin'";
 	$o_test=query_execute("mysqli_fetch_row", $q_test);
 	if($o_test==0){
@@ -11,8 +13,8 @@ function client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $port
 		('$cin', '$nom', '$prenom', '$naissance', '$adresse', '$fix', '$fax', '$portable', '$email', 
 		'', '', '', '', '', '', '', '', '$id_user', NOW());";
 		query_execute_insert($q);
-		//notif_all($cin, '', '<a href="'.$site.'ili-users/user_profil?id='.$cin.'">Nouveau utilisateur, '.$nom.' '.$prenom);
-		//write_log("Création de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$cin."\">".$cin."</a>");
+		notif_all('', '', '<a href="'.$site.'ili-modules/client/client?id='.$cin.'">'.$user_nom.' '.$user_prenom.' a creé un nouveau client particulier, '.$nom.' '.$prenom);
+		write_log("Création de client : <a href=\"ili-modules/client/client?id=".$cin."\">".$cin."</a>");
 		redirect('ili-modules/client/liste');
 	}
 	else{redirect('index?message=16');}

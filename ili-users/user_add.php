@@ -144,7 +144,7 @@ Site : http://www.ili-studios.com/
 								<div class="control-group">
 									<label class="control-label">Date de naissance</label>
 									<div class="controls">
-										<input type="text" required name="date_naissance" class="span6  popovers" data-mask="99/99/9999" data-content="jj/mm/aaaa" />
+										<input type="text" required name="date_naissance" class="span6  popovers" data-mask="99-99-9999" data-content="jj/mm/aaaa" />
 										<span class="help-inline">Champ obligatoire</span> </div>
 								</div>
 								<!--Date de naissance-->

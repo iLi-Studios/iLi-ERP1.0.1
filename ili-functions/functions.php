@@ -76,6 +76,9 @@ function diff_date($date){
 			else
 				echo 'Le '.date('d/m/Y à H:i:s', $date);
 }
+function age($date){
+	return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);
+}
 function get_all_notification(){
 	$id_user=$_SESSION['user_id'];
 	$query="SELECT * FROM `system_notif` WHERE `id_user`='$id_user' ORDER BY id DESC LIMIT 30";

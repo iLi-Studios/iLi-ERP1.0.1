@@ -59,7 +59,6 @@ function get_users_expirance($id){
 		}
 	}
 }
-function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
 function profil_pannel($id){
 	// AUTORISATION SYSTEM
 	// EDIT IF ADMIN || IF USER{IF HIS PROFILE || HASE PERMESSION TO EDIT}

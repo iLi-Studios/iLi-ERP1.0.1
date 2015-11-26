@@ -7,7 +7,6 @@ autorisation('2');
 $id_user=$_GET['id'];
 $user=get_user_info($id_user);
 if($user==''){redirect('index?message=14');}
-//form skills add
 if( (isset($_POST['skills_name'])) && (isset($_POST['skills'])) ){
 	$skills_name 	= addslashes($_POST['skills_name']);
 	$skills			= addslashes($_POST['skills']);
@@ -17,7 +16,6 @@ if( (isset($_POST['skills_name'])) && (isset($_POST['skills'])) ){
 	write_log("Ajout du compétence : ".$skills_name.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
 	redirect('ili-users/user_edit?id='.$user->id_user);
 }
-//form diploma add
 if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (isset($_POST['diploma_diplome'])) && (isset($_POST['diploma_etablissement'])) ){	
 	$diploma_annee	 		= addslashes($_POST['diploma_annee']);
 	$diploma_lieux	 		= addslashes($_POST['diploma_lieux']);
@@ -29,7 +27,6 @@ if( (isset($_POST['diploma_annee'])) && (isset($_POST['diploma_lieux'])) && (iss
 	write_log("Ajout du diplôme : ".$diploma_diplome.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
 	redirect('ili-users/user_edit?id='.$user->id_user);
 }
-//form diploma mod
 if( (isset($_POST['diploma_id_mod'])) && (isset($_POST['diploma_annee_mod'])) && (isset($_POST['diploma_lieux_mod'])) && (isset($_POST['diploma_diplome_mod'])) && (isset($_POST['diploma_etablissement_mod'])) ){	
 	$diploma_annee_mod	 		= addslashes($_POST['diploma_annee_mod']);
 	$diploma_lieux_mod	 		= addslashes($_POST['diploma_lieux_mod']);
@@ -48,7 +45,6 @@ if( (isset($_POST['diploma_id_mod'])) && (isset($_POST['diploma_annee_mod'])) &&
 	write_log("Modification du diplôme : ".$diploma_diplome_mod.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
 	redirect('ili-users/user_edit?id='.$user->id_user);
 }
-//form expirence add
 if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) && (isset($_POST['exp_duration_add'])) && (isset($_POST['exp_experance_add'])) ){	
 	$exp_company_add	 		= addslashes($_POST['exp_company_add']);
 	$exp_companyurl_add	 		= addslashes($_POST['exp_companyurl_add']);
@@ -60,7 +56,6 @@ if( (isset($_POST['exp_company_add'])) && (isset($_POST['exp_companyurl_add'])) 
 	write_log("Ajout de l\'expérience dans l\'etablissement : ".$exp_company_add.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
 	redirect('ili-users/user_edit?id='.$user->id_user);
 }
-//form expirance mod
 if( (isset($_POST['exp_company_mod'])) && (isset($_POST['exp_companyurl_mod'])) && (isset($_POST['exp_duration_mod'])) && (isset($_POST['exp_experance_mod'])) && (isset($_POST['epx_id_mod'])) ){	
 	$exp_company_mod	 		= addslashes($_POST['exp_company_mod']);
 	$exp_companyurl_mod	 		= addslashes($_POST['exp_companyurl_mod']);
@@ -80,7 +75,6 @@ if( (isset($_POST['exp_company_mod'])) && (isset($_POST['exp_companyurl_mod'])) 
 	write_log("Modification de l\'expérience dans l\'etablissement : ".$exp_company_mod.", pour l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
 	redirect('ili-users/user_edit?id='.$user->id_user);
 }
-//form mdp change
 if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['mdp_new2'])) ){
 	if($_SESSION['user_id_rank']==3){$mdp_now =($_POST['mdp_now']);}else{$mdp_now=md5($_POST['mdp_now']);}
 	$mdp_new	=md5($_POST['mdp_new']);
@@ -96,8 +90,7 @@ if( (isset($_POST['mdp_now'])) && (isset($_POST['mdp_new'])) && (isset($_POST['m
 	}
 	else{redirect('ili-users/user_edit?message=10&id='.$user->id_user);}
 }
-//form information change
-if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste'])) && (isset($_POST['email'])) && (isset($_POST['tel'])) && (isset($_POST['rank'])) && (isset($_POST['date_naissance'])) && (isset($_POST['adresse'])) ){
+if( (isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste'])) && (isset($_POST['email'])) && (isset($_POST['tel'])) && (isset($_POST['rank'])) && (isset($_POST['date_naissance'])) && (isset($_POST['adresse'])) ){
 	$nom			=addslashes($_POST['nom']);
 	$prenom			=addslashes($_POST['prenom']);
 	$poste			=addslashes($_POST['poste']);
@@ -122,7 +115,6 @@ if((isset($_POST['nom'])) && (isset($_POST['prenom'])) && (isset($_POST['poste']
 	write_log("Modification des informations de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
 	redirect('ili-users/user_edit?id='.$user->id_user);	
 }
-//form img_modif
 if( isset($_POST['img_url_mod']) ){
 	$img_url_mod				= addslashes($_POST['img_url_mod']);
 	$query_img_url_mod			= "UPDATE `users` SET `img_link`='$img_url_mod' WHERE `id_user`='$user->id_user';";
@@ -131,7 +123,6 @@ if( isset($_POST['img_url_mod']) ){
 	write_log("Changement de l\'image de profil de l\'utilisateur : <a href=\"ili-users/user_profil?id=".$user->id_user."\">".$user->id_user."</a>");
 	redirect('ili-users/user_edit?id='.$user->id_user);
 }
-//form Social
 if( (isset($_POST['fb_url'])) && (isset($_POST['linkedin_url'])) && (isset($_POST['github_url'])) ){
 	$fb_url				= addslashes($_POST['fb_url']);
 	$linkedin_url		= addslashes($_POST['linkedin_url']);
@@ -279,7 +270,6 @@ function get_users_diploma($id){
 		}
 	}
 }
-function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
 function grade_list($rank_user){
 	if($_SESSION['user_id_rank']==6){
 		$query="SELECT * FROM `users_rank` ORDER BY id_rank ASC";
@@ -830,7 +820,7 @@ Site : http://www.ili-studios.com/
 					</tr>
 					<tr>
 						<td>Mobile</td>
-						<td><input name="tel" required type="text" value="<?php echo $user->tel;?>" class="input-large" /></td>
+						<td><input name="tel" required type="text" value="<?php echo $user->tel;?>" data-mask="99.999.999" class="input-large" /></td>
 					</tr>
 					<tr>
 						<td>Adresse</td>
@@ -838,7 +828,7 @@ Site : http://www.ili-studios.com/
 					</tr>
 					<tr>
 						<td>Date de naissance</td>
-						<td><input name="date_naissance" required type="text" value="<?php echo $user->date_naissance;?>" class="input-large" /></td>
+						<td><input name="date_naissance" required type="text" value="<?php echo $user->date_naissance;?>" data-mask="99-99-9999" class="input-large" /></td>
 					</tr>
 					<?php if($_SESSION['user_id_rank']==6){echo'
 					<tr>

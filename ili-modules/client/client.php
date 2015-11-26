@@ -57,7 +57,7 @@ Site : http://www.ili-studios.com/
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li><a href="liste">Clients</a><span class="divider">&nbsp;</span></li>
-						<li><a href="client">Fiche</a><span class="divider-last">&nbsp;</span></li>
+						<li><a href="client?id=<?php echo $id_client; ?>">Fiche</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>
@@ -69,22 +69,32 @@ Site : http://www.ili-studios.com/
                     <div class="widget">
                         <div class="widget-title">
                             <h4><i class="icon-reorder"></i> Fiche Client</h4>
-                            <span class="tools"></span>
+                            <span class="tools"><a href="edit?id=<?php echo $clt->id_clt; ?>" class="icon-edit tooltips" data-original-title="Modifier"></a></span>
                         </div>
 						
 						<div class="widget-body">
                             <div class="span8">
-                                <h3><?php echo $clt->nom_clt.' '.$clt->prenom_clt; ?> <br/><small><?php echo $clt->activite_clt; ?></small></h3>
+                                <h3><?php echo $clt->nom_clt; ?><?php if($clt->activite_clt==''){echo '<br>'.$clt->prenom_clt; }?> <br/><small><?php echo $clt->activite_clt; ?></small></h3>
                                 <table class="table table-borderless">
                                     <tbody>
                                     <tr>
-                                        <td class="span4">CODE :</td>
+                                        <td class="span4">
+										<?php if($clt->activite_clt==''){echo'CIN : ';}else{echo'Matricule Fiscale :';}?>
+										</td>
                                         <td><?php echo $clt->id_clt; ?></td>
                                     </tr>
+									<?php if($clt->activite_clt==''){echo'
+									<tr>
+                                        <td class="span4">Age :</td>
+                                        <td>'.age($clt->date_nais_clt).'</td>
+                                    </tr>
+									';}?>
+									<?php if($clt->activite_clt!=''){echo'
 									<tr>
                                         <td class="span4">Registre du commerce :</td>
-                                        <td><?php echo $clt->rc; ?></td>
+                                        <td>'.$clt->rc.'</td>
                                     </tr>
+									';}?>
 									<tr>
                                         <td class="span4">Tel FIX :</td>
                                         <td><?php echo $clt->fix_clt; ?></td>
@@ -103,47 +113,50 @@ Site : http://www.ili-studios.com/
                                 <div class="well">
                                     <address>
                                         <strong><?php echo $clt->nom_clt.' '.$clt->prenom_clt; ?></strong><br>
-                                        <?php echo $clt->adresse_clt; ?><br>
+                                        <?php echo $clt->adresse_clt; ?><br><br>
                                         <?php echo $clt->fix_clt; ?><br>
                                     </address>
                                     <address>
-                                        <strong>Full Name</strong><br>
                                         <a href="mailto:<?php echo $clt->email_clt; ?>"><?php echo $clt->email_clt; ?></a>
                                     </address>
                                 </div>
                             </div>
                             <div class="span4">
+								<?php
+								if($clt->nom_con_clt!=''){
+									echo'
                                 <h4>Contact</h4>
 								<ul class="unstyled">
 									<table class="table-borderless" width="100%">
 										<tbody>
 											<tr>
 												<td width="30%">Nom</td>
-												<td width="70%"><?php echo $clt->nom_con_clt; ?></td>
+												<td width="70%">'.$clt->nom_con_clt.'</td>
 											</tr>
 											<tr>
 												<td>Prénom</td>
-												<td><?php echo $clt->prenom_con_clt; ?></td>
+												<td>'.$clt->prenom_con_clt.'</td>
 											</tr>
 											<tr>
 												<td>Poste</td>
-												<td><?php echo $clt->post_con_clt; ?></td>
+												<td>'.$clt->post_con_clt.'</td>
 											</tr>
 											<tr>
 												<td>Tel1</td>
-												<td><?php echo $clt->tel_con_clt; ?></td>
+												<td>'.$clt->tel_con_clt.'</td>
 											</tr>
 											<tr>
 												<td>Tel2</td>
-												<td><?php echo $clt->tel2_con_clt; ?></td>
+												<td>'.$clt->tel2_con_clt.'</td>
 											</tr>
 											<tr>
 												<td>Email</td>
-												<td><a href="mailto:<?php echo $clt->email_con_clt; ?>"><?php echo $clt->email_con_clt; ?></a></td>
+												<td><a href="mailto:'.$clt->email_con_clt.'">'.$clt->email_con_clt.'</a></td>
 											</tr>
 										</tbody>
 									</table>
                                 </ul>
+								';}?>
                                 <div class="alert alert-success"><i class="icon-ok-sign"></i> Crée le, <?php echo $clt->created_date; ?> par : <a href="<?php echo $site; ?>ili-users/user_profil?id=<?php echo $clt->created_by; ?>"><?php echo $createur->nom.' '.$createur->prenom; ?></a></div>
                             </div>
                             <div class="space5"></div>

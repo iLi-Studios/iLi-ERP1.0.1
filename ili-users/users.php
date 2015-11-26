@@ -56,7 +56,6 @@ function get_users_skills($id){
 		}
 	}
 }
-function age($date){return (int) ((time() - strtotime($date)) / 3600 / 24 / 365);}
 function users_pannel($id, $rank){
 	//ADMIN
 	if($_SESSION['user_id_rank']==3){
