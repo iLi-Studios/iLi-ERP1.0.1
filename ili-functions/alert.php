@@ -68,6 +68,9 @@ function message($code){
 		break;
 		case "17";
 		alert_notif("alert-error", "ERREUR : Vous avez pas l'autorisation necessaire pour acceder a cette section ! ");
+		break;
+		case "18";
+		alert_notif("alert-error", "ERREUR : Client non disponible ! ");
 		}
 	}
 ?>

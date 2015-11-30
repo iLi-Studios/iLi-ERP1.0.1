@@ -4,6 +4,7 @@ autorisation('2');
 autorisation_double_check_privilege('CLIENTS', 'S');
 $id_client=$_GET['id'];
 $clt=get_client_info($id_client);
+if($clt==''){redirect('index?message=18');}
 $createur=get_user_info($clt->created_by);
 if(isset($_POST['ban_raison'])&&isset($_POST['id_clt'])){
 	$ban_raison=addslashes($_POST['ban_raison']);

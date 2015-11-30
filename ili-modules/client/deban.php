@@ -12,8 +12,9 @@ function deban($id){
 	query_execute_insert($query);
 }
 $id_clt=$_GET['id'];
-deban($id_clt);
 $clt=get_client_info($id_clt);
+if($clt==''){redirect('index?message=18');}
+deban($id_clt);
 $id_user=$_SESSION['user_id'];
 $usr=get_user_info($id_user);
 notif_all('', '', '<a href="'.$site.'ili-modules/client/client?id='.$id_clt.'">'.$usr->nom.' '.$usr->prenom.', a débanni le client '.$clt->nom_clt.' '.$clt->prenom_clt.'</a>');

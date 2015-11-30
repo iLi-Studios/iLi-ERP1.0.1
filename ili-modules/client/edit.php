@@ -4,6 +4,7 @@ autorisation('2');
 autorisation_double_check_privilege('CLIENTS', 'U');
 $id_client=$_GET['id'];
 $clt=get_client_info($id_client);
+if($clt==''){redirect('index?message=18');}
 $createur=get_user_info($clt->created_by);
 function mod_clt($id_clt, $nom_clt, $prenom_clt, $date_nais_clt, $adresse_clt, $fix_clt, $fax_clt, $portable_clt, $email_clt, $rc, $activite_clt, $nom_con_clt, $prenom_con_clt, $post_con_clt, $email_con_clt, $tel_con_clt, $tel2_con_clt){
 	$user_nom=$_SESSION['user_nom'];
