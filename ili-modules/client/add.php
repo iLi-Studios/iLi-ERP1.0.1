@@ -9,9 +9,10 @@ function client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $port
 	$q_test="SELECT * FROM client WHERE id_clt='$cin'";
 	$o_test=query_execute("mysqli_fetch_row", $q_test);
 	if($o_test==0){
+		$now = date("d-m-Y"); 
 		$q="INSERT INTO client VALUES 
 		('$cin', '$nom', '$prenom', '$naissance', '$adresse', '$fix', '$fax', '$portable', '$email', 
-		'', '', '', '', '', '', '', '', '$id_user', NOW());";
+		'', '', '', '', '', '', '', '', '$id_user', $now, '0', NULL, '');";
 		query_execute_insert($q);
 		notif_all('', '', '<a href="'.$site.'ili-modules/client/client?id='.$cin.'">'.$user_nom.' '.$user_prenom.' a creé un nouveau client particulier, '.$nom.' '.$prenom);
 		write_log("Création de client : <a href=\"ili-modules/client/client?id=".$cin."\">".$cin."</a>");
@@ -99,9 +100,10 @@ var loadFile = function(event) {
 				<div class="span12">
 					<h3 class="page-title"> Client <small> Forme ajout</small> </h3>
 					<ul class="breadcrumb">
-						<li> <a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li> <a href="#">Client</a> <span class="divider">&nbsp;</span> </li>
-						<li><a href="add">Ajout</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+						<li> <a href="liste">Client</a> <span class="divider">&nbsp;</span> </li>
+						<li><a href="add">Ajout</a><span class="divider">&nbsp;</span></li>
+						<li><a href="add">Particulier</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>

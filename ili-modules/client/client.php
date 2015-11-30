@@ -4,6 +4,11 @@ autorisation('2');
 $id_client=$_GET['id'];
 $clt=get_client_info($id_client);
 $createur=get_user_info($clt->created_by);
+if(isset($_POST['ban_raison'])&&isset($_POST['id_clt'])){
+	$ban_raison=addslashes($_POST['ban_raison']);
+	$id_clt=addslashes($_POST['id_clt']);
+	redirect('ili-modules/client/ban?id='.$id_clt.'&ban_raison='.$ban_raison);
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -69,7 +74,20 @@ Site : http://www.ili-studios.com/
                     <div class="widget">
                         <div class="widget-title">
                             <h4><i class="icon-reorder"></i> Fiche Client</h4>
-                            <span class="tools"><a href="edit?id=<?php echo $clt->id_clt; ?>" class="icon-edit tooltips" data-original-title="Modifier"></a></span>
+                            <span class="tools">
+								<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
+								<a href="edit?id=<?php echo $clt->id_clt; ?>" class="icon-edit tooltips" data-original-title="Modifier"></a>
+								<a href="#myModal_del" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>
+								<?php
+									if($clt->ban=='0'){ 
+										echo'<a href="#myModal_ban" class="icon-ban-circle tooltips" data-toggle="modal" data-original-title="Bannir"></a>';
+									}
+									else{
+										echo'<a href="deban?id='.$clt->id_clt.'" class="icon-repeat tooltips" data-original-title="Débannir"></a>';
+									}
+								?>
+								<a href="javascript:;" class="icon-chevron-down"></a>
+							</span>
                         </div>
 						
 						<div class="widget-body">
@@ -83,7 +101,7 @@ Site : http://www.ili-studios.com/
 										</td>
                                         <td><?php echo $clt->id_clt; ?></td>
                                     </tr>
-									<?php if($clt->activite_clt==''){echo'
+									<?php if(($clt->activite_clt=='')&&($clt->date_nais_clt!='')){echo'
 									<tr>
                                         <td class="span4">Age :</td>
                                         <td>'.age($clt->date_nais_clt).'</td>
@@ -158,6 +176,15 @@ Site : http://www.ili-studios.com/
                                 </ul>
 								';}?>
                                 <div class="alert alert-success"><i class="icon-ok-sign"></i> Crée le, <?php echo $clt->created_date; ?> par : <a href="<?php echo $site; ?>ili-users/user_profil?id=<?php echo $clt->created_by; ?>"><?php echo $createur->nom.' '.$createur->prenom; ?></a></div>
+								
+								<?php 
+								if($clt->ban=='1'){
+									$usr=get_user_info($clt->banned_by);
+									echo'
+									<div class="alert alert-danger"><i class="icon-ban-circle"></i> Banni par, <a href="'.$site.'ili-users/user_profil?id='.$clt->banned_by.'">'.$usr->nom.' '.$usr->prenom.'</a>, <br> Raison : '.$clt->ban_raison.' </div>
+									';
+								}
+								?>
                             </div>
                             <div class="space5"></div>
                         </div>
@@ -174,6 +201,46 @@ Site : http://www.ili-studios.com/
 </div>
 <!-- END CONTAINER --> 
 <!-- BEGIN FOOTER -->
+
+
+<!-- Modale de confirmation de suppression -->
+<div id="myModal_del" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_del" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel_del">Confirmation de suppression</h3>
+	</div>
+	<div class="modal-body">
+		<p>Vous êtes sur de vouloire supprimer le client <strong><?php echo $clt->nom_clt.' '.$clt->prenom_clt; ?></strong>? <br> Cette action est <strong>irréversible!</strong></p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+		<button onClick='document.location.href="remove?id=<?php echo $clt->id_clt; ?>";' data-dismiss="modal" class="btn btn-primary">Confirm</button>
+	</div>
+</div>
+<!-- Modale de confirmation de suppression -->
+
+<!-- Modale de banissement client -->
+<div id="myModal_ban" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_ban" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel_ban">Confirmation de banissement</h3>
+	</div>
+	<div class="modal-body">
+		<form action="" method="post">
+		<p>Raison de banissement:</p>
+		<textarea name="ban_raison" style="resize: vertical; width:90%; max-height:150px;" rows="4" required></textarea>
+		<input type="hidden" name="id_clt" value="<?php echo $clt->id_clt; ?>">
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+		<input type="submit" class="btn btn-primary" value="Confirmer"/>
+		</form>
+	</div>
+</div>
+<!-- Modale de banissement client -->
+
+
+
 <div id="footer"> <?php echo $copy_right;?>
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>
 </div>

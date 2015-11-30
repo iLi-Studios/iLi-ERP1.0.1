@@ -9,7 +9,7 @@ function get_client_list(){
 		<tr class="odd gradeX">
 			<td><input type="checkbox" class="checkboxes" value="1" /></td>
 			<td><a href="client?id='.$o->id_clt.'">'.$o->id_clt.'</a></td>
-			<td class="hidden-phone"><a href="client?id='.$o->id_clt.'">'.$o->nom_clt.' '.$o->prenom_clt.'</a></td>
+			<td class="hidden-phone"><a href="client?id='.$o->id_clt.'">'.$o->nom_clt.' '.$o->prenom_clt.'';?><?php if($o->ban=='1'){echo'  <span class="label label-important">Banni</span>';} echo'</a></td>
 			<td class="hidden-phone"><a href="mailto:'.$o->email_clt.'">'.$o->email_clt.'</a></td>
 			<td class="hidden-phone">'.$o->fix_clt.'</td>
 			<td class="hidden-phone">'.$o->portable_clt.$o->tel_con_clt.'</td>

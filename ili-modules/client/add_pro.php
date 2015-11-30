@@ -9,9 +9,10 @@ function client_add($rs, $mf, $adresse, $fix, $fax, $email, $rc, $activ, $nom, $
 	$q_test="SELECT * FROM client WHERE id_clt='$mf'";
 	$o_test=query_execute("mysqli_fetch_row", $q_test);
 	if($o_test==0){
+		$now = date("d-m-Y");
 		$q="INSERT INTO client VALUES 
 		('$mf', '$rs', '', '', '$adresse', '$fix', '$fax', '', '$email', 
-		'$rc', '$activ', '$nom', '$prenom', '$poste', '$email_con', '$tel1', '$tel2', '$id_user', NOW());";
+		'$rc', '$activ', '$nom', '$prenom', '$poste', '$email_con', '$tel1', '$tel2', '$id_user', $now, '0', NULL, '');";
 		query_execute_insert($q);
 		notif_all('', '', '<a href="'.$site.'ili-modules/client/client?id='.$mf.'">'.$user_nom.' '.$user_prenom.' a creé un nouveau client professionnelle, '.$rs);
 		write_log("Création de client : <a href=\"ili-modules/client/client?id=".$mf."\">".$mf."</a>");
@@ -87,9 +88,10 @@ Site : http://www.ili-studios.com/
 				<div class="span12">
 					<h3 class="page-title"> Client <small> Forme ajout</small> </h3>
 					<ul class="breadcrumb">
-						<li> <a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li> <a href="#">Client</a> <span class="divider">&nbsp;</span> </li>
-						<li><a href="add">Ajout</a><span class="divider-last">&nbsp;</span></li>
+						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+						<li> <a href="liste">Client</a> <span class="divider">&nbsp;</span> </li>
+						<li><a href="add_pro">Ajout</a><span class="divider">&nbsp;</span></li>
+						<li><a href="add_pro">Entreprise</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>

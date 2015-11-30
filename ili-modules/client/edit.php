@@ -111,7 +111,8 @@ Site : http://www.ili-studios.com/
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li><a href="liste">Clients</a><span class="divider">&nbsp;</span></li>
-						<li><a href="edit?id=<?php echo $id_client; ?>">Fiche</a><span class="divider-last">&nbsp;</span></li>
+						<li><a href="client?id=<?php echo $id_client; ?>">Fiche</a><span class="divider">&nbsp;</span></li>
+						<li><a href="edit?id=<?php echo $id_client; ?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>
