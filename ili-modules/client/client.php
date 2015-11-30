@@ -9,6 +9,37 @@ if(isset($_POST['ban_raison'])&&isset($_POST['id_clt'])){
 	$id_clt=addslashes($_POST['id_clt']);
 	redirect('ili-modules/client/ban?id='.$id_clt.'&ban_raison='.$ban_raison);
 }
+function users_pannel($id, $clt){
+	// ADMIN
+	if($_SESSION['user_id_rank']==3){
+		//C
+		echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';
+		//U=B
+		echo'<a href="edit?id='.$clt->id_clt.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
+		//D
+		echo'<a href="#myModal_del" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';
+		//B=U
+		if($clt->ban=='0'){echo'<a href="#myModal_ban" class="icon-ban-circle tooltips" data-toggle="modal" data-original-title="Bannir"></a>';}
+		else{echo'<a href="deban?id='.$clt->id_clt.'" class="icon-repeat tooltips" data-original-title="Débannir"></a>';}
+	}
+	// USER
+	if($_SESSION['user_id_rank']==2){
+		$up=user_privileges("CLIENTS", $_SESSION['user_id']);$s=$up->s;$c=$up->c;$u=$up->u;$d=$up->d;
+		//S
+		if(!$s){echo'<script language="Javascript">document.location.href="../../index?message=17"</script>';}
+		//C
+		if($c){echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
+		//U=B
+		if($u){echo'<a href="edit?id='.$clt->id_clt.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';}
+		//D
+		if($d){echo'<a href="#myModal_del" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';}
+		//B=D
+		if($u){
+			if($clt->ban=='0'){echo'<a href="#myModal_ban" class="icon-ban-circle tooltips" data-toggle="modal" data-original-title="Bannir"></a>';}
+			else{echo'<a href="deban?id='.$clt->id_clt.'" class="icon-repeat tooltips" data-original-title="Débannir"></a>';}
+		}
+	}
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -75,17 +106,7 @@ Site : http://www.ili-studios.com/
                         <div class="widget-title">
                             <h4><i class="icon-reorder"></i> Fiche Client</h4>
                             <span class="tools">
-								<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
-								<a href="edit?id=<?php echo $clt->id_clt; ?>" class="icon-edit tooltips" data-original-title="Modifier"></a>
-								<a href="#myModal_del" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>
-								<?php
-									if($clt->ban=='0'){ 
-										echo'<a href="#myModal_ban" class="icon-ban-circle tooltips" data-toggle="modal" data-original-title="Bannir"></a>';
-									}
-									else{
-										echo'<a href="deban?id='.$clt->id_clt.'" class="icon-repeat tooltips" data-original-title="Débannir"></a>';
-									}
-								?>
+								<?php users_pannel($_SESSION['user_id'], $clt);?>
 								<a href="javascript:;" class="icon-chevron-down"></a>
 							</span>
                         </div>

@@ -18,6 +18,22 @@ function get_client_list(){
 		';
 	}
 }
+function users_pannel($id){
+	//ADMIN
+	if($_SESSION['user_id_rank']==3){
+		//S
+		//C
+		echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';
+	}
+	//USER
+	if($_SESSION['user_id_rank']==2){
+		$up=user_privileges("CLIENTS", $_SESSION['user_id']);$s=$up->s;$c=$up->c;$u=$up->u;$d=$up->d;
+		//S
+		if(!$s){echo'<script language="Javascript">document.location.href="../../index?message=17"</script>';}
+		//C
+		if($c){echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
+	}
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -81,9 +97,7 @@ Site : http://www.ili-studios.com/
                     <div class="widget">
                         <div class="widget-title">
                             <h4><i class="icon-reorder"></i>Liste des clients</h4>
-                            <span class="tools">
-								<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>
-                            </span>
+                            <span class="tools"><?php users_pannel($_SESSION['user_id']);?></span>
                         </div>
                         <div class="widget-body">
                             <table class="table table-striped table-bordered" id="sample_1">

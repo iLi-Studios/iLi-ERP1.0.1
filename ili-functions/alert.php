@@ -65,6 +65,9 @@ function message($code){
 		break;
 		case "16";
 		alert_notif("alert-error", "ERREUR : Un utilistateur avec le même identificateur unique exsite déjà dans la base de données ! ");
+		break;
+		case "17";
+		alert_notif("alert-error", "ERREUR : Vous avez pas l'autorisation necessaire pour acceder a cette section ! ");
 		}
 	}
 ?>
