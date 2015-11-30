@@ -1,6 +1,7 @@
 <?php 
 include"../../ili-functions/functions.php";
 autorisation('2');
+autorisation_double_check_privilege('CLIENTS', 'S');
 function get_client_list(){
 	$q="SELECT * FROM client";
 	$r=query_excute_while($q);
@@ -19,17 +20,15 @@ function get_client_list(){
 	}
 }
 function users_pannel($id){
+	global $site;
 	//ADMIN
 	if($_SESSION['user_id_rank']==3){
-		//S
 		//C
 		echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';
 	}
 	//USER
 	if($_SESSION['user_id_rank']==2){
-		$up=user_privileges("CLIENTS", $_SESSION['user_id']);$s=$up->s;$c=$up->c;$u=$up->u;$d=$up->d;
-		//S
-		if(!$s){echo'<script language="Javascript">document.location.href="../../index?message=17"</script>';}
+		$up=user_privileges("CLIENTS", $_SESSION['user_id']);$c=$up->c;
 		//C
 		if($c){echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
 	}

@@ -1,6 +1,7 @@
 <?php 
 include"../../ili-functions/functions.php";
 autorisation('2');
+autorisation_double_check_privilege('CLIENTS', 'C');
 if(isset($_POST['ENTREPRISE'])){redirect('ili-modules/client/add_pro');}
 function client_add($cin, $nom, $prenom, $naissance, $adresse, $fix, $fax, $portable, $email){
 	$id_user=$_SESSION['user_id'];

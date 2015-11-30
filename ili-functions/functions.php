@@ -13,21 +13,38 @@ include"database.php";
 function redirect($page){
 	global $site;
 	header("Location: ".$site.$page);
-}	
-function autorisation($id){
-	if(!isset($_SESSION['user_id'])){redirect('login?message=1');}
-	//revérifier
-	else{if($_SESSION['user_id_rank']<$id){redirect('login?message=5');}
-	}
 }
-function get_user_info($id){
-	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
-	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+function redirect_javascript($page){
+	global $site;
+	echo'<script language="Javascript">document.location.href="'.$site.$page.'"</script>';
 }
 function user_privileges($bloc, $id_user){
 	$query="SELECT * FROM `users_privileges` WHERE `id_user`='$id_user' AND `bloc`='$bloc';";
 	$o = query_execute("mysqli_fetch_object", $query);
 	return $o;
+}
+function autorisation($id){
+	if(!isset($_SESSION['user_id'])){session_destroy();redirect('login?message=1');}
+	//revérifier
+	else{if($_SESSION['user_id_rank']<$id){redirect('index?message=17');}
+	}
+}
+function autorisation_double_check_privilege($bloc, $privilege){
+	if($_SESSION['user_id_rank']==2){
+		$up=user_privileges("$bloc", $_SESSION['user_id']);$s=$up->s;$c=$up->c;$u=$up->u;$d=$up->d;
+		//S
+		if($privilege=='S'){if(!$s){redirect_javascript('index?message=17');}}
+		//C
+		if($privilege=='C'){if(!$c){redirect_javascript('index?message=17');}}
+		//U
+		if($privilege=='U'){if(!$u){redirect_javascript('index?message=17');}}
+		//D
+		if($privilege=='D'){if(!$d){redirect_javascript('index?message=17');}}
+	}
+}
+function get_user_info($id){
+	$query="SELECT * FROM users, users_rank WHERE users.id_user='$id' AND users.id_rank=users_rank.id_rank";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
 function write_log($operation){
 	$now= date("d-m-Y H:i:s"); 

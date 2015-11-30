@@ -1,6 +1,7 @@
 <?php 
 include"../../ili-functions/functions.php"; 
-autorisation('3'); 
+autorisation('2');
+autorisation_double_check_privilege('CLIENTS', 'D'); 
 function clt_remove($id){
 	$query="DELETE FROM client WHERE id_clt='$id';";
 	query_execute_insert($query);

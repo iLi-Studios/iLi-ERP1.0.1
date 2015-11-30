@@ -1,6 +1,7 @@
 <?php 
 include"../../ili-functions/functions.php";
-autorisation('2'); 
+autorisation('2');
+autorisation_double_check_privilege('CLIENTS', 'U'); 
 function ban($id, $raison, $banned_by){
 	$query="UPDATE client 
 				SET ban='1',

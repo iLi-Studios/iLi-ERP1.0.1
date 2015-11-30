@@ -1,6 +1,7 @@
 <?php 
 include"../../ili-functions/functions.php";
 autorisation('2');
+autorisation_double_check_privilege('CLIENTS', 'U');
 $id_client=$_GET['id'];
 $clt=get_client_info($id_client);
 $createur=get_user_info($clt->created_by);
