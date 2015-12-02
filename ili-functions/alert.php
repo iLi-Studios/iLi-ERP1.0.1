@@ -71,6 +71,18 @@ function message($code){
 		break;
 		case "18";
 		alert_notif("alert-error", "ERREUR : Client non disponible ! ");
+		break;
+		case "19";
+		alert_notif("alert-error", "ERREUR : Fournisseur non disponible ! ");
+		break;
+		case "20";
+		alert_notif("alert-error", "ERREUR : Raison sociale founisseur existe déjà ! ");
+		break;
+		case "21";
+		alert_notif("alert-error", "ERREUR : Matricule fiscale founisseur existe déjà ! ");
+		break;
+		case "21";
+		alert_notif("alert-error", "ERREUR : Registre de commerce founisseur existe déjà ! ");
 		}
 	}
 ?>

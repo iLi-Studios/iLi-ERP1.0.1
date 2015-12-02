@@ -77,10 +77,12 @@ Site : http://www.ili-studios.com/
 						</a>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
-						<div class="circle-wrap">
-							<div class="stats-circle red-color"> <i class="icon-tags"></i> </div>
-							<p> <strong>#ND</strong> Ventes </p>
-						</div>
+						<a href="ili-modules/fournisseur/liste">
+							<div class="circle-wrap">
+								<div class="stats-circle red-color"> <i class="icon-tags"></i> </div>
+								<p> <strong><?php nbr_fournisseur(); ?></strong> Fournisseurs </p>
+							</div>
+						</a>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">

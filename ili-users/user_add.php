@@ -9,7 +9,8 @@ function create_user($cin, $rank, $nom, $prenom, $email, $poste, $tel, $adresse,
 	$query2="INSERT INTO `users_privileges` 
 	(`id`, `id_user`, `bloc`, `s`, `c`, `u`, `d`) VALUES 
 	(NULL, '$cin', 'USERS', '0', '0', '0', '0'),
-	(NULL, '$cin', 'CLIENTS', '0', '0', '0', '0')
+	(NULL, '$cin', 'CLIENTS', '0', '0', '0', '0'),
+	(NULL, '$cin', 'FOURNISSEURS', '0', '0', '0', '0')
 	;";
 	if(query_execute('mysqli_fetch_object', $query_test1)){redirect('ili-users/user_add?message=8');}
 	else{

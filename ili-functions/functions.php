@@ -182,4 +182,18 @@ function get_client_info($id){
 	$query="SELECT * FROM client WHERE id_clt='$id';";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
+function get_fournisseur_info($id){
+	$query="SELECT * FROM fournisseur WHERE id_frn='$id';";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+}
+function get_id_frn_from_mf($mf){
+	$q="SELECT * FROM fournisseur WHERE mf_frn='$mf';";
+	if($o=(query_execute("mysqli_fetch_object", $q))){return $o->id_frn;}
+}
+function nbr_fournisseur(){
+	$q="SELECT * FROM fournisseur";
+	$o=query_execute("mysqli_num_rows", $q);
+	echo $o;
+}
+
 ?>
