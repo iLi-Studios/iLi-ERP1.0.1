@@ -81,7 +81,7 @@ Site : http://www.ili-studios.com/
 			<!-- BEGIN PAGE HEADER-->
 			<div class="row-fluid">
 				<div class="span12">
-					<h3 class="page-title"> Client <small> Forme ajout</small> </h3>
+					<h3 class="page-title"> Clients <small> Liste</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li><a href="liste">Clients</a><span class="divider-last">&nbsp;</span></li>

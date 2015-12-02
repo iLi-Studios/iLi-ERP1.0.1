@@ -7,6 +7,7 @@ $clt=get_client_info($id_client);
 if($clt==''){redirect('index?message=18');}
 $createur=get_user_info($clt->created_by);
 function mod_clt($id_clt, $nom_clt, $prenom_clt, $date_nais_clt, $adresse_clt, $fix_clt, $fax_clt, $portable_clt, $email_clt, $rc, $activite_clt, $nom_con_clt, $prenom_con_clt, $post_con_clt, $email_con_clt, $tel_con_clt, $tel2_con_clt){
+	global $site;
 	$user_nom=$_SESSION['user_nom'];
 	$user_prenom=$_SESSION['user_prenom'];
 	$q="UPDATE client SET 
@@ -29,7 +30,7 @@ function mod_clt($id_clt, $nom_clt, $prenom_clt, $date_nais_clt, $adresse_clt, $
 	WHERE `client`.`id_clt` = '$id_clt';";
 	query_execute("mysqli_fetch_object", $q);
 	notif_all('', '', '<a href="'.$site.'ili-modules/client/client?id='.$id_clt.'">'.$user_nom.' '.$user_prenom.' a modifié le client, '.$nom_clt.' '.$prenom_clt);
-	write_log("Modification de client : <a href=\"ili-modules/client/client?id=".$id_clt."\">".$id_clt."</a>");
+	write_log("Modification de client : <a href=\"ili-modules/client/client?id=".$id_clt."\">".$nom_clt." ".$prenom_clt."</a>");
 	redirect('ili-modules/client/client?id='.$id_clt);
 }
 if( (isset($_POST['id_clt'])) ){
