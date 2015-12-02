@@ -1,5 +1,23 @@
-<!-- BEGIN SIDEBAR -->
+<?php
+function user_side_bar(){
+	global $site;
+	// ADMIN
+	if($_SESSION['user_id_rank']==3){
+		echo'
+		<li><a class="" href="'.$site.'ili-modules/client/liste"><span class="icon-box"><i class="icon-user"></i></span> Clients</a></li>
+		<li><a class="" href="'.$site.'ili-modules/fournisseur/liste"><span class="icon-box"><i class="icon-tags"></i></span> Fournisseurs</a></li>
+		';
+	}	
+	if($_SESSION['user_id_rank']==2){
+		$up_clt=user_privileges("CLIENTS", $_SESSION['user_id']);$s_clt=$up_clt->s;
+		if($s_clt){echo'<li><a class="" href="'.$site.'ili-modules/client/liste"><span class="icon-box"><i class="icon-user"></i></span> Clients</a></li>';}
+		$up_frn=user_privileges("FOURNISSEURS", $_SESSION['user_id']);$s_frn=$up_frn->s;
+		if($s_frn){echo'<li><a class="" href="'.$site.'ili-modules/fournisseur/liste"><span class="icon-box"><i class="icon-tags"></i></span> Fournisseurs</a></li>';}
+	}
+}
+?>
 
+<!-- BEGIN SIDEBAR -->
 <div id="sidebar" class="nav-collapse collapse"> 
 	<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 	<div class="sidebar-toggler hidden-phone"></div>
@@ -15,7 +33,8 @@
 	<!-- BEGIN SIDEBAR MENU -->
 	<ul class="sidebar-menu">
 		<li class="has-sub active"> <a href="<?php echo $site;?>" class=""> <span class="icon-box"> <i class="icon-dashboard"></i></span> Dashboard </a> </li>
-		<li><a class="" href="<?php echo $site;?>ili-modules/client/liste"><span class="icon-box"><i class="icon-user"></i></span> Clients</a></li>
+		<?php user_side_bar();?>
+		<li><a class="" href="<?php echo $site;?>"><span class="icon-box"><i class="icon-money"></i></span> Caisse</a></li>
 		<li><a class="" href="<?php echo $site;?>ili-functions/logout"><span class="icon-box"><i class="icon-signout"></i></span> Déconexion</a></li>
 	</ul>
 	<!-- END SIDEBAR MENU --> 
