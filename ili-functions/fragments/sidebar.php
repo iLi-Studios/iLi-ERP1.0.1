@@ -27,14 +27,15 @@ function user_side_bar(){
 	<div class="navbar-inverse">
 		<form class="navbar-search visible-phone">
 			<input type="text" class="search-query" placeholder="Search" />
-		</form>
-	</div>
+		</form>	</div>
 	<!-- END RESPONSIVE QUICK SEARCH FORM --> 
 	<!-- BEGIN SIDEBAR MENU -->
 	<ul class="sidebar-menu">
 		<li class="has-sub active"> <a href="<?php echo $site;?>" class=""> <span class="icon-box"> <i class="icon-dashboard"></i></span> Dashboard </a> </li>
 		<?php user_side_bar();?>
+        <li><a class="" href="<?php echo $site;?>ili-modules/article/liste?type=STANDARD"><span class="icon-box"><i class="icon-barcode"></i></span> Articles</a></li>
 		<li><a class="" href="<?php echo $site;?>"><span class="icon-box"><i class="icon-money"></i></span> Caisse</a></li>
+        <li><a class="" href="<?php echo $site;?>"><span class="icon-box"><i class="icon-book"></i></span> Aide</a></li>
 		<li><a class="" href="<?php echo $site;?>ili-functions/logout"><span class="icon-box"><i class="icon-signout"></i></span> Déconexion</a></li>
 	</ul>
 	<!-- END SIDEBAR MENU --> 

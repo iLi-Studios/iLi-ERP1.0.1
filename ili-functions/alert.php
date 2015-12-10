@@ -83,6 +83,19 @@ function message($code){
 		break;
 		case "21";
 		alert_notif("alert-error", "ERREUR : Registre de commerce founisseur existe déjà ! ");
+		break;
+		case "22";
+		alert_notif("alert-error", "ERREUR : Artcile non disponible ! ");
+		break;
+		case "23";
+		alert_notif("alert-error", "ERREUR : Unité article non disponible ! ");
+		break;
+		case "24";
+		alert_notif("alert-error", "ERREUR : Famille article non disponible ! ");
+		break;
+		case "24";
+		alert_notif("alert-error", "ERREUR : TVA article non disponible ! ");
+		break;
 		}
 	}
 ?>

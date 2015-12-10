@@ -18,6 +18,9 @@ function redirect_javascript($page){
 	global $site;
 	echo'<script language="Javascript">document.location.href="'.$site.$page.'"</script>';
 }
+function actualiser(){
+	echo'<script language="Javascript">Javascript:history.go(-1)</script>';
+}
 function user_privileges($bloc, $id_user){
 	$query="SELECT * FROM `users_privileges` WHERE `id_user`='$id_user' AND `bloc`='$bloc';";
 	$o = query_execute("mysqli_fetch_object", $query);
@@ -194,6 +197,27 @@ function nbr_fournisseur(){
 	$q="SELECT * FROM fournisseur";
 	$o=query_execute("mysqli_num_rows", $q);
 	echo $o;
+}
+function nbr_art(){
+	$q="SELECT * FROM article";
+	$o=query_execute("mysqli_num_rows", $q);
+	echo $o;
+}
+function get_art_info($id){
+	$query="SELECT * FROM article WHERE code_art='$id';";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+}
+function get_unit_info($id){
+	$query="SELECT * FROM article_unitee WHERE 	id_unit_art='$id';";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+}
+function get_fam_info($id){
+	$query="SELECT * FROM article_famille WHERE id_famille_art='$id';";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+}
+function get_tva_info($id){
+	$query="SELECT * FROM article_tva WHERE id_tva_art='$id';";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
 
 ?>

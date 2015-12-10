@@ -86,8 +86,10 @@ Site : http://www.ili-studios.com/
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">
-							<div class="stats-circle green-color"> <i class="icon-shopping-cart"></i> </div>
-							<p> <strong>#ND</strong> Commande </p>
+                        	<a href="ili-modules/article/liste?type=STANDARD">
+                                <div class="stats-circle green-color"> <i class="icon-barcode"></i> </div>
+                                <p> <strong><?php nbr_art(); ?></strong> Articles </p>
+                            </a>
 						</div>
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">

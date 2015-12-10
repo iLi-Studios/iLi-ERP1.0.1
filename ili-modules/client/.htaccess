@@ -1,3 +1,0 @@
-Options -Indexes
-RewriteEngine On
-RewriteRule    ^client/ajout    ili-modules/client/add.php    [NC,L]    # Handle product requests
