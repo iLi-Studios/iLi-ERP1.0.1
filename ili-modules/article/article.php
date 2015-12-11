@@ -4,7 +4,8 @@ autorisation('2');
 autorisation_double_check_privilege('ARTICLES', 'S');
 $id_art=$_GET['id'];
 $art=get_art_info($id_art);
-//if($art==''){redirect('index?message=22');}
+if($art==''){redirect('index?message=22');}
+$createur=get_user_info($art->created_by);
 function users_pannel($id, $art){
 	// ADMIN
 	if($_SESSION['user_id_rank']==3){
@@ -52,17 +53,42 @@ Site : http://www.ili-studios.com/
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
-<link href="../../ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="../../ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<link href="../../ili-style/assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
-<link href="../../ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link href="../../ili-style/css/style.css" rel="stylesheet" />
-<link href="../../ili-style/css/style_responsive.css" rel="stylesheet" />
-<link href="../../ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
-<link rel="stylesheet" type="text/css" href="../../ili-style/assets/chosen-bootstrap/chosen/chosen.css" />
-<link href="../../ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="../../ili-style/assets/uniform/css/uniform.default.css" />
+	<link href="../../ili-style/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../ili-style/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link href="../../ili-style/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	<link href="../../ili-style/css/style.css" rel="stylesheet" />
+	<link href="../../ili-style/css/style_responsive.css" rel="stylesheet" />
+	<link href="../../ili-style/css/style_default.css" rel="stylesheet" id="style_color" />
+
+	<link rel="stylesheet" type="text/css" href="../../ili-style/assets/gritter/css/jquery.gritter.css" />
+	<link rel="stylesheet" type="text/css" href="../../ili-style/assets/uniform/css/uniform.default.css" />
+	<link href="../../ili-style/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+
+    <!-- jquery slider -->
+    <link rel="stylesheet" href="../../ili-style/assets/jslider/css/jslider.css" type="text/css">
+    <link rel="stylesheet" href="../../ili-style/assets/jslider/css/jslider.blue.css" type="text/css">
+    <link rel="stylesheet" href="../../ili-style/assets/jslider/css/jslider.plastic.css" type="text/css">
+    <link rel="stylesheet" href="../../ili-style/assets/jslider/css/jslider.round.css" type="text/css">
+    <link rel="stylesheet" href="../../ili-style/assets/jslider/css/jslider.round.plastic.css" type="text/css">
+    <!-- end -->
 </head>
+<style>
+#input{
+	width:5%;
+	height:25px;
+	padding-left:9px;
+	font-size:11.844px;
+	line-height:14px;
+	white-space:nowrap;
+	vertical-align:baseline;
+	box-shadow:none;
+	font-family: "Arial";
+	font-size:13px;
+	margin-left:-0.15%;
+	padding:-1%, -1%;
+	border:none;
+}
+</style>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="fixed-top">
@@ -85,7 +111,7 @@ Site : http://www.ili-studios.com/
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li><a href="#" onclick="history.go(-1); return false;">Article</a><span class="divider">&nbsp;</span></li>
-						<li><a href="article?id=<?php echo $id_art; ?>">Fiche</a><span class="divider-last">&nbsp;</span></li>
+						<li><a href="../article/article?id=<?php echo $id_art; ?>">Fiche</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>
@@ -103,7 +129,108 @@ Site : http://www.ili-studios.com/
 							</span>
                         </div>
 						
-
+						<div class="widget-body">
+                            <div class="span8">
+                                <h3><?php echo $art->designation_art; ?><small></small></h3>
+                                <table class="table table-borderless">
+                                    <tbody>
+                                    <tr>
+                                        <td class="span4">Code</td>
+                                        <td><?php echo $art->code_art; ?></td>
+                                    </tr>
+									<tr>
+                                        <td class="span4">Type</td>
+                                        <td><?php echo $art->type_art; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="span4">Famille</td>
+                                        <td><?php echo $art->famille_art; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="span4">Unité</td>
+                                        <td><?php echo $art->unite_art; ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <h4>Prix de ventes</h4>
+                                <div class="well">
+                                	<table width="98%">
+                                        <tr>
+                                            <td width="34%">PRIX VENTE U.HT</td>
+                                            <td><?php echo $art->prix_vente_ht; ?> TND</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>TVA</td>
+                                        	<td><?php echo $art->tva_art; ?> %</td>
+                                    	</tr>
+                                        <tr>
+                                     	<td>Max Remise %</td>
+                                        <td><?php echo $art->max_remise_art; ?> %</td>
+                                    </tr>
+                                        <!--<tr>
+                                            <td>PRIX VENTE U.TTC</td>
+                                            <td><strong><?php /*printf("%.3f",(( $art->prix_vente_ht * $art->tva_art / 100 ) + $art->prix_vente_ht))*/ ?> TND</strong></td>
+                                        </tr>-->
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="span4"><br>
+                            	<h4>CALCULE</h4>
+                                <div class="well">
+                                	<table width="100%">
+                                    	<tr>
+                                        	<td width="50%">PRIX VENTE U.HT</td>
+                                            <td width="50%"><input id="p_ht" class="span8" value="<?php echo $art->prix_vente_ht; ?>"/> TND</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>REMISE EN %</td>
+                                            <td><input id="r" class="span5" value="" onChange="Calculate();" autofocus/> %</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                        	<td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>TVA Assujetti</td>
+                                            <td>TVA Non Assujetti</td>
+                                        </tr>
+                                        <tr>
+                                        	<td><input id="tva_a" class="span5" value="<?php echo $art->tva_art; ?>"/> %</td>
+                                            <td><input id="tva_na" class="span5" value="<?php echo $art->tva_art; ?>"/> %</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Assujetti à la TVA</td>
+                                            <td>Non Assujetti à la TVA</td>
+                                        </tr>
+                                        <tr>
+                                        	<td><strong><input id="p_ttc_a" class="span8"/> TND</strong></td>
+                                            <td><strong><input id="p_ttc_na" class="span8"/> TND</strong></td>
+                                        </tr>
+                                        <script>
+										function Calculate()
+										{
+										  var p_ht = document.getElementById('p_ht').value;
+										  var r = document.getElementById('r').value;
+										  var tva_a = document.getElementById('tva_a').value;
+										  var tva_na = document.getElementById('tva_na').value;
+										  var p_ttc_a = p_ht-0.01*p_ht*r + 0.01*tva_a*p_ht-0.01*p_ht*r;
+										  var p_ttc_na = p_ht-0.01*p_ht*r + 0.01*tva_na*p_ht-0.01*p_ht*r;
+										  
+										  document.getElementById('p_ttc_a').value=  p_ttc_a.toFixed(3) ;
+										  document.getElementById('p_ttc_na').value=  p_ttc_na.toFixed(3) ;
+										}
+										</script>
+                                 	</table>
+                                 </div>
+                                <div class="alert alert-success"><i class="icon-ok-sign"></i> Crée le, <?php echo $art->created_date; ?> par : <a href="<?php echo $site; ?>ili-users/user_profil?id=<?php echo $art->created_by; ?>"><?php echo $createur->nom.' '.$createur->prenom; ?></a></div>
+                            </div>
+                            <div class="space5"></div>
+                        </div>
 						
                     </div>
                     <!-- END EXAMPLE TABLE widget-->
@@ -118,63 +245,43 @@ Site : http://www.ili-studios.com/
 <!-- END CONTAINER --> 
 <!-- BEGIN FOOTER -->
 
-
-<!-- Modale de confirmation de suppression -->
-<div id="myModal_del" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_del" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel_del">Confirmation de suppression</h3>
-	</div>
-	<div class="modal-body">
-		<p>Vous êtes sur de vouloire supprimer l'article <strong><?php echo $art->designation_art; ?></strong>? <br> Cette action est <strong>irréversible!</strong></p>
-	</div>
-	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-		<button onClick='document.location.href="remove?id=<?php echo $art->code_art; ?>";' data-dismiss="modal" class="btn btn-primary">Confirm</button>
-	</div>
-</div>
-<!-- Modale de confirmation de suppression -->
-
 <div id="footer"> <?php echo $copy_right;?>
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>
 </div>
-<!-- END FOOTER --> 
-<!-- BEGIN JAVASCRIPTS --> 
-<!-- Load javascripts at bottom, this will reduce page load time --> 
-<script src="../../ili-style/js/jquery-1.8.3.min.js"></script> 
-<script src="../../ili-style/assets/bootstrap/js/bootstrap.min.js"></script> 
+	<!-- END FOOTER -->
+	<!-- BEGIN JAVASCRIPTS -->
+	<!-- Load javascripts at bottom, this will reduce page load time -->
+	<script src="../../ili-style/js/jquery-1.8.3.min.js"></script>
+	<script src="../../ili-style/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../ili-style/js/jquery.blockui.js"></script>
+	<!-- ie8 fixes -->
+	<!--[if lt IE 9]>
+	<script src="js/excanvas.js"></script>
+	<script src="js/respond.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="../../ili-style/assets/uniform/jquery.uniform.min.js"></script>
+	<script type="text/javascript" src="../../ili-style/assets/gritter/js/jquery.gritter.js"></script>
+	<script type="text/javascript" src="../../ili-style/js/jquery.pulsate.min.js"></script>
+	<script src="../../ili-style/assets/fancybox/source/jquery.fancybox.pack.js"></script>
 
-<script type="text/javascript" src="../../ili-style/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/uniform/jquery.uniform.min.js"></script> 
-<script src="../../ili-style/js/scripts.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/ckeditor/ckeditor.js"></script> 
-<script src="../../ili-style/js/jquery.blockui.js"></script> 
-<!-- ie8 fixes --> 
-<!--[if lt IE 9]>
-   <script src="js/excanvas.js"></script>
-   <script src="js/respond.js"></script>
-   <![endif]--> 
-<script type="text/javascript" src="../../ili-style/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/uniform/jquery.uniform.min.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/clockface/js/clockface.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/jquery-tags-input/jquery.tagsinput.min.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-toggle-buttons/static/js/jquery.toggle.buttons.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-daterangepicker/date.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-daterangepicker/daterangepicker.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script> 
-<script type="text/javascript" src="../../ili-style/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script> 
-<script src="../../ili-style/assets/fancybox/source/jquery.fancybox.pack.js"></script> 
-<script>
-      jQuery(document).ready(function() {       
-         // initiate layout and plugins
-         App.init();
-      });
-   </script> 
-<!-- END JAVASCRIPTS -->
+    <!-- jquery slider -->
+    <script type="text/javascript" src="../../ili-style/assets/jslider/js/jshashtable-2.1_src.js"></script>
+    <script type="text/javascript" src="../../ili-style/assets/jslider/js/jquery.numberformatter-1.2.3.js"></script>
+    <script type="text/javascript" src="../../ili-style/assets/jslider/js/tmpl.js"></script>
+    <script type="text/javascript" src="../../ili-style/assets/jslider/js/jquery.dependClass-0.1.js"></script>
+    <script type="text/javascript" src="../../ili-style/assets/jslider/js/draggable-0.1.js"></script>
+    <script type="text/javascript" src="../../ili-style/assets/jslider/js/jquery.slider.js"></script>
+    <!-- end -->
+
+	<script src="../../ili-style/js/scripts.js"></script>
+
+	<script>
+		jQuery(document).ready(function() {
+			// initiate layout and plugins
+			App.init();
+		});
+	</script>
+	<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>

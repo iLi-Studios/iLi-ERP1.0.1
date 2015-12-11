@@ -15,7 +15,6 @@ function get_art_list($type_art){
 			<td class="hidden-phone"><a href="article?id='.$o->code_art.'">'.$o->designation_art.'</a></td>
 			<td class="hidden-phone">'.$o->unite_art.'</td>
 			<td class="hidden-phone">'.$o->prix_vente_ht.'</td>
-			<td class="hidden-phone">'.$o->tva_art.'% </td>
 			<td class="hidden-phone">'.$o->max_remise_art.'% </td>
 		</tr>
 		';
@@ -124,11 +123,10 @@ Site : http://www.ili-studios.com/
 										<th width="1%"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
 										<th width="4%">Code</th>
                                         <th width="10%">Famille</th>
-										<th class="hidden-phone" width="48%">Designation</th>
+										<th class="hidden-phone" width="53%">Designation</th>
 										<th class="hidden-phone" width="7%">Unité</th>
 										<th class="hidden-phone" width="10%">PV.U.HT</th>
-										<th class="hidden-phone" width="5%">TVA %</th>
-										<th class="hidden-phone" width="5%">R.M %</th>
+										<th class="hidden-phone" width="5%">M.R %</th>
 									</tr>
 								</thead>
 								<tbody><?php get_art_list($type_art); ?></tbody>
