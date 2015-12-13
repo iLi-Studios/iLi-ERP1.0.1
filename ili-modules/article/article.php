@@ -188,7 +188,7 @@ Site : http://www.ili-studios.com/
                                         </tr>
                                         <tr>
                                         	<td>REMISE EN %</td>
-                                            <td><input id="r" class="span5" value="" onChange="Calculate();" autofocus/> %</td>
+                                            <td><input type="number" id="r" class="span8" min="0" max="<?php echo $art->max_remise_art; ?>" onKeyUp="Calculate();" /> %</td>
                                         </tr>
                                         
                                         <tr>
@@ -218,8 +218,9 @@ Site : http://www.ili-studios.com/
 										  var r = document.getElementById('r').value;
 										  var tva_a = document.getElementById('tva_a').value;
 										  var tva_na = document.getElementById('tva_na').value;
-										  var p_ttc_a = p_ht-0.01*p_ht*r + 0.01*tva_a*p_ht-0.01*p_ht*r;
-										  var p_ttc_na = p_ht-0.01*p_ht*r + 0.01*tva_na*p_ht-0.01*p_ht*r;
+ 
+										  var p_ttc_a =  ( p_ht - ( (r / 100) * p_ht ) ) + ( ( p_ht - ( (r / 100) * p_ht ) ) * ( tva_a / 100 ) );
+										  var p_ttc_na = ( p_ht - ( (r / 100) * p_ht ) ) + ( ( p_ht - ( (r / 100) * p_ht ) ) * ( tva_a / 100 ) );
 										  
 										  document.getElementById('p_ttc_a').value=  p_ttc_a.toFixed(3) ;
 										  document.getElementById('p_ttc_na').value=  p_ttc_na.toFixed(3) ;
