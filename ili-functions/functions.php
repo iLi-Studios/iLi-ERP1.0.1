@@ -219,5 +219,8 @@ function get_tva_info($id){
 	$query="SELECT * FROM article_tva WHERE id_tva_art='$id';";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
-
+function get_ets_info(){
+	$query="SELECT * FROM etablissement;";
+	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
+}
 ?>

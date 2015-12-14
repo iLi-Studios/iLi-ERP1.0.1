@@ -15,7 +15,7 @@
 				<ul class="nav top-menu">
 					<!-- BEGIN SETTINGS -->
 					<!--<li class="dropdown"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Settings"> <i class="icon-cog"></i> </a> </li>-->
-					<!-- END SETTINGS --> 
+					<!-- END SETTINGS -->
 					<?php include"message.php";?>
 					<?php include"notification.php";?>
 					
@@ -27,7 +27,8 @@
 					
 					<!-- BEGIN SUPPORT -->
 					<?php if($_SESSION['user_id_rank']==3){echo'<li class="dropdown mtop5"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="'.$site.'log" data-original-title="Journal Systéme"> <i class="icon-tasks"></i> </a> </li>';}?>
-					<li class="dropdown mtop5"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="<?php echo $site; ?>ili-users/users" data-original-title="Utilisateurs"> <i class="icon-group"></i> </a> </li>
+					<?php if($_SESSION['user_id_rank']==3){echo'<li class="dropdown mtop5"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="'.$site.'ili-modules/ets/info" data-original-title="Configuration de la société"> <i class="icon-cog"></i> </a> </li>';}?>
+                    <li class="dropdown mtop5"> <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="<?php echo $site; ?>ili-users/users" data-original-title="Utilisateurs"> <i class="icon-group"></i> </a> </li>
 					<!-- END SUPPORT --> 
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php if( $_SESSION['user_img']!=''){echo'<img src="'.$_SESSION['user_img'].'" width="29px" height="29px">';}?> <span class="username"><?php echo $_SESSION['user_nom'].' '.$_SESSION['user_prenom'] ; ?></span> <b class="caret"></b> </a>
