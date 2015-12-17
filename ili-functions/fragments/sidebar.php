@@ -6,6 +6,7 @@ function user_side_bar(){
 		echo'
 		<li><a class="" href="'.$site.'ili-modules/client/liste"><span class="icon-box"><i class="icon-user"></i></span> Clients</a></li>
 		<li><a class="" href="'.$site.'ili-modules/fournisseur/liste"><span class="icon-box"><i class="icon-tags"></i></span> Fournisseurs</a></li>
+		<li><a class="" href="'.$site.'ili-modules/article/liste?type=';?><?php get_premier_type_art(); ?><?php echo'"><span class="icon-box"><i class="icon-barcode"></i></span> Articles</a></li>
 		';
 	}	
 	if($_SESSION['user_id_rank']==2){
@@ -13,6 +14,8 @@ function user_side_bar(){
 		if($s_clt){echo'<li><a class="" href="'.$site.'ili-modules/client/liste"><span class="icon-box"><i class="icon-user"></i></span> Clients</a></li>';}
 		$up_frn=user_privileges("FOURNISSEURS", $_SESSION['user_id']);$s_frn=$up_frn->s;
 		if($s_frn){echo'<li><a class="" href="'.$site.'ili-modules/fournisseur/liste"><span class="icon-box"><i class="icon-tags"></i></span> Fournisseurs</a></li>';}
+		$up_art=user_privileges("ARTICLES", $_SESSION['user_id']);$s_art=$up_art->s;
+		if($s_art){echo'<li><a class="" href="'.$site.'ili-modules/article/liste?type=';?><?php get_premier_type_art(); ?><?php echo'"><span class="icon-box"><i class="icon-barcode"></i></span> Articles</a></li>';}
 	}
 }
 ?>
@@ -33,7 +36,6 @@ function user_side_bar(){
 	<ul class="sidebar-menu">
 		<li class="has-sub active"> <a href="<?php echo $site;?>" class=""> <span class="icon-box"> <i class="icon-dashboard"></i></span> Dashboard </a> </li>
 		<?php user_side_bar();?>
-        <li><a class="" href="<?php echo $site;?>ili-modules/article/liste?type=STANDARD"><span class="icon-box"><i class="icon-barcode"></i></span> Articles</a></li>
 		<li><a class="" href="<?php echo $site;?>"><span class="icon-box"><i class="icon-money"></i></span> Caisse</a></li>
         <li><a class="" href="<?php echo $site;?>"><span class="icon-box"><i class="icon-book"></i></span> Aide</a></li>
 		<li><a class="" href="<?php echo $site;?>ili-functions/logout"><span class="icon-box"><i class="icon-signout"></i></span> Déconexion</a></li>

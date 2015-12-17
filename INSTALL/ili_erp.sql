@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 13 Décembre 2015 à 21:13
+-- Généré le :  Lun 14 Décembre 2015 à 15:32
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -145,19 +145,11 @@ CREATE TABLE IF NOT EXISTS `article_unitee` (
 --
 
 INSERT INTO `article_unitee` (`id_unit_art`, `unit_art`) VALUES
-(18, ''),
-(23, 'Bidon'),
-(22, 'Bouteille'),
-(20, 'Carton'),
-(27, 'KG'),
-(29, 'L'),
-(30, 'L3'),
-(25, 'M'),
-(26, 'M2'),
-(19, 'Pièce'),
-(24, 'Rouleau'),
-(21, 'Sac'),
-(28, 'Tonne');
+(1, ''),
+(3, 'KG'),
+(4, 'L'),
+(5, 'M'),
+(2, 'Pièce');
 
 -- --------------------------------------------------------
 
@@ -203,6 +195,41 @@ INSERT INTO `client` (`id_clt`, `nom_clt`, `prenom_clt`, `date_nais_clt`, `adres
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `etablissement`
+--
+
+CREATE TABLE IF NOT EXISTS `etablissement` (
+  `id_ets` int(11) NOT NULL AUTO_INCREMENT,
+  `rs_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `mf_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `vente_en_gros` tinyint(1) NOT NULL,
+  `rc_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `activites_principale_ets` varchar(1000) COLLATE utf8_bin NOT NULL,
+  `activites_secondaire_ets` varchar(1000) COLLATE utf8_bin NOT NULL,
+  `adresse_ets` varchar(1000) COLLATE utf8_bin NOT NULL,
+  `gerant_ets` varchar(8) COLLATE utf8_bin DEFAULT NULL,
+  `web_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `email1_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `email2_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `tel1_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `tel2_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `fax_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `rib1_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  `rib2_ets` varchar(250) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id_ets`),
+  KEY `gerant_ets` (`gerant_ets`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `etablissement`
+--
+
+INSERT INTO `etablissement` (`id_ets`, `rs_ets`, `mf_ets`, `vente_en_gros`, `rc_ets`, `activites_principale_ets`, `activites_secondaire_ets`, `adresse_ets`, `gerant_ets`, `web_ets`, `email1_ets`, `email2_ets`, `tel1_ets`, `tel2_ets`, `fax_ets`, `rib1_ets`, `rib2_ets`) VALUES
+(1, 'ILI-STUDIOS SARL', '000 M A 1411208/J', 0, 'B26162912015', 'ACTIVITES INFORMATIQUES', 'ARCHIVAGE NUMERIQUE', '000. PEP DES ENTREPRISES, MANOUBA 2010', '08088718', 'http://www.ili-studios.com/', 'contact@ili-studios.com', 'commercial@ili-studios.com', '36 166 996', '20 666 996', '', '09 080 0138340000178 90 AMEN BANK – AGBA TUNIS', '');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `fournisseur`
 --
 
@@ -244,49 +271,7 @@ CREATE TABLE IF NOT EXISTS `system_log` (
   `operation` varchar(500) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=37 ;
-
---
--- Contenu de la table `system_log`
---
-
-INSERT INTO `system_log` (`id`, `id_user`, `date_operation`, `operation`) VALUES
-(1, '08088718', '08-12-2015 17:06:15', 'Connexion'),
-(2, '08088718', '08-12-2015 20:30:38', 'Connexion'),
-(3, '08088718', '09-12-2015 10:44:51', 'Connexion'),
-(4, '08088718', '09-12-2015 15:08:38', 'Modification de client : <a href="ili-modules/client/client?id=00000000">CLIENT COMPTANT</a>'),
-(5, '08088718', '09-12-2015 23:00:23', 'Connexion'),
-(6, '08088718', '10-12-2015 09:26:42', 'Connexion'),
-(7, '08088718', '10-12-2015 10:36:11', 'Connexion'),
-(8, '08088718', '10-12-2015 15:04:59', 'Connexion'),
-(9, '09188047', '10-12-2015 15:21:09', 'Connexion'),
-(10, '08088718', '10-12-2015 15:22:50', 'Ajout de privilége <strong>VOIR</strong> sur le bloc <strong>CLIENTS</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09188047">09188047</a>'),
-(11, '08088718', '10-12-2015 15:23:14', 'Ajout de privilége <strong>VOIR</strong> sur le bloc <strong>ARTICLES</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09188047">09188047</a>'),
-(12, '08088718', '10-12-2015 15:23:50', 'Ajout de privilége <strong>MODIFIER</strong> sur le bloc <strong>CLIENTS</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09188047">09188047</a>'),
-(13, '09188047', '10-12-2015 15:24:15', 'Modification de client : <a href="ili-modules/client/client?id=00000000">CLIENT TEST COMPTANT</a>'),
-(14, '08088718', '10-12-2015 15:24:55', 'Ajout de privilége <strong>CREER</strong> sur le bloc <strong>CLIENTS</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09188047">09188047</a>'),
-(15, '08088718', '10-12-2015 15:25:08', 'Ajout de privilége <strong>SUPPRIMER</strong> sur le bloc <strong>CLIENTS</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09188047">09188047</a>'),
-(16, '09188047', '10-12-2015 15:25:34', 'Modification de client : <a href="ili-modules/client/client?id=00000000">CLIENT COMPTANT</a>'),
-(17, '09188047', '10-12-2015 15:25:59', 'Client : <a href="ili-modules/client/client?id=00000000">00000000</a> a été <strong>banni</strong>'),
-(18, '09188047', '10-12-2015 15:32:46', 'Client : <a href="ili-modules/client/client?id=00000000">00000000</a> a été <strong>débanni</strong>'),
-(19, '08088718', '10-12-2015 15:39:08', 'Connexion'),
-(20, '08088718', '10-12-2015 18:12:34', 'Connexion'),
-(21, '08088718', '10-12-2015 21:47:31', 'Connexion'),
-(22, '08088718', '10-12-2015 23:39:26', 'Connexion'),
-(23, '08088718', '11-12-2015 10:46:16', 'Connexion'),
-(24, '08088718', '11-12-2015 12:02:09', 'Client : <a href="ili-modules/client/client?id=00000000">00000000</a> a été <strong>banni</strong>'),
-(25, '08088718', '11-12-2015 12:02:24', 'Client : <a href="ili-modules/client/client?id=00000000">00000000</a> a été <strong>débanni</strong>'),
-(26, '08088718', '11-12-2015 15:32:19', 'Connexion'),
-(27, '08088718', '11-12-2015 23:09:12', 'Connexion'),
-(28, '08088718', '12-12-2015 00:27:02', 'Connexion'),
-(29, '08088718', '12-12-2015 11:35:07', 'Connexion'),
-(30, '08088718', '12-12-2015 12:16:55', 'Connexion'),
-(31, '08088718', '12-12-2015 12:17:42', 'Client : <a href="ili-modules/client/client?id=00000000">00000000</a> a été <strong>banni</strong>'),
-(32, '08088718', '12-12-2015 16:56:17', 'Connexion'),
-(33, '08088718', '12-12-2015 22:18:08', 'Connexion'),
-(34, '08088718', '13-12-2015 15:09:55', 'Connexion'),
-(35, '08088718', '13-12-2015 15:10:08', 'Client : <a href="ili-modules/client/client?id=00000000">00000000</a> a été <strong>débanni</strong>'),
-(36, '08088718', '13-12-2015 20:32:20', 'Connexion');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -343,69 +328,7 @@ CREATE TABLE IF NOT EXISTS `system_notif` (
   `vu` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=57 ;
-
---
--- Contenu de la table `system_notif`
---
-
-INSERT INTO `system_notif` (`id`, `id_user`, `notification`, `date_notif`, `vu`) VALUES
-(1, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '09-12-2015 15:08:38', 0),
-(2, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '09-12-2015 15:08:38', 1),
-(3, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '09-12-2015 15:08:38', 0),
-(4, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '09-12-2015 15:08:38', 1),
-(5, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:22:50', 0),
-(6, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:22:50', 1),
-(7, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:22:50', 0),
-(8, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:22:50', 1),
-(9, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>ARTICLES</strong> de Raissi Aziz', '10-12-2015 15:23:14', 0),
-(10, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>ARTICLES</strong> de Raissi Aziz', '10-12-2015 15:23:14', 1),
-(11, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>ARTICLES</strong> de Raissi Aziz', '10-12-2015 15:23:14', 0),
-(12, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>ARTICLES</strong> de Raissi Aziz', '10-12-2015 15:23:14', 1),
-(13, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:23:50', 0),
-(14, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:23:50', 1),
-(15, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:23:50', 0),
-(16, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:23:50', 1),
-(17, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz a modifié le client, CLIENT TEST COMPTANT', '10-12-2015 15:24:15', 0),
-(18, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz a modifié le client, CLIENT TEST COMPTANT', '10-12-2015 15:24:15', 1),
-(19, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz a modifié le client, CLIENT TEST COMPTANT', '10-12-2015 15:24:15', 0),
-(20, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz a modifié le client, CLIENT TEST COMPTANT', '10-12-2015 15:24:15', 1),
-(21, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:24:55', 0),
-(22, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:24:55', 1),
-(23, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:24:55', 0),
-(24, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:24:55', 1),
-(25, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:25:08', 0),
-(26, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:25:08', 1),
-(27, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:25:08', 0),
-(28, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09188047">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>CLIENTS</strong> de Raissi Aziz', '10-12-2015 15:25:08', 1),
-(29, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz a modifié le client, CLIENT COMPTANT', '10-12-2015 15:25:33', 0),
-(30, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz a modifié le client, CLIENT COMPTANT', '10-12-2015 15:25:33', 1),
-(31, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz a modifié le client, CLIENT COMPTANT', '10-12-2015 15:25:34', 0),
-(32, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz a modifié le client, CLIENT COMPTANT', '10-12-2015 15:25:34', 1),
-(33, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz, a banni le client CLIENT COMPTANT</a>', '10-12-2015 15:25:59', 0),
-(34, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz, a banni le client CLIENT COMPTANT</a>', '10-12-2015 15:25:59', 1),
-(35, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz, a banni le client CLIENT COMPTANT</a>', '10-12-2015 15:25:59', 0),
-(36, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz, a banni le client CLIENT COMPTANT</a>', '10-12-2015 15:25:59', 1),
-(37, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz, a débanni le client CLIENT COMPTANT</a>', '10-12-2015 15:32:46', 0),
-(38, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz, a débanni le client CLIENT COMPTANT</a>', '10-12-2015 15:32:46', 1),
-(39, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz, a débanni le client CLIENT COMPTANT</a>', '10-12-2015 15:32:46', 0),
-(40, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Raissi Aziz, a débanni le client CLIENT COMPTANT</a>', '10-12-2015 15:32:46', 1),
-(41, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '11-12-2015 12:02:09', 0),
-(42, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '11-12-2015 12:02:09', 0),
-(43, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '11-12-2015 12:02:09', 0),
-(44, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '11-12-2015 12:02:09', 1),
-(45, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '11-12-2015 12:02:24', 0),
-(46, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '11-12-2015 12:02:24', 0),
-(47, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '11-12-2015 12:02:24', 0),
-(48, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '11-12-2015 12:02:24', 1),
-(49, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '12-12-2015 12:17:42', 0),
-(50, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '12-12-2015 12:17:42', 0),
-(51, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '12-12-2015 12:17:42', 0),
-(52, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '12-12-2015 12:17:42', 1),
-(53, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '13-12-2015 15:10:08', 0),
-(54, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '13-12-2015 15:10:08', 0),
-(55, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '13-12-2015 15:10:08', 0),
-(56, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '13-12-2015 15:10:08', 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -534,7 +457,9 @@ INSERT INTO `users_privileges` (`id`, `id_user`, `bloc`, `s`, `c`, `u`, `d`) VAL
 (8, '09186670', 'FOURNISSEURS', 0, 0, 0, 0),
 (9, '09188047', 'FOURNISSEURS', 0, 0, 0, 0),
 (10, '10000071', 'FOURNISSEURS', 0, 0, 0, 0),
-(11, '09188047', 'ARTICLES', 1, 0, 0, 0);
+(11, '09186670', 'ARTICLES', 1, 0, 0, 0);
+(12, '09188047', 'ARTICLES', 1, 0, 0, 0);
+(13, '10000071', 'ARTICLES', 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -604,6 +529,12 @@ ALTER TABLE `article`
 ALTER TABLE `client`
   ADD CONSTRAINT `client_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `client_ibfk_2` FOREIGN KEY (`banned_by`) REFERENCES `users` (`id_user`) ON DELETE SET NULL;
+
+--
+-- Contraintes pour la table `etablissement`
+--
+ALTER TABLE `etablissement`
+  ADD CONSTRAINT `etablissement_ibfk_1` FOREIGN KEY (`gerant_ets`) REFERENCES `users` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `fournisseur`

@@ -21,4 +21,15 @@
 <file name="user_edit.php" server="www.hebergili.com//public_html/" local="130924231872489809" remote="130927731600000000" Dst="0" />
 <file name="user_profil.php" server="www.hebergili.com//public_html/" local="130924230981870904" remote="130927731600000000" Dst="0" />
 <file name="user_remove.php" server="www.hebergili.com//public_html/" local="130915831256205509" remote="130927731600000000" Dst="0" />
+<file name="diploma_remove.php" server="erp.ili-studios.com/public_html/" local="130936197734916870" remote="130945724400000000" Dst="0" />
+<file name="expirance_remove.php" server="erp.ili-studios.com/public_html/" local="130936197735036978" remote="130945725000000000" Dst="0" />
+<file name="index.html" server="erp.ili-studios.com/public_html/" local="130936197735067005" remote="130945725000000000" Dst="0" />
+<file name="skills_remove.php" server="erp.ili-studios.com/public_html/" local="130936197735407319" remote="130945725000000000" Dst="0" />
+<file name="users.php" server="erp.ili-studios.com/public_html/" local="130936197739050586" remote="130945725000000000" Dst="0" />
+<file name="user_add.php" server="erp.ili-studios.com/public_html/" local="130936197735767638" remote="130945725000000000" Dst="0" />
+<file name="user_ban.php" server="erp.ili-studios.com/public_html/" local="130936197735887755" remote="130945725000000000" Dst="0" />
+<file name="user_deban.php" server="erp.ili-studios.com/public_html/" local="130936197736007863" remote="130945725000000000" Dst="0" />
+<file name="user_edit.php" server="erp.ili-studios.com/public_html/" local="130936197738109737" remote="130945725000000000" Dst="0" />
+<file name="user_profil.php" server="erp.ili-studios.com/public_html/" local="130936197738610186" remote="130945725000000000" Dst="0" />
+<file name="user_remove.php" server="erp.ili-studios.com/public_html/" local="130936197738750325" remote="130945725000000000" Dst="0" />
 </dwsync>

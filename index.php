@@ -86,7 +86,7 @@ Site : http://www.ili-studios.com/
 					</div>
 					<div class="span2 responsive" data-tablet="span3" data-desktop="span2">
 						<div class="circle-wrap">
-                        	<a href="ili-modules/article/liste?type=STANDARD">
+                        	<a href="ili-modules/article/liste?type=<?php get_premier_type_art(); ?>">
                                 <div class="stats-circle green-color"> <i class="icon-barcode"></i> </div>
                                 <p> <strong><?php nbr_art(); ?></strong> Articles </p>
                             </a>

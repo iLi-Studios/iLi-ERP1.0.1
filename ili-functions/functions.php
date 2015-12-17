@@ -204,7 +204,20 @@ function nbr_art(){
 	echo $o;
 }
 function get_art_info($id){
-	$query="SELECT * FROM article WHERE code_art='$id';";
+	$query="
+	SELECT * FROM 
+		`article`, `article_famille`, `article_tva`, `article_type`, `article_unitee`
+		WHERE
+		`article`.`code_art`='$id'
+		AND
+		`article_type`.`id_type`=`article`.`id_type`
+		AND
+		`article_unitee`.`id_unit_art`=`article`.`id_unit_art`
+		AND
+		`article_tva`.`id_tva_art`=`article`.`id_tva_art`
+		AND
+		`article_famille`.`id_famille_art`=`article`.`id_famille_art`
+	";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
 function get_unit_info($id){
@@ -223,4 +236,22 @@ function get_ets_info(){
 	$query="SELECT * FROM etablissement;";
 	if($o=(query_execute("mysqli_fetch_object", $query))){return $o;}
 }
+function get_premier_type_art(){
+	$q="SELECT * FROM `article_type` WHERE id_type='1';";
+	$o=query_execute("mysqli_fetch_object", $q);
+	echo $o->type;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>

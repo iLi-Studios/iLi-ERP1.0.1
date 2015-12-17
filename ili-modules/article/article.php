@@ -110,7 +110,7 @@ Site : http://www.ili-studios.com/
 					<h3 class="page-title"> Article <small> Fiche Article</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li><a href="#" onclick="history.go(-1); return false;">Article</a><span class="divider">&nbsp;</span></li>
+						<li><a href="../article/liste?type=<?php echo $art->type; ?>">Article</a><span class="divider">&nbsp;</span></li>
 						<li><a href="../article/article?id=<?php echo $id_art; ?>">Fiche</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
@@ -140,7 +140,7 @@ Site : http://www.ili-studios.com/
                                     </tr>
 									<tr>
                                         <td class="span4">Type</td>
-                                        <td><?php echo $art->type_art; ?></td>
+                                        <td><?php echo $art->type; ?></td>
                                     </tr>
                                     <tr>
                                         <td class="span4">Famille</td>
@@ -148,7 +148,7 @@ Site : http://www.ili-studios.com/
                                     </tr>
                                     <tr>
                                         <td class="span4">Unité</td>
-                                        <td><?php echo $art->unite_art; ?></td>
+                                        <td><?php echo $art->unit_art; ?></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -167,10 +167,6 @@ Site : http://www.ili-studios.com/
                                      	<td>Max Remise %</td>
                                         <td><?php echo $art->max_remise_art; ?> %</td>
                                     </tr>
-                                        <!--<tr>
-                                            <td>PRIX VENTE U.TTC</td>
-                                            <td><strong><?php /*printf("%.3f",(( $art->prix_vente_ht * $art->tva_art / 100 ) + $art->prix_vente_ht))*/ ?> TND</strong></td>
-                                        </tr>-->
                                     </table>
                                 </div>
                             </div>
@@ -180,52 +176,93 @@ Site : http://www.ili-studios.com/
                                 	<table width="100%">
                                     	<tr>
                                         	<td width="50%">PRIX VENTE U.HT</td>
-                                            <td width="50%"><input id="p_ht" class="span8" value="<?php echo $art->prix_vente_ht; ?>"/> TND</td>
+                                            <td width="50%"><input id="p_ht" class="span8" value="<?php echo $art->prix_vente_ht; ?>" readonly/> TND</td>
                                         </tr>
                                         <tr>
                                         	<td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                         </tr>
-                                        <tr>
+<?php 
+$ets=get_ets_info();
+	$p_ht 		= $art->prix_vente_ht;
+	$tva 		= $art->tva_art;
+	$tva_na		= $art->tva_na_art;
+	$p_ttc 		= $p_ht + ($p_ht*$tva/100);
+	$p_ttc_na	= $p_ht + ($p_ht*$tva_na/100);
+if($ets->vente_en_gros){
+	echo'
+										<tr>
                                         	<td>REMISE EN %</td>
-                                            <td><input type="number" id="r" class="span8" min="0" max="<?php echo $art->max_remise_art; ?>" onKeyUp="Calculate();" /> %</td>
+                                            <td><input type="number" id="r" class="span8" min="0" max="<?php echo $art->max_remise_art; ?>" onKeyUp="Calculate_vg();" /> %</td>
                                         </tr>
-                                        
-                                        <tr>
+										<tr>
                                         	<td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                         </tr>
-                                        <tr>
+										<tr>
                                         	<td>TVA Assujetti</td>
                                             <td>TVA Non Assujetti</td>
                                         </tr>
-                                        <tr>
-                                        	<td><input id="tva_a" class="span5" value="<?php echo $art->tva_art; ?>"/> %</td>
-                                            <td><input id="tva_na" class="span5" value="<?php echo $art->tva_art; ?>"/> %</td>
+										<tr>
+                                        	<td><input id="tva_a" class="span5" value="'.$art->tva_art.'" readonly/> %</td>
+                                            <td><input id="tva_na" class="span5" value="'.$art->tva_na_art.'" readonly/> %</td>
                                         </tr>
-                                        <tr>
-                                        	<td>Assujetti à la TVA</td>
-                                            <td>Non Assujetti à la TVA</td>
+										<tr>
+                                        	<td>P.TTC ASSUJ. TVA</td>
+                                            <td>P.TTC N.ASSUJ. TVA</td>
                                         </tr>
-                                        <tr>
-                                        	<td><strong><input id="p_ttc_a" class="span8"/> TND</strong></td>
-                                            <td><strong><input id="p_ttc_na" class="span8"/> TND</strong></td>
+										<tr>
+                                        	<td><strong><input id="p_ttc_a" class="span8" value="'.$p_ttc.'" readonly/> TND</strong></td>
+                                            <td><strong><input id="p_ttc_na" class="span8" value="'.$p_ttc_na.'" readonly/> TND</strong></td>
                                         </tr>
-                                        <script>
-										function Calculate()
-										{
-										  var p_ht = document.getElementById('p_ht').value;
-										  var r = document.getElementById('r').value;
-										  var tva_a = document.getElementById('tva_a').value;
-										  var tva_na = document.getElementById('tva_na').value;
+	';
+}
+else{
+	echo'
+										<tr>
+                                        	<td>REMISE EN %</td>
+                                            <td><input type="number" id="r" class="span8" min="0" max="<?php echo $art->max_remise_art; ?>" onKeyUp="Calculate();" /> %</td>
+                                        </tr>
+										<tr>
+                                        	<td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+										<tr>
+                                        	<td>TVA </td>
+                                            <td><input id="tva_a" class="span8" value="'.$art->tva_art.'" readonly/> %</td>
+                                        </tr>
+										<tr>
+                                        	<td>P.TTC</td>
+                                            <td><strong><input id="p_ttc_a" class="span8" value="'.$p_ttc.'" readonly/> TND</strong></td>
+                                        </tr>
+	';
+}
+?>
+<script>
+function Calculate_vg(){
+	var p_ht = document.getElementById('p_ht').value;
+	var r = document.getElementById('r').value;
+	var tva_a = document.getElementById('tva_a').value;
+	var tva_na = document.getElementById('tva_na').value;
  
-										  var p_ttc_a =  ( p_ht - ( (r / 100) * p_ht ) ) + ( ( p_ht - ( (r / 100) * p_ht ) ) * ( tva_a / 100 ) );
-										  var p_ttc_na = ( p_ht - ( (r / 100) * p_ht ) ) + ( ( p_ht - ( (r / 100) * p_ht ) ) * ( tva_a / 100 ) );
+	var p_ttc_a =  ( p_ht - ( (r / 100) * p_ht ) ) + ( ( p_ht - ( (r / 100) * p_ht ) ) * ( tva_a / 100 ) );
+	var p_ttc_na = ( p_ht - ( (r / 100) * p_ht ) ) + ( ( p_ht - ( (r / 100) * p_ht ) ) * ( tva_na / 100 ) );
 										  
-										  document.getElementById('p_ttc_a').value=  p_ttc_a.toFixed(3) ;
-										  document.getElementById('p_ttc_na').value=  p_ttc_na.toFixed(3) ;
-										}
-										</script>
+	document.getElementById('p_ttc_a').value=  p_ttc_a.toFixed(3) ;
+	document.getElementById('p_ttc_na').value=  p_ttc_na.toFixed(3) ;
+}
+</script>
+<script>
+function Calculate(){
+	var p_ht = document.getElementById('p_ht').value;
+	var r = document.getElementById('r').value;
+	var tva_a = document.getElementById('tva_a').value;
+ 
+	var p_ttc_a =  ( p_ht - ( (r / 100) * p_ht ) ) + ( ( p_ht - ( (r / 100) * p_ht ) ) * ( tva_a / 100 ) );
+										  
+	document.getElementById('p_ttc_a').value=  p_ttc_a.toFixed(3) ;
+}
+</script>
                                  	</table>
                                  </div>
                                 <div class="alert alert-success"><i class="icon-ok-sign"></i> Crée le, <?php echo $art->created_date; ?> par : <a href="<?php echo $site; ?>ili-users/user_profil?id=<?php echo $art->created_by; ?>"><?php echo $createur->nom.' '.$createur->prenom; ?></a></div>

@@ -96,6 +96,9 @@ function message($code){
 		case "24";
 		alert_notif("alert-error", "ERREUR : TVA article non disponible ! ");
 		break;
+		case "25";
+		alert_notif("alert-error", "");
+		break;
 		}
 	}
 ?>

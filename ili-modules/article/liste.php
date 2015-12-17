@@ -5,6 +5,20 @@ autorisation_double_check_privilege('ARTICLES', 'S');
 $type_art=$_GET['type'];
 function get_art_list($type_art){
 	$q="SELECT * FROM article WHERE type_art='$type_art'";
+	$q="
+	SELECT * FROM 
+		`article`, `article_famille`, `article_tva`, `article_type`, `article_unitee`
+		WHERE
+		`article_type`.`id_type`=`article`.`id_type`
+		AND
+		`article_unitee`.`id_unit_art`=`article`.`id_unit_art`
+		AND
+		`article_tva`.`id_tva_art`=`article`.`id_tva_art`
+		AND
+		`article_famille`.`id_famille_art`=`article`.`id_famille_art`
+        AND
+        `article_type`.`type`='$type_art'
+	";
 	$r=query_excute_while($q);
 	while ($o=mysqli_fetch_object($r)){
 		echo'
@@ -13,7 +27,7 @@ function get_art_list($type_art){
 			<td><a href="article?id='.$o->code_art.'">'.$o->code_art.'</a></td>
 			<td class="hidden-phone">'.$o->famille_art.'</td>
 			<td class="hidden-phone"><a href="article?id='.$o->code_art.'">'.$o->designation_art.'</a></td>
-			<td class="hidden-phone">'.$o->unite_art.'</td>
+			<td class="hidden-phone">'.$o->unit_art.'</td>
 			<td class="hidden-phone">'.$o->prix_vente_ht.'</td>
 			<td class="hidden-phone">'.$o->max_remise_art.'% </td>
 		</tr>
@@ -36,8 +50,22 @@ function users_pannel($id){
 		if($c){echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
 	}
 }
-if(($type_art=='FABRIQUEE') && (isset($_POST['STANDARD'])) ){redirect('ili-modules/article/liste?type=STANDARD');}
-if(($type_art=='STANDARD') && (isset($_POST['FABRIQUEE'])) ){redirect('ili-modules/article/liste?type=FABRIQUEE');}
+function get_nature_article_radio_form($type_art){
+	$r=query_excute_while("SELECT * FROM `article_type`;");
+	while ($o=mysqli_fetch_object($r)){
+		if($type_art==$o->type){$checked='checked';}else{$checked='';}
+		echo'<label class="radio">';
+		echo'<input type="radio" name="'.$o->type.'" value="'.$o->type.'" '.$checked.' onChange="this.form.submit()"/>'.$o->type;
+		echo'</label>';
+	}
+}
+function get_nature_article_radio_form_excute($type_art){
+	$r=query_excute_while("SELECT * FROM `article_type`;");
+	while ($o=mysqli_fetch_object($r)){
+		if(($type_art!=$o->type) && (isset($_POST[$o->type])) ){redirect('ili-modules/article/liste?type='.$o->type);}
+	}
+}
+get_nature_article_radio_form_excute($type_art);
 ?>
 <!DOCTYPE html>
 <!--
@@ -89,7 +117,7 @@ Site : http://www.ili-studios.com/
 					<h3 class="page-title"> Articles <small> Liste</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-						<li><a href="liste?type=STANDARD">Articles</a><span class="divider-last">&nbsp;</span></li>
+						<li><a href="liste?type=<?php echo $type_art ; ?>">Articles</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>
@@ -107,14 +135,7 @@ Site : http://www.ili-studios.com/
                             <form action="" class="form-horizontal" method="post">
 								<div class="control-group">
 									<label class="control-label">Nature d'article*</label>
-									<div class="controls">
-										<label class="radio">
-											<input type="radio" name="STANDARD" value="STANDARD" <?php if($type_art=='STANDARD'){echo'checked';} ?> onChange="this.form.submit()"/>STANDARD
-										</label>
-										<label class="radio">
-											<input type="radio" name="FABRIQUEE" value="FABRIQUEE" <?php if($type_art=='FABRIQUEE'){echo'checked';} ?> onChange="this.form.submit()"/>FABRIQUEE
-										</label>
-									</div>
+									<div class="controls"><?php get_nature_article_radio_form($type_art); ?></div>
 								</div>
                             </form><br>
                             <table class="table table-striped table-bordered" id="sample_1">

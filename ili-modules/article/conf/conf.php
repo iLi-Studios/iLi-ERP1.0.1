@@ -53,7 +53,7 @@ function famille_art(){
 		<form name="form2" action="" method="post">
 			<tr class="odd gradeX">
 				<input type="hidden" name="id_famille_art" value="'.$o->id_famille_art.'"/>
-				<td class="hidden-phone"><input name="fam" value="'.$o->famille_art.'" class="input" OnChange="javascript:form2.submit();return false;"/></td>
+				<td class="hidden-phone"><input name="fam" value="'.$o->famille_art.'" class="input" OnBlur="javascript:form2.submit();return false;"/></td>
 				<td><a href="rmv_fam?id='.$o->id_famille_art.'" class="icon-trash tooltips" data-original-title="Supprimer"></a></td>
 			</tr>
 		</form>
@@ -69,39 +69,6 @@ if(isset($_POST['add_famille'])){
 	$add_famille=addslashes($_POST['add_famille']);
 	add_famille($add_famille);
 }
-
-function tva_art(){
-	$q="SELECT * FROM article_tva";
-	$r=query_excute_while($q);
-	while ($o=mysqli_fetch_object($r)){
-		if( (isset($_POST['id_tva_art'])) && (isset($_POST['tva'])) ){
-			$id=$_POST['id_tva_art'];
-			$tva=addslashes($_POST['tva']);
-			$q="UPDATE `article_tva` SET `tva_art` = '$tva' WHERE `id_tva_art` = '$id';";
-			query_execute_insert($q);
-			actualiser();
-		}
-		echo'
-		<form name="form3" action="" method="post">
-			<tr class="odd gradeX">
-				<input type="hidden" name="id_tva_art" value="'.$o->id_tva_art.'"/>
-				<td class="hidden-phone"><input name="tva" value="'.$o->tva_art.'" class="input" OnChange="javascript:form3.submit();return false;"/></td>
-				<td><a href="rmv_tva?id='.$o->id_tva_art.'" class="icon-trash tooltips" data-original-title="Supprimer"></a></td>
-			</tr>
-		</form>
-		';
-	}
-}
-function add_tva($tva){
-	$q="INSERT INTO article_tva VALUES (NULL, '$tva');";
-	query_execute_insert($q);
-	actualiser();
-}
-if(isset($_POST['add_tva'])){
-	$tva=addslashes($_POST['add_tva']);
-	add_tva($tva);
-}
-
 
 function users_pannel($id, $art){
 	// ADMIN
@@ -237,31 +204,6 @@ Site : http://www.ili-studios.com/
                                         </form>
                                     </thead>
                                     <tbody><?php famille_art(); ?></tbody>
-                            	</table>
-                            </div>
-						</div>
-					</div>
-				</div>
-                <div class="span4">
-                	<div class="widget">
-                    	<div class="widget-title">
-                        	<h4><i class="icon-cogs"></i> TVA EN %</h4>
-                            	<span class="tools">
-                                	<a href="javascript:;" class="icon-chevron-down"></a>
-								</span>							
-						</div>
-						<div class="widget-body">
-                        	<div class="widget-body">
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                    	<form name="form33" action="" method="post">
-                                            <tr>
-                                                <th><input name="add_tva" value="" class="input" placeholder="TVA"/></th>
-                                                <th style="width:8px;"><a href="#" onClick="javascript:form33.submit();return false;" class="icon-plus tooltips" data-original-title="Ajouter"></a></th>
-                                            </tr>
-                                        </form>
-                                    </thead>
-                                    <tbody><?php tva_art(); ?></tbody>
                             	</table>
                             </div>
 						</div>
