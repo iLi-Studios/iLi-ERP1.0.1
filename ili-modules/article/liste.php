@@ -39,7 +39,7 @@ function users_pannel($id){
 	//ADMIN
 	if($_SESSION['user_id_rank']==3){
 		//C
-		echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';
+		echo'<a href="add?type='?><?php get_premier_type_art(); ?><?php echo'" class="icon-plus tooltips" data-original-title="Ajouter"></a>';
 		//CONFIG=U
 		echo'<a href="conf/conf" class="icon-cogs tooltips" data-original-title="Configuration"></a>';
 	}
@@ -48,15 +48,6 @@ function users_pannel($id){
 		$up=user_privileges("ARTICLES", $_SESSION['user_id']);$c=$up->c;
 		//C
 		if($c){echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
-	}
-}
-function get_nature_article_radio_form($type_art){
-	$r=query_excute_while("SELECT * FROM `article_type`;");
-	while ($o=mysqli_fetch_object($r)){
-		if($type_art==$o->type){$checked='checked';}else{$checked='';}
-		echo'<label class="radio">';
-		echo'<input type="radio" name="'.$o->type.'" value="'.$o->type.'" '.$checked.' onChange="this.form.submit()"/>'.$o->type;
-		echo'</label>';
 	}
 }
 function get_nature_article_radio_form_excute($type_art){

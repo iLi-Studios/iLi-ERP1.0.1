@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 14 Décembre 2015 à 15:32
+-- Généré le :  Mer 23 Décembre 2015 à 10:59
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -27,34 +27,50 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `article` (
-  `code_art` varchar(20) COLLATE utf8_bin NOT NULL,
-  `type_art` varchar(100) COLLATE utf8_bin DEFAULT NULL,
-  `famille_art` varchar(100) COLLATE utf8_bin NOT NULL,
+  `code_art` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id_type` int(11) NOT NULL,
+  `id_famille_art` int(11) NOT NULL,
   `designation_art` varchar(250) COLLATE utf8_bin NOT NULL,
-  `unite_art` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `tva_art` varchar(5) COLLATE utf8_bin DEFAULT NULL,
+  `id_unit_art` int(11) DEFAULT NULL,
+  `id_tva_art` int(11) DEFAULT NULL,
   `prix_vente_ht` varchar(100) COLLATE utf8_bin NOT NULL,
   `max_remise_art` varchar(5) COLLATE utf8_bin NOT NULL,
   `created_by` varchar(8) COLLATE utf8_bin DEFAULT NULL,
   `created_date` date NOT NULL,
   PRIMARY KEY (`code_art`),
   UNIQUE KEY `code_art` (`code_art`),
-  KEY `unite_art` (`unite_art`),
-  KEY `tva_art` (`tva_art`),
-  KEY `type_art` (`type_art`),
-  KEY `sous_famille_art` (`famille_art`),
-  KEY `famille_art` (`famille_art`),
+  UNIQUE KEY `code_art_2` (`code_art`),
+  KEY `unite_art` (`id_unit_art`),
+  KEY `tva_art` (`id_tva_art`),
+  KEY `type_art` (`id_type`),
+  KEY `sous_famille_art` (`id_famille_art`),
+  KEY `famille_art` (`id_famille_art`),
   KEY `created_by` (`created_by`),
-  KEY `created_by_2` (`created_by`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  KEY `created_by_2` (`created_by`),
+  KEY `id_tva_art` (`id_tva_art`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `article`
 --
 
-INSERT INTO `article` (`code_art`, `type_art`, `famille_art`, `designation_art`, `unite_art`, `tva_art`, `prix_vente_ht`, `max_remise_art`, `created_by`, `created_date`) VALUES
-('00000001', 'FABRIQUEE', 'F1', 'ARTICLE PAR DEFAUT FABRIQUEE', 'Pièce', '18', '10.000', '20', '08088718', '2015-12-10'),
-('00000002', 'STANDARD', 'F2', 'ARTICLE PAR DEFAUT STANDARD', 'KG', '18', '10.000', '20', '08088718', '2015-12-10');
+INSERT INTO `article` (`code_art`, `id_type`, `id_famille_art`, `designation_art`, `id_unit_art`, `id_tva_art`, `prix_vente_ht`, `max_remise_art`, `created_by`, `created_date`) VALUES
+(4, 1, 2, 'ARTICLE PAR DEFAUT STANDART', 5, 3, '15.000', '20', '08088718', '2015-12-22');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `article_fabrique`
+--
+
+CREATE TABLE IF NOT EXISTS `article_fabrique` (
+  `id_art_fab` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `compo_art_fab` bigint(20) unsigned NOT NULL,
+  `qte_art_fab` varchar(20) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id_art_fab`),
+  UNIQUE KEY `id_art_fab` (`id_art_fab`),
+  KEY `compo_art_fab` (`compo_art_fab`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -68,18 +84,18 @@ CREATE TABLE IF NOT EXISTS `article_famille` (
   PRIMARY KEY (`id_famille_art`),
   UNIQUE KEY `famille_art` (`famille_art`),
   KEY `famille_art_2` (`famille_art`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `article_famille`
 --
 
 INSERT INTO `article_famille` (`id_famille_art`, `famille_art`) VALUES
-(10, ''),
-(11, 'F1'),
-(12, 'F2'),
-(13, 'F3'),
-(14, 'F4');
+(1, ''),
+(2, 'F1'),
+(3, 'F2'),
+(4, 'F3'),
+(5, 'F4');
 
 -- --------------------------------------------------------
 
@@ -90,20 +106,20 @@ INSERT INTO `article_famille` (`id_famille_art`, `famille_art`) VALUES
 CREATE TABLE IF NOT EXISTS `article_tva` (
   `id_tva_art` int(11) NOT NULL AUTO_INCREMENT,
   `tva_art` varchar(5) COLLATE utf8_bin NOT NULL,
+  `tva_na_art` varchar(5) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id_tva_art`),
   UNIQUE KEY `tva_art_2` (`tva_art`),
   KEY `tva_art` (`tva_art`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `article_tva`
 --
 
-INSERT INTO `article_tva` (`id_tva_art`, `tva_art`) VALUES
-(5, '12'),
-(6, '18'),
-(7, '22.5'),
-(8, '29');
+INSERT INTO `article_tva` (`id_tva_art`, `tva_art`, `tva_na_art`) VALUES
+(1, '6', '7'),
+(2, '12', '13'),
+(3, '18', '19');
 
 -- --------------------------------------------------------
 
@@ -112,17 +128,19 @@ INSERT INTO `article_tva` (`id_tva_art`, `tva_art`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `article_type` (
-  `type_art` varchar(100) COLLATE utf8_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`type_art`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `id_type` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(100) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id_type`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `article_type`
 --
 
-INSERT INTO `article_type` (`type_art`) VALUES
-('FABRIQUEE'),
-('STANDARD');
+INSERT INTO `article_type` (`id_type`, `type`) VALUES
+(1, 'STANDARD'),
+(2, 'FABRIQUE'),
+(3, 'SERVICE');
 
 -- --------------------------------------------------------
 
@@ -138,18 +156,18 @@ CREATE TABLE IF NOT EXISTS `article_unitee` (
   KEY `unite_art` (`unit_art`),
   KEY `unite_art_2` (`unit_art`),
   KEY `unit_art` (`unit_art`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `article_unitee`
 --
 
 INSERT INTO `article_unitee` (`id_unit_art`, `unit_art`) VALUES
-(1, ''),
 (3, 'KG'),
 (4, 'L'),
 (5, 'M'),
-(2, 'Pièce');
+(2, 'Pièce'),
+(1, 'Un');
 
 -- --------------------------------------------------------
 
@@ -190,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 --
 
 INSERT INTO `client` (`id_clt`, `nom_clt`, `prenom_clt`, `date_nais_clt`, `adresse_clt`, `fix_clt`, `fax_clt`, `portable_clt`, `email_clt`, `rc`, `activite_clt`, `nom_con_clt`, `prenom_con_clt`, `post_con_clt`, `email_con_clt`, `tel_con_clt`, `tel2_con_clt`, `created_by`, `created_date`, `ban`, `banned_by`, `ban_raison`) VALUES
-('00000000', 'CLIENT', 'COMPTANT', '00-00-0000', 'TUNIS', '', '', '', '', '', '', '', '', '', '', '', '', '08088718', '0000-00-00', 0, NULL, '');
+('00000000', 'CLIENT', 'COMPTANT', '19-12-2000', 'TUNIS', '', '00.000.000', '', '', '', '', '', '', '', '', '', '', '08088718', '0000-00-00', 0, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -225,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `etablissement` (
 --
 
 INSERT INTO `etablissement` (`id_ets`, `rs_ets`, `mf_ets`, `vente_en_gros`, `rc_ets`, `activites_principale_ets`, `activites_secondaire_ets`, `adresse_ets`, `gerant_ets`, `web_ets`, `email1_ets`, `email2_ets`, `tel1_ets`, `tel2_ets`, `fax_ets`, `rib1_ets`, `rib2_ets`) VALUES
-(1, 'ILI-STUDIOS SARL', '000 M A 1411208/J', 0, 'B26162912015', 'ACTIVITES INFORMATIQUES', 'ARCHIVAGE NUMERIQUE', '000. PEP DES ENTREPRISES, MANOUBA 2010', '08088718', 'http://www.ili-studios.com/', 'contact@ili-studios.com', 'commercial@ili-studios.com', '36 166 996', '20 666 996', '', '09 080 0138340000178 90 AMEN BANK – AGBA TUNIS', '');
+(1, 'ILI-STUDIOS SARL', '000 M A 1411208/J', 1, 'B26162912015', 'ACTIVITES INFORMATIQUES', 'ARCHIVAGE NUMERIQUE', '000. PEP DES ENTREPRISES, MANOUBA 2010', '08088718', 'http://www.ili-studios.com/', 'contact@ili-studios.com', 'commercial@ili-studios.com', '36 166 996', '20 666 996', '', '09 080 0138340000178 90 AMEN BANK – AGBA TUNIS', '');
 
 -- --------------------------------------------------------
 
@@ -271,7 +289,53 @@ CREATE TABLE IF NOT EXISTS `system_log` (
   `operation` varchar(500) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=41 ;
+
+--
+-- Contenu de la table `system_log`
+--
+
+INSERT INTO `system_log` (`id`, `id_user`, `date_operation`, `operation`) VALUES
+(1, '08088718', '18-12-2015 14:58:53', 'Création d''artcile: <a href="ili-modules/article/article?id=22">22</a>'),
+(2, '08088718', '18-12-2015 22:13:30', 'Connexion'),
+(3, '08088718', '19-12-2015 08:45:55', 'Connexion'),
+(4, '08088718', '19-12-2015 10:56:38', 'Connexion'),
+(5, '08088718', '19-12-2015 11:08:11', 'Déconnexion'),
+(6, '08088718', '19-12-2015 11:08:17', 'Connexion'),
+(7, '08088718', '19-12-2015 11:14:10', 'Modification de client : <a href="ili-modules/client/client?id=00000000">CLIENT COMPTANT</a>'),
+(8, '08088718', '19-12-2015 11:16:15', 'Ajout du compétence : TEST, pour l''utilisateur : <a href="ili-users/user_profil?id=08088718">08088718</a>'),
+(9, '08088718', '19-12-2015 11:16:22', 'Suppression du compétence : TEST de l''utilisateur : <a href="ili-users/user_profil?id=08088718">08088718</a>'),
+(10, '08088718', '20-12-2015 09:24:28', 'Connexion'),
+(11, '08088718', '21-12-2015 09:00:31', 'Connexion'),
+(12, '08088718', '21-12-2015 12:09:21', 'Déconnexion'),
+(13, '08088718', '21-12-2015 12:09:23', 'Connexion'),
+(14, '08088718', '21-12-2015 12:10:22', 'Modification de client : <a href="ili-modules/client/client?id=00000000">CLIENT COMPTANT</a>'),
+(15, '08088718', '21-12-2015 12:10:42', 'Client : <a href="ili-modules/client/client?id=00000000">00000000</a> a été <strong>banni</strong>'),
+(16, '08088718', '21-12-2015 12:10:54', 'Client : <a href="ili-modules/client/client?id=00000000">00000000</a> a été <strong>débanni</strong>'),
+(17, '08088718', '21-12-2015 12:38:36', 'Modification d''article : <a href="ili-modules/article/article?id=22">22</a>'),
+(18, '08088718', '21-12-2015 12:39:51', 'Modification d''article : <a href="ili-modules/article/article?id=22">22</a>'),
+(19, '08088718', '21-12-2015 12:40:21', 'Modification d''article : <a href="ili-modules/article/article?id=22">22</a>'),
+(20, '08088718', '21-12-2015 13:13:46', 'Connexion'),
+(21, '08088718', '21-12-2015 15:02:27', 'Connexion'),
+(22, '08088718', '21-12-2015 16:08:18', 'Modification d''article : <a href="ili-modules/article/article?id=22">22</a>'),
+(23, '08088718', '21-12-2015 16:47:21', 'Suppression de l article22'),
+(24, '08088718', '21-12-2015 17:42:44', 'Connexion'),
+(25, '08088718', '21-12-2015 17:43:03', 'Modification d''article : <a href="ili-modules/article/article?id=1">1</a>'),
+(26, '08088718', '22-12-2015 00:45:01', 'Connexion'),
+(27, '08088718', '22-12-2015 11:12:29', 'Connexion'),
+(28, '09186670', '22-12-2015 11:20:25', 'Connexion'),
+(29, '08088718', '22-12-2015 11:21:33', 'Ajout de privilége <strong>VOIR</strong> sur le bloc <strong>FOURNISSEURS</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09186670">09186670</a>'),
+(30, '08088718', '22-12-2015 11:22:03', 'Ajout de privilége <strong>CREER</strong> sur le bloc <strong>FOURNISSEURS</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09186670">09186670</a>'),
+(31, '08088718', '22-12-2015 11:22:51', 'Ajout de privilége <strong>MODIFIER</strong> sur le bloc <strong>FOURNISSEURS</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09186670">09186670</a>'),
+(32, '08088718', '22-12-2015 11:23:03', 'Ajout de privilége <strong>SUPPRIMER</strong> sur le bloc <strong>FOURNISSEURS</strong> pour l''utilisateur : <a href="ili-users/user_profil?id=09186670">09186670</a>'),
+(33, '09186670', '22-12-2015 11:30:34', 'Déconnexion'),
+(34, '08088718', '22-12-2015 12:55:30', 'Suppression de l article 1'),
+(35, '08088718', '22-12-2015 12:55:40', 'Suppression de l article 2'),
+(36, '08088718', '22-12-2015 12:55:48', 'Suppression de l article 3'),
+(37, '08088718', '22-12-2015 12:58:29', 'Création d''artcile: <a href="ili-modules/article/article?id=4">4</a>'),
+(38, '08088718', '22-12-2015 15:11:54', 'Connexion'),
+(39, '08088718', '22-12-2015 15:25:05', 'Connexion'),
+(40, '08088718', '23-12-2015 10:18:02', 'Connexion');
 
 -- --------------------------------------------------------
 
@@ -328,7 +392,107 @@ CREATE TABLE IF NOT EXISTS `system_notif` (
   `vu` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=95 ;
+
+--
+-- Contenu de la table `system_notif`
+--
+
+INSERT INTO `system_notif` (`id`, `id_user`, `notification`, `date_notif`, `vu`) VALUES
+(1, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=12">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:19:43', 0),
+(2, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=12">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:19:44', 0),
+(3, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=12">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:19:44', 0),
+(4, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=12">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:19:44', 1),
+(5, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=13">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:31:16', 0),
+(6, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=13">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:31:16', 0),
+(7, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=13">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:31:16', 0),
+(8, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=13">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:31:16', 1),
+(9, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=14">Sakly Ayoub a creé un nouveau article : test 51', '18-12-2015 14:35:51', 0),
+(10, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=14">Sakly Ayoub a creé un nouveau article : test 51', '18-12-2015 14:35:51', 0),
+(11, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=14">Sakly Ayoub a creé un nouveau article : test 51', '18-12-2015 14:35:51', 0),
+(12, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=14">Sakly Ayoub a creé un nouveau article : test 51', '18-12-2015 14:35:51', 1),
+(13, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=18">Sakly Ayoub a creé un nouveau article : article de test', '18-12-2015 14:41:42', 0),
+(14, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=18">Sakly Ayoub a creé un nouveau article : article de test', '18-12-2015 14:41:42', 0),
+(15, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=18">Sakly Ayoub a creé un nouveau article : article de test', '18-12-2015 14:41:42', 0),
+(16, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=18">Sakly Ayoub a creé un nouveau article : article de test', '18-12-2015 14:41:42', 1),
+(17, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=21">Sakly Ayoub a creé un nouveau article : huyvighv', '18-12-2015 14:57:46', 0),
+(18, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=21">Sakly Ayoub a creé un nouveau article : huyvighv', '18-12-2015 14:57:46', 0),
+(19, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=21">Sakly Ayoub a creé un nouveau article : huyvighv', '18-12-2015 14:57:46', 0),
+(20, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=21">Sakly Ayoub a creé un nouveau article : huyvighv', '18-12-2015 14:57:46', 1),
+(21, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:58:52', 0),
+(22, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:58:52', 0),
+(23, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:58:52', 0),
+(24, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a creé un nouveau article : test', '18-12-2015 14:58:53', 1),
+(25, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '19-12-2015 11:14:10', 0),
+(26, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '19-12-2015 11:14:10', 0),
+(27, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '19-12-2015 11:14:10', 0),
+(28, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '19-12-2015 11:14:10', 1),
+(29, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=08088718">Sakly Ayoub, ajout de compétence : TEST', '19-12-2015 11:16:15', 0),
+(30, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=08088718">Sakly Ayoub, ajout de compétence : TEST', '19-12-2015 11:16:15', 0),
+(31, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=08088718">Sakly Ayoub, ajout de compétence : TEST', '19-12-2015 11:16:15', 0),
+(32, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=08088718">Sakly Ayoub, suppression de compétance : TEST', '19-12-2015 11:16:22', 0),
+(33, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=08088718">Sakly Ayoub, suppression de compétance : TEST', '19-12-2015 11:16:22', 0),
+(34, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=08088718">Sakly Ayoub, suppression de compétance : TEST', '19-12-2015 11:16:22', 0),
+(35, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '21-12-2015 12:10:22', 0),
+(36, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '21-12-2015 12:10:22', 0),
+(37, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '21-12-2015 12:10:22', 0),
+(38, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub a modifié le client, CLIENT COMPTANT', '21-12-2015 12:10:22', 1),
+(39, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '21-12-2015 12:10:42', 0),
+(40, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '21-12-2015 12:10:42', 0),
+(41, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '21-12-2015 12:10:42', 0),
+(42, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a banni le client CLIENT COMPTANT</a>', '21-12-2015 12:10:42', 1),
+(43, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '21-12-2015 12:10:54', 0),
+(44, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '21-12-2015 12:10:54', 0),
+(45, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '21-12-2015 12:10:54', 0),
+(46, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/client/client?id=00000000">Sakly Ayoub, a débanni le client CLIENT COMPTANT</a>', '21-12-2015 12:10:54', 1),
+(47, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a modifié l article : test', '21-12-2015 12:40:21', 0),
+(48, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a modifié l article : test', '21-12-2015 12:40:21', 0),
+(49, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a modifié l article : test', '21-12-2015 12:40:21', 0),
+(50, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a modifié l article : test', '21-12-2015 12:40:21', 1),
+(51, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a modifié l article : test', '21-12-2015 16:08:17', 0),
+(52, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a modifié l article : test', '21-12-2015 16:08:17', 0),
+(53, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a modifié l article : test', '21-12-2015 16:08:17', 0),
+(54, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=22">Sakly Ayoub a modifié l article : test', '21-12-2015 16:08:18', 1),
+(55, '09186670', '<a href="#">Sakly Ayoub a supprimé l article, test', '21-12-2015 16:47:20', 0),
+(56, '09188047', '<a href="#">Sakly Ayoub a supprimé l article, test', '21-12-2015 16:47:21', 0),
+(57, '10000071', '<a href="#">Sakly Ayoub a supprimé l article, test', '21-12-2015 16:47:21', 0),
+(58, '08088718', '<a href="#">Sakly Ayoub a supprimé l article, test', '21-12-2015 16:47:21', 1),
+(59, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=1">Sakly Ayoub a modifié l article : ARTICLE PAR DEFAUT STANDARD', '21-12-2015 17:43:03', 0),
+(60, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=1">Sakly Ayoub a modifié l article : ARTICLE PAR DEFAUT STANDARD', '21-12-2015 17:43:03', 0),
+(61, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=1">Sakly Ayoub a modifié l article : ARTICLE PAR DEFAUT STANDARD', '21-12-2015 17:43:03', 0),
+(62, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=1">Sakly Ayoub a modifié l article : ARTICLE PAR DEFAUT STANDARD', '21-12-2015 17:43:03', 1),
+(63, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:21:33', 0),
+(64, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:21:33', 0),
+(65, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:21:33', 0),
+(66, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>VOIR</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:21:33', 1),
+(67, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:22:03', 0),
+(68, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:22:03', 0),
+(69, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:22:03', 0),
+(70, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>CREER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:22:03', 1),
+(71, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:22:51', 0),
+(72, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:22:51', 0),
+(73, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:22:51', 0),
+(74, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>MODIFIER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:22:51', 1),
+(75, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:23:03', 0),
+(76, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:23:03', 0),
+(77, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:23:03', 0),
+(78, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-users/user_profil?id=09186670">Ajout du privilége <strong>SUPPRIMER</strong> sur le bloc <strong>FOURNISSEURS</strong> de Abd El Krim Hafaeidh', '22-12-2015 11:23:03', 1),
+(79, '09186670', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT STANDARD', '22-12-2015 12:55:30', 0),
+(80, '09188047', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT STANDARD', '22-12-2015 12:55:30', 0),
+(81, '10000071', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT STANDARD', '22-12-2015 12:55:30', 0),
+(82, '08088718', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT STANDARD', '22-12-2015 12:55:30', 1),
+(83, '09186670', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT FABRIQUE', '22-12-2015 12:55:40', 0),
+(84, '09188047', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT FABRIQUE', '22-12-2015 12:55:40', 0),
+(85, '10000071', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT FABRIQUE', '22-12-2015 12:55:40', 0),
+(86, '08088718', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT FABRIQUE', '22-12-2015 12:55:40', 1),
+(87, '09186670', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT SERVICE', '22-12-2015 12:55:48', 0),
+(88, '09188047', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT SERVICE', '22-12-2015 12:55:48', 0),
+(89, '10000071', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT SERVICE', '22-12-2015 12:55:48', 0),
+(90, '08088718', '<a href="#">Sakly Ayoub a supprimé l article, ARTICLE PAR DEFAUT SERVICE', '22-12-2015 12:55:48', 1),
+(91, '09186670', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=4">Sakly Ayoub a creé un nouveau article : ARTICLE PAR DEFAUT STANDART', '22-12-2015 12:58:29', 0),
+(92, '09188047', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=4">Sakly Ayoub a creé un nouveau article : ARTICLE PAR DEFAUT STANDART', '22-12-2015 12:58:29', 0),
+(93, '10000071', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=4">Sakly Ayoub a creé un nouveau article : ARTICLE PAR DEFAUT STANDART', '22-12-2015 12:58:29', 0),
+(94, '08088718', '<a href="http://localhost/ili-erp1.0.1/ili-modules/article/article?id=4">Sakly Ayoub a creé un nouveau article : ARTICLE PAR DEFAUT STANDART', '22-12-2015 12:58:29', 1);
 
 -- --------------------------------------------------------
 
@@ -441,7 +605,7 @@ CREATE TABLE IF NOT EXISTS `users_privileges` (
   `d` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `users_privileges`
@@ -454,12 +618,12 @@ INSERT INTO `users_privileges` (`id`, `id_user`, `bloc`, `s`, `c`, `u`, `d`) VAL
 (5, '09186670', 'CLIENTS', 1, 0, 0, 0),
 (6, '10000071', 'CLIENTS', 0, 0, 0, 0),
 (7, '09188047', 'CLIENTS', 1, 1, 1, 1),
-(8, '09186670', 'FOURNISSEURS', 0, 0, 0, 0),
+(8, '09186670', 'FOURNISSEURS', 1, 1, 1, 1),
 (9, '09188047', 'FOURNISSEURS', 0, 0, 0, 0),
 (10, '10000071', 'FOURNISSEURS', 0, 0, 0, 0),
-(11, '09186670', 'ARTICLES', 1, 0, 0, 0);
-(12, '09188047', 'ARTICLES', 1, 0, 0, 0);
-(13, '10000071', 'ARTICLES', 1, 0, 0, 0);
+(11, '09188047', 'ARTICLES', 1, 0, 0, 0),
+(12, '10000071', 'ARTICLES', 1, 0, 0, 0),
+(13, '09186670', 'ARTICLES', 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -517,11 +681,17 @@ INSERT INTO `users_skills` (`id`, `id_user`, `skills`, `pourcentage`) VALUES
 -- Contraintes pour la table `article`
 --
 ALTER TABLE `article`
-  ADD CONSTRAINT `article_ibfk_3` FOREIGN KEY (`type_art`) REFERENCES `article_type` (`type_art`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_4` FOREIGN KEY (`tva_art`) REFERENCES `article_tva` (`tva_art`),
-  ADD CONSTRAINT `article_ibfk_5` FOREIGN KEY (`unite_art`) REFERENCES `article_unitee` (`unit_art`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_6` FOREIGN KEY (`famille_art`) REFERENCES `article_famille` (`famille_art`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_7` FOREIGN KEY (`created_by`) REFERENCES `users` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `article_ibfk_10` FOREIGN KEY (`id_type`) REFERENCES `article_type` (`id_type`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `article_ibfk_11` FOREIGN KEY (`id_unit_art`) REFERENCES `article_unitee` (`id_unit_art`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `article_ibfk_7` FOREIGN KEY (`created_by`) REFERENCES `users` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `article_ibfk_8` FOREIGN KEY (`id_tva_art`) REFERENCES `article_tva` (`id_tva_art`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `article_ibfk_9` FOREIGN KEY (`id_famille_art`) REFERENCES `article_famille` (`id_famille_art`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `article_fabrique`
+--
+ALTER TABLE `article_fabrique`
+  ADD CONSTRAINT `article_fabrique_ibfk_1` FOREIGN KEY (`compo_art_fab`) REFERENCES `article` (`code_art`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `client`

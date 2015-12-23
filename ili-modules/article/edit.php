@@ -1,37 +1,40 @@
 <?php 
 include"../../ili-functions/functions.php";
 autorisation('2');
-autorisation_double_check_privilege('ARTICLES', 'S');
+autorisation_double_check_privilege('ARTICLES', 'U');
 $id_art=$_GET['id'];
 $art=get_art_info($id_art);
 if($art==''){redirect('index?message=22');}
 $createur=get_user_info($art->created_by);
-function users_pannel($id, $art){
-	// ADMIN
-	if($_SESSION['user_id_rank']==3){
-		//C
-		echo'<a href="add?type='?><?php get_premier_type_art(); ?><?php echo'" class="icon-plus tooltips" data-original-title="Ajouter"></a>';
-		//U
-		echo'<a href="edit?id='.$art->code_art.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';
-		//D
-		echo'<a href="#myModal_del" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';
-		//CONFIG=U
-		echo'<a href="conf/conf" class="icon-cogs tooltips" data-original-title="Configuration"></a>';
-	}
-	// USER
-	if($_SESSION['user_id_rank']==2){
-		$up=user_privileges("CLIENTS", $_SESSION['user_id']);$s=$up->s;$c=$up->c;$u=$up->u;$d=$up->d;
-		//S
-		if(!$s){echo'<script language="Javascript">document.location.href="../../index?message=17"</script>';}
-		//C
-		if($c){echo'<a href="add" class="icon-plus tooltips" data-original-title="Ajouter"></a>';}
-		//U
-		if($u){echo'<a href="edit?id='.$art->code_art.'" class="icon-edit tooltips" data-original-title="Modifier"></a>';}
-		//D
-		if($d){echo'<a href="#myModal_del" class="icon-trash tooltips" data-toggle="modal" data-original-title="Supprimer"></a>';}
-		//U
-		if($u){echo'<a href="conf" class="icon-cogs tooltips" data-original-title="Configuration"></a>';}
-	}
+function modif_art($id_art, $id_type, $id_famille_art, $designation_art, $id_unit_art, $id_tva_art, $prix_vente_ht, $max_remise_art){
+	global $site;
+	$q="
+	UPDATE `article` SET 
+	`id_type` 			= '$id_type',
+	`id_famille_art`	= '$id_famille_art',
+	`designation_art`	= '$designation_art',
+	`id_unit_art`		= '$id_unit_art',
+	`id_tva_art`		= '$id_tva_art',
+	`prix_vente_ht`		= '$prix_vente_ht',
+	`max_remise_art`	= '$max_remise_art'
+	WHERE `code_art` ='$id_art';";
+	$user_nom=$_SESSION['user_nom'];
+	$user_prenom=$_SESSION['user_prenom'];
+	query_execute("mysqli_fetch_object", $q);
+	notif_all('', '', '<a href="'.$site.'ili-modules/article/article?id='.$id_art.'">'.$user_nom.' '.$user_prenom.' a modifié l article : '.$designation_art);
+	write_log("Modification d\'article : <a href=\"ili-modules/article/article?id=".$id_art."\">".$id_art."</a>");
+	redirect('ili-modules/article/article?id='.$id_art);
+}
+if( (isset($_POST['designation_art'])) && (isset($_POST['id_art'])) && (isset($_POST['id_type'])) && (isset($_POST['id_famille_art'])) && (isset($_POST['id_unit_art'])) && (isset($_POST['prix_vente_ht'])) && (isset($_POST['id_tva_art'])) && (isset($_POST['max_remise_art'])) ){
+	$id_art				=addslashes($_POST['id_art']);
+	$id_type			=addslashes($_POST['id_type']);
+	$id_famille_art		=addslashes($_POST['id_famille_art']);
+	$designation_art	=addslashes($_POST['designation_art']);
+	$id_unit_art		=addslashes($_POST['id_unit_art']);
+	$id_tva_art			=addslashes($_POST['id_tva_art']);
+	$prix_vente_ht		=addslashes($_POST['prix_vente_ht']);
+	$max_remise_art		=addslashes($_POST['max_remise_art']);
+	modif_art($id_art, $id_type, $id_famille_art, $designation_art, $id_unit_art, $id_tva_art, $prix_vente_ht, $max_remise_art);
 }
 ?>
 <!DOCTYPE html>
@@ -73,21 +76,11 @@ Site : http://www.ili-studios.com/
     <!-- end -->
 </head>
 <style>
-#input{
-	width:5%;
-	height:25px;
-	padding-left:9px;
-	font-size:11.844px;
-	line-height:14px;
-	white-space:nowrap;
-	vertical-align:baseline;
-	box-shadow:none;
-	font-family: "Arial";
-	font-size:13px;
-	margin-left:-0.15%;
-	padding:-1%, -1%;
-	border:none;
-}
+#input 			{width:5%;height:25px;padding-left:9px;font-size:11.844px;line-height:14px;white-space:nowrap;vertical-align:baseline;box-shadow:none;font-family: "Arial";font-size:13px;margin-left:-0.15%;padding:-1%, -1%;border:none;}
+#nom 	 		{padding-left:9px;border-radius:4px;background-color:#32C2CD;font-size:11.844px;font-weight:bold;line-height:14px;color:#FFF;white-space:nowrap;vertical-align:baseline; border:none;box-shadow:none;font-size:24.5px;margin-left:-0.15%;margin-top:-0.5%;}
+#id_art	 		{height:25px;padding-left:9px;border-radius:4px;background-color:#E74955;font-size:11.844px;font-weight:bold;line-height:14px;color:#FFF;white-space:nowrap;vertical-align:baseline; border:none;box-shadow:none;font-size:13px;margin-left:-0.15%;margin-top:-2.2%;margin-bottom:-2%;padding:-1%, -1%;}
+#rc 			{height:25px;padding-left:9px;border-radius:4px;background-color:#32C2CD;font-size:11.844px;font-weight:bold;line-height:14px;color:#FFF;white-space:nowrap;vertical-align:baseline; border:none;box-shadow:none;font-size:13px;margin-left:-0.15%;margin-top:-2.2%;margin-bottom:-2%;padding:-1%, -1%;}
+#select	 		{position:relative; z-index:100;height:25px;border-radius:4px;background-color:#32C2CD;font-size:11.844px;font-weight:bold;line-height:14px;color:#FFF;white-space:nowrap;vertical-align:baseline; border:none;box-shadow:none;font-size:13px;margin-left:-0.15%;margin-top:-2.2%;margin-bottom:-2%;padding:-1%, -1%;}
 </style>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -107,11 +100,12 @@ Site : http://www.ili-studios.com/
 			<!-- BEGIN PAGE HEADER-->
 			<div class="row-fluid">
 				<div class="span12">
-					<h3 class="page-title"> Article <small> Fiche Article</small> </h3>
+					<h3 class="page-title"> Article <small> Modification Article</small> </h3>
 					<ul class="breadcrumb">
 						<li> <a href="<?php echo $site; ?>"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
 						<li><a href="../article/liste?type=<?php echo $art->type; ?>">Article</a><span class="divider">&nbsp;</span></li>
-						<li><a href="../article/article?id=<?php echo $id_art; ?>">Fiche</a><span class="divider-last">&nbsp;</span></li>
+                        <li><a href="../article/article?id=<?php echo $id_art; ?>">Fiche</a><span class="divider">&nbsp;</span></li>
+						<li><a href="../article/edit?id=<?php echo $id_art; ?>">Modification</a><span class="divider-last">&nbsp;</span></li>
 					</ul>
 				</div>
 			</div>
@@ -119,36 +113,35 @@ Site : http://www.ili-studios.com/
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row-fluid">
 				<div class="span12">
+                <form action="" method="post" name="form1">
                     <!-- BEGIN EXAMPLE TABLE widget-->
                     <div class="widget">
                         <div class="widget-title">
-                            <h4><i class="icon-reorder"></i> Fiche Article</h4>
-                            <span class="tools">
-								<?php users_pannel($_SESSION['user_id'], $art);?>
-								<a href="javascript:;" class="icon-chevron-down"></a>
-							</span>
-                        </div>
+								<h4><i class="icon-reorder"></i> Fiche Article</h4>
+								<span class="tools"><a href="#" onClick="javascript:form1.submit();return false;" class="icon-save tooltips" data-original-title="Enregistrer"></a></span>
+							</div>
 						
 						<div class="widget-body">
                             <div class="span8">
-                                <h3><?php echo $art->designation_art; ?><small></small></h3>
+                                <h3><input name="designation_art" value="<?php echo $art->designation_art; ?>" id="nom" class="span12" autofocus required/><small></small></h3>
                                 <table class="table table-borderless">
                                     <tbody>
                                     <tr>
                                         <td class="span4">Code</td>
-                                        <td><?php echo $art->code_art; ?></td>
+                                        <td><input class="span6" name="id_art" value="<?php echo $art->code_art; ?>" id="id_art" readonly required/></td>
                                     </tr>
 									<tr>
                                         <td class="span4">Type</td>
-                                        <td><?php echo $art->type; ?></td>
+                                        <input type="hidden" name="id_type" value="<?php echo $art->id_type; ?>"/>
+                                        <td><input class="span6" name="type" value="<?php echo $art->type; ?>" id="id_art" readonly required/></td>
                                     </tr>
                                     <tr>
                                         <td class="span4">Famille</td>
-                                        <td><?php echo $art->famille_art; ?></td>
+                                        <td><select class="span6" name="id_famille_art" id="select"><?php get_all_fam($art->id_famille_art); ?></select></td>
                                     </tr>
                                     <tr>
                                         <td class="span4">Unité</td>
-                                        <td><?php echo $art->unit_art; ?></td>
+                                        <td><select class="span6" name="id_unit_art" id="select"><?php get_all_unt($art->id_unit_art); ?></select></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -157,15 +150,15 @@ Site : http://www.ili-studios.com/
                                 	<table width="98%">
                                         <tr>
                                             <td width="34%">PRIX VENTE U.HT</td>
-                                            <td><?php echo $art->prix_vente_ht; ?> TND</td>
+                                            <td><input class="span6" name="prix_vente_ht" value="<?php echo $art->prix_vente_ht; ?>" id="rc"/> TND</td>
                                         </tr>
                                         <tr>
                                         	<td>TVA</td>
-                                        	<td><?php echo $art->tva_art; ?> %</td>
+                                        	<td><select class="span6" name="id_tva_art" id="select"><?php get_all_tva($art->id_tva_art); ?></select> %</td>
                                     	</tr>
                                         <tr>
                                      	<td>Max Remise %</td>
-                                        <td><?php echo $art->max_remise_art; ?> %</td>
+                                        <td><input class="span6" name="max_remise_art" value="<?php echo $art->max_remise_art; ?>" id="rc"/> %</td>
                                     </tr>
                                     </table>
                                 </div>
@@ -273,6 +266,7 @@ function Calculate(){
 						
                     </div>
                     <!-- END EXAMPLE TABLE widget-->
+                    </form>
                 </div>
 			</div>
 			<!-- END PAGE CONTENT--> 
@@ -283,22 +277,6 @@ function Calculate(){
 </div>
 <!-- END CONTAINER --> 
 <!-- BEGIN FOOTER -->
-
-<!-- Modale de confirmation de suppression -->
-<div id="myModal_del" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_del" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel_del">Confirmation de suppression</h3>
-	</div>
-	<div class="modal-body">
-		<p>Vous êtes sur de vouloire supprimer l'article <strong><?php echo $art->designation_art; ?></strong>? <br> Cette action est <strong>irréversible!</strong></p>
-	</div>
-	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-		<button onClick='document.location.href="remove?id=<?php echo $id_art; ?>";' data-dismiss="modal" class="btn btn-primary">Confirm</button>
-	</div>
-</div>
-<!-- Modale de confirmation de suppression -->
 
 <div id="footer"> <?php echo $copy_right;?>
 	<div class="span pull-right"> <span class="go-top"><i class="icon-arrow-up"></i></span> </div>
